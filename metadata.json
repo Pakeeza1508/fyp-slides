@@ -1,0 +1,6 @@
+{
+  "name": "ZARKHEZ AI — FYP 3D Viva Defense Presentation",
+  "description": "Cinematic interactive 3D web presentation for ZARKHEZ AI: Satellite Hyperspectral & Machine Learning Framework for Precision Crop Yield & Soil Salinity Mapping in Southern Punjab.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZARKHEZ AI — FYP Viva Defense Presentation</title>
+  <meta name="description" content="Precision Agriculture Remote Sensing Presentation for ZARKHEZ AI in Southern Punjab." />
+  
+  <!-- Leaflet CSS for Live Satellite Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- FontAwesome Icons for Agro & Remote Sensing Symbols -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Presentation Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Three.js (Local or CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <!-- Presentation Stage -->
+  <div id="presentation-stage">
+
+    <canvas id="bg-stars-canvas"></canvas>
+
+    <!-- Top Telemetry Header -->
+    <header id="top-bar">
+      <div class="brand-zone">
+        <div class="brand-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+        <div class="brand-title">ZARKHEZ <span>AI</span></div>
+      </div>
+
+      <div class="top-telemetry">
+        <div class="telemetry-item">
+          <span>PROJECT STAGE:</span>
+          <span class="telemetry-tag">PROPOSAL DEFENSE</span>
+        </div>
+        <div class="telemetry-item">
+          <span>AGRO-ZONE:</span>
+          <span style="color:#ffffff;">BAHAWALPUR DIVISION &bull; LODHRAN HOLDOUT</span>
+        </div>
+        <div class="telemetry-item">
+          <span>ACTIVE:</span>
+          <span id="telemetry-slide-num" class="telemetry-tag">SLIDE 01</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-hero-viva" class="btn-header" onclick="document.getElementById('btn-notes').click()">
+          <i class="fa-regular fa-note-sticky"></i>
+          <span>Viva Notes (N)</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Slide Deck Container -->
+    <main id="slides-deck">
+
+      <!-- ================= SLIDE 01: HERO COVER ================= -->
+      <section class="slide active" data-slide="1">
+        <div class="hero-cover">
+          <div class="hero-viva-badge">
+            <i class="fa-solid fa-satellite text-amber-500"></i>
+            <span>BS-CS (2023–2027) &bull; FINAL YEAR PROJECT PROPOSAL DEFENSE</span>
+          </div>
+
+          <h1 class="hero-title">ZARKHEZ AI</h1>
+          <p class="hero-sub">
+            An Adaptive, Explainable Hybrid AI Framework using Hyperspectral Remote Sensing for Precision Soil Salinity Assessment &amp; Crop Yield Forecasting
+          </p>
+
+          <div class="hero-meta-grid">
+            <div class="meta-box">
+              <div class="meta-label">Study Region</div>
+              <div class="meta-val">Bahawalpur Division</div>
+              <div class="meta-sub">Bahawalpur &bull; Bahawalnagar &bull; RYK</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-label">Spatial Validation</div>
+              <div class="meta-val">Lodhran District</div>
+              <div class="meta-sub">External Independent Holdout</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-label">Spaceborne Sensors</div>
+              <div class="meta-val">NASA EMIT &bull; Sentinel-2</div>
+              <div class="meta-sub">285 Narrow Bands (381–2493 nm)</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-label">Guiding Motto</div>
+              <div class="meta-val">Max Yield / Min Inputs</div>
+              <div class="meta-sub">Optimizing Water, Salt &amp; Fuel</div>
+            </div>
+          </div>
+
+          <div class="card-panel" style="width:100%; margin-bottom:1.5rem; display:grid; grid-template-columns:1.5fr 1fr; gap:1.5rem; text-align:left;">
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--sand-dune); margin-bottom:4px;">PROJECT CANDIDATES:</div>
+              <div style="display:flex; gap:1.5rem; font-size:0.88rem; font-weight:600; color:#fff;">
+                <span>Minhal Zubair <span style="font-size:0.75rem; color:var(--sand-muted);">(23251101079)</span></span>
+                <span>Pakeeza Khalid <span style="font-size:0.75rem; color:var(--sand-muted);">(23251101090)</span></span>
+                <span>Maryam Jamil <span style="font-size:0.75rem; color:var(--sand-muted);">(23251101070)</span></span>
+              </div>
+            </div>
+            <div style="border-left:1px solid var(--border-subtle); padding-left:1.5rem;">
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--sand-dune); margin-bottom:4px;">PROJECT SUPERVISOR:</div>
+              <div style="font-size:0.92rem; font-weight:700; color:#fff;">Dr. Mariam Nosheen</div>
+              <div style="font-size:0.75rem; color:var(--sand-muted);">Department of Computer Science, LCWU</div>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <button id="btn-hero-start" class="btn-primary">
+              <span>Start Presentation</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button id="btn-hero-arch" class="btn-secondary">
+              <span>Inspect Proposed Architecture (M1–M6)</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 02: THE GROUND REALITY (WITH REAL PHOTOS) ================= -->
+      <section class="slide" data-slide="2">
+        <div class="slide-header">
+          <div class="slide-category">02 &bull; Agronomic Dilemma &amp; Problem Statement</div>
+          <h2 class="slide-title">Secondary Salinization &amp; Groundwater Crisis in Southern Punjab</h2>
+          <p class="slide-subtitle">
+            Farmers face erratic canal allocations (Warabandi), shallow brackish groundwater, and habit-based over-irrigation.
+          </p>
+        </div>
+
+        <div class="grid-3col">
+          <!-- Card 1: Soil Salinity -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80" 
+                   alt="Soil salt crust efflorescence" 
+                   style="width:100%; height:130px; object-fit:cover; border-radius:8px; margin-bottom:0.75rem; border:1px solid var(--border-sand);" />
+              <div class="panel-title">
+                <span>1. Root-Zone Salt Stress</span>
+                <span class="badge" style="color:var(--clay-terracotta);">SOIL CRUSTING</span>
+              </div>
+              <p style="color:#cbd5e1; font-size:0.84rem; margin-bottom:0.5rem;">
+                Dissolved salts ($Na^+, Cl^-, SO_4^{2-}$) lower soil osmotic potential, restricting root water absorption even in flooded fields. Surface white crusts only appear after significant yield loss.
+              </p>
+            </div>
+            <div style="background:rgba(20,14,10,0.8); padding:8px 10px; border-radius:6px; border-left:3px solid var(--sand-amber);">
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--sand-dune);">TARGET PHENOMENON</div>
+              <div style="font-size:0.85rem; font-weight:700; color:#fff;">Early Subsurface $EC_e$ Inversion</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Canal & Tubewell Dilemma -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <img src="https://images.unsplash.com/photo-1545641203-7d072a14e3b2?auto=format&fit=crop&w=600&q=80" 
+                   alt="Dry irrigation canal bed in Pakistan" 
+                   style="width:100%; height:130px; object-fit:cover; border-radius:8px; margin-bottom:0.75rem; border:1px solid var(--border-sand);" />
+              <div class="panel-title">
+                <span>2. Unfit Tubewell Water</span>
+                <span class="badge" style="color:#f87171;">HAZARDOUS SAR</span>
+              </div>
+              <p style="color:#cbd5e1; font-size:0.84rem; margin-bottom:0.5rem;">
+                Studies in Bahawalpur reveal <strong>>50% of sampled tubewells</strong> exceed critical irrigation thresholds ($EC_w > 1.5\,\text{dS/m}$, $SAR > 10$), silently poisoning prime wheat and cotton soil.
+              </p>
+            </div>
+            <div style="background:rgba(20,14,10,0.8); padding:8px 10px; border-radius:6px; border-left:3px solid var(--clay-terracotta);">
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:#f87171;">CRITICAL NEED</div>
+              <div style="font-size:0.85rem; font-weight:700; color:#fff;">Safe Canal-Groundwater Blending</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Research Gap -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=600&q=80" 
+                   alt="Wheat crop harvest in Punjab" 
+                   style="width:100%; height:130px; object-fit:cover; border-radius:8px; margin-bottom:0.75rem; border:1px solid var(--border-sand);" />
+              <div class="panel-title">
+                <span>3. Identified Research Gap</span>
+                <span class="badge-research-gap">RESEARCH GAP</span>
+              </div>
+              <p style="color:#cbd5e1; font-size:0.84rem; margin-bottom:0.5rem;">
+                Past studies either use broad multispectral indices without mineral spectroscopy, leak spatial autocorrelation through random train/test splits, or publish models without accessible smallholder advisory.
+              </p>
+            </div>
+            <div style="background:rgba(20,14,10,0.8); padding:8px 10px; border-radius:6px; border-left:3px solid var(--crop-green);">
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--crop-light);">ZARKHEZ AI SOLUTION</div>
+              <div style="font-size:0.85rem; font-weight:700; color:#fff;">EMIT AI + FAO-56 + Android App</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 03: LIVE SATELLITE MAP ================= -->
+      <section class="slide" data-slide="3" id="map-slide-container">
+        <div class="slide-header" style="margin-bottom:0.85rem;">
+          <div class="slide-category">03 &bull; Geospatial Domain &amp; Ground Truth</div>
+          <h2 class="slide-title">Interactive Satellite Map: Bahawalpur Division &amp; Lodhran Holdout</h2>
+          <p class="slide-subtitle">
+            Live ESRI satellite basemap highlighting the primary training districts, canal corridors, Cholistan margin, and external validation zone.
+          </p>
+        </div>
+
+        <div class="grid-asym">
+          <!-- Live Leaflet Map Container -->
+          <div style="position:relative; width:100%; height:100%; border-radius:12px; overflow:hidden;">
+            <div id="live-leaflet-map"></div>
+          </div>
+
+          <!-- Spatial Context Panel -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="panel-title">
+                <span>Agro-Ecological Zones</span>
+                <span class="badge">INDUS BASIN PLAIN</span>
+              </div>
+              
+              <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;">
+                <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--sand-amber);">
+                  <div style="font-size:0.7rem; color:var(--sand-dune); font-family:var(--font-mono); font-weight:700;">TRAINING DOMAIN (3 DISTRICTS)</div>
+                  <div style="font-size:0.85rem; font-weight:600; color:#fff;">Bahawalpur, Bahawalnagar &amp; Rahim Yar Khan</div>
+                  <div style="font-size:0.74rem; color:var(--sand-muted); margin-top:2px;">
+                    Intensive cotton-wheat and sugarcane belt fed by Panjnad, Fordwah, and Eastern Sadiqia canals.
+                  </div>
+                </div>
+
+                <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--clay-saline-red);">
+                  <div style="font-size:0.7rem; color:#f87171; font-family:var(--font-mono); font-weight:700;">INDEPENDENT EXTERNAL HOLDOUT</div>
+                  <div style="font-size:0.85rem; font-weight:600; color:#fff;">Lodhran District</div>
+                  <div style="font-size:0.74rem; color:var(--sand-muted); margin-top:2px;">
+                    <strong>Zero Lodhran data</strong> is used during model training. Model performance here measures true spatial generalization across different canal commands.
+                  </div>
+                </div>
+
+                <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid #eab308;">
+                  <div style="font-size:0.7rem; color:#eab308; font-family:var(--font-mono); font-weight:700;">CHOLISTAN DESERT TRANSITION</div>
+                  <div style="font-size:0.85rem; font-weight:600; color:#fff;">Southern Hyper-Arid Sand Border</div>
+                  <div style="font-size:0.74rem; color:var(--sand-muted); margin-top:2px;">
+                    Intense advective heat, severe evapotranspiration demand, and hyper-saline groundwater.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size:0.75rem; color:var(--sand-dim); border-top:1px solid var(--border-subtle); padding-top:8px;">
+              <i class="fa-solid fa-hand-pointer text-amber-500 mr-1"></i> Pan, zoom, and click markers on the live map to inspect local constraints.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 04: SATELLITE DATA SOURCES ================= -->
+      <section class="slide" data-slide="4">
+        <div class="slide-header">
+          <div class="slide-category">04 &bull; Multi-Source Remote Sensing Feeds</div>
+          <h2 class="slide-title">Multi-Source Satellite Feeds &amp; NASA EMIT Provenance</h2>
+          <p class="slide-subtitle">
+            A 100% open-access, zero-hardware remote sensing architecture combining imaging spectroscopy with multispectral monitoring.
+          </p>
+        </div>
+
+        <div class="grid-2col">
+          <div class="card-panel">
+            <div class="panel-title">
+              <span>Primary Satellite Data Ingestion</span>
+              <span class="badge">FREE &amp; OPEN DATA</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.9rem; margin-top:0.75rem;">
+              <div style="border-left:3px solid var(--sand-amber); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.92rem;">NASA EMIT (Imaging Spectroscopy on ISS)</div>
+                <div style="font-size:0.8rem; color:var(--sand-muted); margin-top:2px;">
+                  <strong>285 contiguous spectral channels</strong> (381–2493 nm) at 60m spatial resolution. Isolates specific mineral absorption features of halite, gypsum, and calcite crusts.
+                </div>
+              </div>
+
+              <div style="border-left:3px solid var(--crop-green); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.92rem;">Sentinel-2A/B MSI (ESA Copernicus)</div>
+                <div style="font-size:0.8rem; color:var(--sand-muted); margin-top:2px;">
+                  13 multispectral bands (10m VIS/NIR, 20m RedEdge &amp; SWIR) with 5-day revisit. Tracks temporal vegetative vigor and growth stage phenology curves.
+                </div>
+              </div>
+
+              <div style="border-left:3px solid var(--canal-cyan); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.92rem;">Landsat-8/9 OLI &amp; TIRS</div>
+                <div style="font-size:0.8rem; color:var(--sand-muted); margin-top:2px;">
+                  Thermal infrared data used to derive Land Surface Temperature (LST) and crop evaporative water deficit indices.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-panel">
+            <div class="panel-title">
+              <span>Ground Truth &amp; Environmental Records</span>
+              <span class="badge-proposed">DATA HARMONIZATION</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.9rem; margin-top:0.75rem;">
+              <div style="background:rgba(20,14,10,0.6); padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div style="font-size:0.7rem; color:var(--sand-dune); font-family:var(--font-mono);">SOIL REFERENCE GROUND TRUTH</div>
+                <div style="font-size:0.84rem; color:#fff; margin-top:2px;">
+                  Archived laboratory-measured soil electrical conductivity ($EC_e$, dS/m), soil pH, and texture from provincial soil surveys matched spatially with cloud-free satellite passes.
+                </div>
+              </div>
+
+              <div style="background:rgba(20,14,10,0.6); padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div style="font-size:0.7rem; color:var(--sand-dune); font-family:var(--font-mono);">AGRO-METEOROLOGICAL STREAMS</div>
+                <div style="font-size:0.84rem; color:#fff; margin-top:2px;">
+                  Daily ERA5-Land reanalysis + local PMD station records: Solar radiation, $T_{max}, T_{min}$, relative humidity, and wind speed for FAO-56 Penman-Monteith $ET_0$.
+                </div>
+              </div>
+
+              <div style="background:rgba(101,163,13,0.1); padding:10px; border-radius:6px; border:1px solid var(--border-crop);">
+                <div style="font-size:0.7rem; color:var(--crop-light); font-family:var(--font-mono);">ZERO HARDWARE MANDATE</div>
+                <div style="font-size:0.8rem; color:#e2e8f0; margin-top:2px;">
+                  Strictly zero on-farm IoT sensors, zero mandatory field hardware, and zero paid APIs. 100% reproducible open-science framework.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 05: 3D HYPERSPECTRAL DATA CUBE ================= -->
+      <section class="slide" data-slide="5">
+        <div class="slide-header">
+          <div class="slide-category">05 &bull; Hyperspectral Spectroscopy</div>
+          <h2 class="slide-title">Interactive 3D Hyperspectral Data Cube &amp; Spectral Curves</h2>
+          <p class="slide-subtitle">
+            Visualizing continuous spectral slices across 285 bands: Distinguishing healthy canopy, stressed crops, and mineral salt efflorescence.
+          </p>
+        </div>
+
+        <div class="grid-2col">
+          <!-- 3D Cube Canvas -->
+          <div class="hyperspectral-stage">
+            <div id="hyperspectral-canvas"></div>
+            <div class="cube-scrubber-box">
+              <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--sand-dune); white-space:nowrap;">SPECTRAL SLICE:</span>
+              <input id="spectral-band-slider" type="range" class="scrubber-slider" min="400" max="2400" step="10" value="850" />
+              <span id="band-readout-wl" style="font-family:var(--font-mono); font-size:0.85rem; font-weight:700; color:#fff; min-width:65px;">850 nm</span>
+            </div>
+          </div>
+
+          <!-- Spectral Curves Panel -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="panel-title">
+                <span id="band-readout-name">NIR Band (750–1300 nm): Internal Mesophyll Scattering</span>
+                <span class="badge-illustrative">SPECTRAL SIGNATURES</span>
+              </div>
+
+              <!-- Interactive Curve Canvas -->
+              <div style="height:160px; width:100%; position:relative; margin-bottom:0.75rem; background:rgba(20,14,10,0.8); border-radius:8px; border:1px solid var(--border-subtle); padding:10px;">
+                <canvas id="spectral-curve-chart" style="width:100%; height:100%;"></canvas>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; font-size:0.72rem; font-family:var(--font-mono); margin-bottom:1rem;">
+                <span style="color:var(--crop-light);">&mdash; Healthy Wheat Canopy</span>
+                <span style="color:var(--sand-dune);">&ndash; - Osmotically Stressed Crop</span>
+                <span style="color:var(--clay-terracotta);">&mdash; Saline Soil Surface Crust</span>
+              </div>
+
+              <div style="margin-bottom:0.6rem;">
+                <div style="font-size:0.72rem; font-family:var(--font-mono); color:var(--sand-dim); margin-bottom:4px;">SPECTRAL INDICES EXTRACTED:</div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <button class="btn-header btn-spec-index active" data-index="ndvi">NDVI</button>
+                  <button class="btn-header btn-spec-index" data-index="savi">SAVI</button>
+                  <button class="btn-header btn-spec-index" data-index="ndsi">NDSI</button>
+                  <button class="btn-header btn-spec-index" data-index="si">SI-1 / SI-2</button>
+                  <button class="btn-header btn-spec-index" data-index="cr_swir">CR-SWIR</button>
+                </div>
+              </div>
+
+              <div style="background:rgba(20,14,10,0.8); padding:8px 12px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div id="index-formula-text" style="font-family:var(--font-mono); font-size:0.82rem; color:#ffffff; margin-bottom:2px;">
+                  <strong>NDVI</strong> = (NIR - Red) / (NIR + Red)
+                </div>
+                <div id="index-desc-text" style="font-size:0.75rem; color:var(--sand-muted);">
+                  Standard normalized vegetative difference index for overall green photosynthetic biomass.
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size:0.72rem; color:var(--sand-dim); text-align:right; font-family:var(--font-mono);">
+              Drag slider to inspect optical reflectance across 285 continuous EMIT channels
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 06: FOUR-STAGE PREPROCESSING ================= -->
+      <section class="slide" data-slide="6">
+        <div class="slide-header">
+          <div class="slide-category">06 &bull; Preprocessing &amp; Feature Engineering</div>
+          <h2 class="slide-title">Four-Stage Preprocessing &amp; Spectral Harmonization Pipeline</h2>
+          <p class="slide-subtitle">
+            Ensuring radiometric integrity, bad-band removal, spatial resampling, and prevention of spatial autocorrelation leakage.
+          </p>
+        </div>
+
+        <div class="grid-2col" style="height:calc(100% - 90px);">
+          <div class="card-panel">
+            <div class="panel-title">
+              <span>Pipeline Stages</span>
+              <span class="badge-proposed">HARMONIZATION WORKFLOW</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.75rem;">
+              <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--sand-amber);">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">Stage 1: Atmospheric Calibration &amp; Cloud Masking</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  EMIT L2A optimal estimation reflectance; Sentinel-2 Sen2Cor radiative transfer; filtering atmospheric absorption bands (water vapor at 1.4 &amp; 1.9 μm).
+                </div>
+              </div>
+
+              <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--sand-amber);">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">Stage 2: Spatial Resampling &amp; Polygon Alignment</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Harmonizing 10m/20m Sentinel-2 and 60m EMIT onto a synchronized 30m grid using bilinear interpolation and cadastral field boundaries.
+                </div>
+              </div>
+
+              <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--sand-amber);">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">Stage 3: Multi-Temporal Phenology Sync</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Compositing cloud-free passes over critical wheat growth windows (Vegetative, Flowering, Grain-Filling, Maturity) synced with GDD.
+                </div>
+              </div>
+
+              <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--clay-saline-red);">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">Stage 4: Spatial Block Partitioning (Anti-Leakage)</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Partitioning data into disjoint geographic blocks so adjacent pixels never appear in both training and test sets.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="panel-title">
+                <span>Preventing Data Leakage in Spatial AI</span>
+                <span class="badge" style="color:#f87171;">DEFENSE RIGOR</span>
+              </div>
+
+              <div style="margin:1rem 0; font-size:0.84rem; color:#cbd5e1; line-height:1.6;">
+                <p style="margin-bottom:0.75rem;">
+                  <strong>Tobler's First Law of Geography:</strong> "Near things are more related than distant things."
+                </p>
+                <p style="margin-bottom:0.75rem;">
+                  Standard random K-fold cross-validation randomly splits neighboring agricultural pixels, causing severe <strong>spatial autocorrelation leakage</strong> (inflating $R^2$ falsely above 0.90 while failing in real fields).
+                </p>
+                <div style="background:rgba(20,14,10,0.8); padding:12px; border-radius:8px; border:1px solid var(--border-sand);">
+                  <div style="font-size:0.72rem; color:var(--sand-dune); font-family:var(--font-mono); font-weight:700;">ZARKHEZ AI EVALUATION RIGOR:</div>
+                  <div style="font-size:0.82rem; color:#fff; margin-top:2px;">
+                    1. <strong>Spatial Block Cross-Validation:</strong> Training and test folds are separated by geographic buffer zones.<br />
+                    2. <strong>External Holdout:</strong> Lodhran district is kept 100% blind until final validation.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size:0.75rem; color:var(--sand-dim); border-top:1px solid var(--border-subtle); padding-top:8px;">
+              Python Geospatial Stack: Rasterio &bull; GDAL &bull; Dask &bull; Geopandas
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 07: SYSTEM ARCHITECTURE ================= -->
+      <section class="slide" data-slide="7">
+        <div class="slide-header">
+          <div class="slide-category">07 &bull; System Architecture Blueprint</div>
+          <h2 class="slide-title">Proposed ZARKHEZ AI End-to-End System Topology</h2>
+          <p class="slide-subtitle">
+            Decoupled microservice architecture bridging open satellite streams, hybrid machine learning, and bilingual mobile delivery.
+          </p>
+        </div>
+
+        <div style="background:rgba(24,17,12,0.9); border:1px solid var(--border-subtle); border-radius:12px; padding:1.5rem; height:calc(100% - 85px); display:flex; flex-direction:column; justify-content:space-between;">
+          <!-- SVG Architecture Diagram in Warm Sand & Soil Palette -->
+          <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 960 260" style="width:100%; max-height:240px;" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Tier 1 -->
+              <rect x="20" y="20" width="180" height="220" rx="8" fill="#1a120c" stroke="#d97706" stroke-width="1.5"/>
+              <text x="35" y="50" fill="#e0a96d" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">TIER 1 &bull; DATA INGESTION</text>
+              <rect x="35" y="70" width="150" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="50" y="93" fill="#faf4eb" font-size="11">NASA EMIT (285 Bands)</text>
+              <rect x="35" y="115" width="150" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="50" y="138" fill="#faf4eb" font-size="11">Sentinel-2 &bull; Landsat-9</text>
+              <rect x="35" y="160" width="150" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="50" y="183" fill="#faf4eb" font-size="11">ERA5 Weather &bull; Soil Survey</text>
+
+              <!-- Arrow 1 to 2 -->
+              <path d="M200 130 H250" stroke="#d97706" stroke-width="2" stroke-dasharray="4 4"/>
+              <polygon points="255,130 248,126 248,134" fill="#d97706"/>
+
+              <!-- Tier 2 -->
+              <rect x="260" y="20" width="190" height="220" rx="8" fill="#1a120c" stroke="#d97706" stroke-width="1.5"/>
+              <text x="275" y="50" fill="#e0a96d" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">TIER 2 &bull; PREPROCESSING</text>
+              <rect x="275" y="70" width="160" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="290" y="93" fill="#faf4eb" font-size="11">Bad-Band &amp; Cloud Mask</text>
+              <rect x="275" y="115" width="160" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="290" y="138" fill="#faf4eb" font-size="11">30m Spatial Resampling</text>
+              <rect x="275" y="160" width="160" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="290" y="183" fill="#faf4eb" font-size="11">Spatial Block Split (Fold 1-5)</text>
+
+              <!-- Arrow 2 to 3 -->
+              <path d="M450 130 H500" stroke="#d97706" stroke-width="2" stroke-dasharray="4 4"/>
+              <polygon points="505,130 498,126 498,134" fill="#d97706"/>
+
+              <!-- Tier 3 -->
+              <rect x="510" y="20" width="190" height="220" rx="8" fill="#1a120c" stroke="#d97706" stroke-width="1.5"/>
+              <text x="525" y="50" fill="#e0a96d" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">TIER 3 &bull; AI &amp; ADVISORY</text>
+              <rect x="525" y="70" width="160" height="36" rx="6" fill="#120d0a" stroke="rgba(217,119,6,0.4)"/>
+              <text x="540" y="93" fill="#faf4eb" font-size="11">M1: 1D-CNN + XGBoost (ECe)</text>
+              <rect x="525" y="115" width="160" height="36" rx="6" fill="#120d0a" stroke="rgba(217,119,6,0.4)"/>
+              <text x="540" y="138" fill="#faf4eb" font-size="11">M4: Stacked Yield + SHAP</text>
+              <rect x="525" y="160" width="160" height="36" rx="6" fill="#120d0a" stroke="rgba(101,163,13,0.4)"/>
+              <text x="540" y="183" fill="#faf4eb" font-size="11">M5: FAO-56 Irrigation Engine</text>
+
+              <!-- Arrow 3 to 4 -->
+              <path d="M700 130 H750" stroke="#d97706" stroke-width="2" stroke-dasharray="4 4"/>
+              <polygon points="755,130 748,126 748,134" fill="#d97706"/>
+
+              <!-- Tier 4 -->
+              <rect x="760" y="20" width="180" height="220" rx="8" fill="#1a120c" stroke="#d97706" stroke-width="1.5"/>
+              <text x="775" y="50" fill="#e0a96d" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">TIER 4 &bull; DELIVERY (M6)</text>
+              <rect x="775" y="70" width="150" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="790" y="93" fill="#faf4eb" font-size="11">FastAPI Backend Service</text>
+              <rect x="775" y="115" width="150" height="36" rx="6" fill="#120d0a" stroke="rgba(224,169,109,0.3)"/>
+              <text x="790" y="138" fill="#faf4eb" font-size="11">Android App (Kotlin)</text>
+              <rect x="775" y="160" width="150" height="36" rx="6" fill="#120d0a" stroke="rgba(101,163,13,0.3)"/>
+              <text x="790" y="183" fill="#faf4eb" font-size="11">Bilingual Urdu &bull; Voice Alert</text>
+            </svg>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; border-top:1px solid var(--border-subtle); padding-top:0.75rem;">
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--sand-dim);">BACKEND ENGINE</div>
+              <div style="font-size:0.82rem; font-weight:600; color:#fff;">Python FastAPI + GDAL</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--sand-dim);">SPATIAL STORAGE</div>
+              <div style="font-size:0.82rem; font-weight:600; color:#fff;">PostGIS / GeoJSON Cache</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--sand-dim);">EXPLAINABILITY</div>
+              <div style="font-size:0.82rem; font-weight:600; color:var(--sand-dune);">TreeSHAP Attribution</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono); font-size:0.68rem; color:var(--sand-dim);">DELIVERY CHANNEL</div>
+              <div style="font-size:0.82rem; font-weight:600; color:var(--crop-light);">Offline-Capable Android</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 08: THE SIX CLICKABLE MODULES ================= -->
+      <section class="slide" data-slide="8">
+        <div class="slide-header">
+          <div class="slide-category">08 &bull; Project Scope &amp; Modules</div>
+          <h2 class="slide-title">The Six ZARKHEZ AI Subsystems (M1–M6)</h2>
+          <p class="slide-subtitle">
+            Click any module below to inspect its data inputs, algorithmic methodology, output deliverables, and defense significance.
+          </p>
+        </div>
+
+        <div class="modules-grid">
+          <div class="module-card active" data-module="M1">
+            <div class="module-tag">MODULE M1</div>
+            <div class="module-name">Soil Salinity Assessment</div>
+            <div class="module-desc">EMIT hyperspectral bands $\rightarrow$ 1D CNN + XGBoost for root-zone $EC_e$ mapping.</div>
+          </div>
+          <div class="module-card" data-module="M2">
+            <div class="module-tag">MODULE M2</div>
+            <div class="module-name">Crop &amp; Seasonal Analysis</div>
+            <div class="module-desc">Phenology tracking (Wheat, Cotton) using Sentinel-2 NDVI/SAVI curves &amp; GDD.</div>
+          </div>
+          <div class="module-card" data-module="M3">
+            <div class="module-tag">MODULE M3</div>
+            <div class="module-name">Weather Intelligence</div>
+            <div class="module-desc">ERA5 reanalysis + PMD station records for heat stress and Penman-Monteith $ET_0$.</div>
+          </div>
+          <div class="module-card" data-module="M4">
+            <div class="module-tag">MODULE M4</div>
+            <div class="module-name">Yield Forecast &amp; SHAP</div>
+            <div class="module-desc">Stacked ensemble regression with transparent SHAP feature attributions.</div>
+          </div>
+          <div class="module-card" data-module="M5">
+            <div class="module-tag">MODULE M5</div>
+            <div class="module-name">Smart Irrigation Advisory</div>
+            <div class="module-desc">FAO-56 water requirements, deficit irrigation limits &amp; tubewell blending rules.</div>
+          </div>
+          <div class="module-card" data-module="M6">
+            <div class="module-tag">MODULE M6</div>
+            <div class="module-name">Android Client Application</div>
+            <div class="module-desc">Dual Basic (Urdu) &amp; Pro (Agronomist) views with local SQLite offline caching.</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Module Details Panel -->
+        <div class="module-detail-panel">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem;">
+            <div>
+              <span id="mod-detail-tag" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--sand-dune); font-weight:700;">MODULE M1</span>
+              <h3 id="mod-detail-name" style="font-size:1.15rem; font-weight:700; color:#fff; margin-top:2px;">Soil Salinity Assessment &amp; Field Mapping</h3>
+            </div>
+            <div class="badge-proposed">CORE PROPOSAL DELIVERABLE</div>
+          </div>
+
+          <p id="mod-detail-scope" style="font-size:0.85rem; color:#cbd5e1; margin-bottom:0.75rem;">
+            Continuous spaceborne soil electrical conductivity ($EC_e$) prediction and spatial hazard zonation.
+          </p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; background:rgba(20,14,10,0.6); padding:0.85rem; border-radius:8px; border:1px solid var(--border-subtle); margin-bottom:0.5rem;">
+            <div>
+              <div style="font-size:0.68rem; color:var(--sand-dim); font-family:var(--font-mono);">INPUT DATA:</div>
+              <div id="mod-detail-input" style="font-size:0.8rem; color:#fff; margin-top:2px;">NASA EMIT L2A surface reflectance, Sentinel-2 SWIR/RedEdge, DEM terrain slope</div>
+            </div>
+            <div>
+              <div style="font-size:0.68rem; color:var(--sand-dim); font-family:var(--font-mono);">PREDICTIVE CORE:</div>
+              <div id="mod-detail-meth" style="font-size:0.8rem; color:var(--sand-dune); margin-top:2px;">1D-CNN (spectral band reduction) + XGBoost / Random Forest Regressor</div>
+            </div>
+            <div>
+              <div style="font-size:0.68rem; color:var(--sand-dim); font-family:var(--font-mono);">OUTPUT PRODUCTS:</div>
+              <div id="mod-detail-output" style="font-size:0.8rem; color:#fff; margin-top:2px;">Continuous soil $EC_e$ (dS/m) raster &amp; categorical risk classes (Normal, Slight, Moderate, High)</div>
+            </div>
+            <div>
+              <div style="font-size:0.68rem; color:var(--sand-dim); font-family:var(--font-mono);">DEFENSE VALUE:</div>
+              <div id="mod-detail-deliv" style="font-size:0.8rem; color:var(--crop-light); margin-top:2px;">Detects subsurface salinization before visual white crusting destroys the crop.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 09: ML EVALUATION & MAAS-HOFFMAN SIMULATOR ================= -->
+      <section class="slide" data-slide="9">
+        <div class="slide-header">
+          <div class="slide-category">09 &bull; Machine Learning Benchmarking</div>
+          <h2 class="slide-title">Evaluation Benchmark &amp; Maas-Hoffman Salinity Response</h2>
+          <p class="slide-subtitle">
+            Comparing classic vs hybrid architectures; simulating physiological crop yield decline under varying root-zone $EC_e$.
+          </p>
+        </div>
+
+        <div class="grid-2col">
+          <!-- Model Benchmark -->
+          <div class="card-panel">
+            <div class="panel-title">
+              <span>Proposed Model Benchmark</span>
+              <span class="badge-proposed">SPATIAL BLOCK EVALUATION</span>
+            </div>
+
+            <div class="overflow-x-auto" style="margin-top:0.75rem;">
+              <table style="width:100%; text-align:left; font-size:0.78rem; border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--border-subtle); color:var(--sand-dune);">
+                    <th style="padding:6px;">Model Candidate</th>
+                    <th style="padding:6px;">Inputs</th>
+                    <th style="padding:6px;">Salinity Task</th>
+                    <th style="padding:6px;">Yield Task</th>
+                  </tr>
+                </thead>
+                <tbody style="color:#cbd5e1;">
+                  <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <td style="padding:8px; font-weight:600; color:#fff;">Random Forest</td>
+                    <td style="padding:8px;">Optical Indices</td>
+                    <td style="padding:8px;">Baseline Regressor</td>
+                    <td style="padding:8px;">$R^2 \approx 0.75$ Target</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <td style="padding:8px; font-weight:600; color:#fff;">XGBoost</td>
+                    <td style="padding:8px;">Indices + Weather</td>
+                    <td style="padding:8px;">Gradient Boosting</td>
+                    <td style="padding:8px;">$R^2 \approx 0.80$ Target</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid rgba(255,255,255,0.04); background:rgba(217,119,6,0.1);">
+                    <td style="padding:8px; font-weight:700; color:var(--sand-dune);">1D-CNN + XGBoost</td>
+                    <td style="padding:8px;">285 EMIT Bands</td>
+                    <td style="padding:8px; font-weight:700; color:var(--sand-dune);">Proposed Hybrid</td>
+                    <td style="padding:8px;">Feature Extractor</td>
+                  </tr>
+                  <tr style="background:rgba(101,163,13,0.1);">
+                    <td style="padding:8px; font-weight:700; color:var(--crop-light);">Stacked Ensemble</td>
+                    <td style="padding:8px;">EMIT + Weather + Soil</td>
+                    <td style="padding:8px;">Comparative Target</td>
+                    <td style="padding:8px; font-weight:700; color:var(--crop-light);">Proposed Pre-Harvest Yield Core</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p style="font-size:0.75rem; color:var(--sand-muted); margin-top:1rem;">
+              <strong>Metrics:</strong> Evaluated using Spatial-Block $R^2$, Root Mean Square Error (RMSE), and Mean Absolute Error (MAE).
+            </p>
+          </div>
+
+          <!-- Maas-Hoffman Crop Sensitivity Simulator -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="panel-title">
+                <span>Maas-Hoffman Agronomic Simulator</span>
+                <span class="badge-illustrative">PHYSIOLOGICAL EQUATION</span>
+              </div>
+
+              <div style="background:rgba(20,14,10,0.6); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle); margin:0.75rem 0;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--sand-dune);">SOIL SALINITY ($EC_e$):</span>
+                  <span id="salinity-slider-val" style="font-size:1.2rem; font-weight:700; color:#fff; font-family:var(--font-mono);">4.0 dS/m</span>
+                </div>
+                <input id="salinity-ece-slider" type="range" class="scrubber-slider" min="0.5" max="16.0" step="0.1" value="4.0" style="width:100%;" />
+                <div style="display:flex; justify-content:space-between; font-size:0.68rem; color:var(--sand-dim); font-family:var(--font-mono); margin-top:4px;">
+                  <span>0.5 (Non-Saline)</span>
+                  <span>4.0 (Critical Threshold)</span>
+                  <span>8.0 (Severe)</span>
+                  <span>16.0 (Sterile)</span>
+                </div>
+              </div>
+
+              <div id="salinity-class-badge" style="font-size:0.85rem; font-weight:700; color:var(--sand-amber); margin-bottom:0.75rem;">
+                Slightly Saline (2–4 dS/m): Normal for wheat, slight stress for pulses
+              </div>
+
+              <!-- Projected Crop Yield Losses -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div style="background:rgba(20,14,10,0.8); padding:10px; border-radius:8px; border-left:3px solid var(--clay-saline-red);">
+                  <div style="font-size:0.7rem; color:var(--sand-dim); font-family:var(--font-mono);">WHEAT YIELD SUPPRESSION</div>
+                  <div id="wheat-loss-val" style="font-size:1rem; font-weight:700; color:#f87171;">-0.0% potential</div>
+                  <div style="font-size:0.68rem; color:var(--sand-muted); margin-top:2px;">Threshold: 6.0 dS/m (Slope: 7.1%)</div>
+                </div>
+
+                <div style="background:rgba(20,14,10,0.8); padding:10px; border-radius:8px; border-left:3px solid var(--clay-saline-red);">
+                  <div style="font-size:0.7rem; color:var(--sand-dim); font-family:var(--font-mono);">COTTON YIELD SUPPRESSION</div>
+                  <div id="cotton-loss-val" style="font-size:1rem; font-weight:700; color:#f87171;">-0.0% potential</div>
+                  <div style="font-size:0.68rem; color:var(--sand-muted); margin-top:2px;">Threshold: 7.7 dS/m (Salt-Tolerant)</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size:0.72rem; color:var(--sand-dim); border-top:1px solid var(--border-subtle); padding-top:8px;">
+              Equation: <em>Y = 100 - b(ECe - a)</em> &bull; Maas &amp; Hoffman (1977) FAO parameter standards.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 10: ANDROID PROTOTYPE & URDU ADVISORY ================= -->
+      <section class="slide" data-slide="10">
+        <div class="slide-header">
+          <div class="slide-category">10 &bull; Mobile Prototype Deployment (M6)</div>
+          <h2 class="slide-title">Android Client Application &amp; Bilingual Farmer Advisory</h2>
+          <p class="slide-subtitle">
+            Delivering satellite intelligence to smallholders via simple color codes, Urdu terminology, and offline SQLite caching.
+          </p>
+        </div>
+
+        <div class="grid-2col">
+          <!-- Interactive Phone Mockup -->
+          <div class="phone-mockup-wrap">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div style="display:flex; justify-content:space-between; font-size:0.62rem; color:var(--sand-dim); font-family:var(--font-mono);">
+                  <span>10:30 AM</span>
+                  <span style="color:var(--crop-light);">ONLINE</span>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:4px;">
+                  <span id="phone-app-title" style="font-size:0.82rem; font-weight:800; color:var(--sand-dune);">زرخیز AI ایڈوائزری</span>
+                  <span style="font-size:0.62rem; background:rgba(217,119,6,0.2); padding:2px 5px; border-radius:4px; color:#fff;">بہاولپور</span>
+                </div>
+
+                <!-- Field Location -->
+                <div class="phone-card">
+                  <div style="font-size:0.62rem; color:var(--sand-dim); font-family:var(--font-mono);">کھیت کا نمبر: BWP-042</div>
+                  <div id="phone-field-loc" style="font-size:0.78rem; font-weight:700; color:#fff;">چک 12/BC، بہاولپور</div>
+                  <div id="phone-crop-label" style="font-size:0.7rem; color:var(--crop-light); margin-top:2px;">زیرِ کاشت: گندم (ربیع فصل)</div>
+                </div>
+
+                <!-- Salinity Status Card -->
+                <div class="phone-card">
+                  <div id="phone-ece-label" style="font-size:0.62rem; color:var(--sand-dim); font-family:var(--font-mono);">زمین کی شوریدگی کی کیفیت:</div>
+                  <div id="phone-ece-status" style="font-size:0.95rem; font-weight:800; color:var(--sand-amber);">معتدل شورزدہ (Moderate Salt)</div>
+                  <div id="phone-yield-label" style="font-size:0.68rem; color:#cbd5e1; margin-top:3px;">تخمینہ پیداوار: 31 من فی ایکڑ</div>
+                </div>
+
+                <!-- Actionable Advisory -->
+                <div class="phone-card" style="border-color:var(--border-sand); background:rgba(217,119,6,0.12);">
+                  <div id="phone-advisory-title" style="font-size:0.68rem; font-weight:700; color:var(--sand-dune);">زرعی مشورہ (Advisory):</div>
+                  <p id="phone-advisory-text" style="font-size:0.68rem; color:#faf4eb; margin-top:3px; line-height:1.4;">
+                    زمین میں نمکیات کی زیادتی پائی گئی ہے۔ اگلی آبپاشی میں ٹیوب ویل کے کھارے پانی کے بجائے نہری پانی کا استعمال کریں تاکہ نمک پودوں کی جڑوں سے نیچے نکل جائے۔
+                  </p>
+                  <div style="margin-top:5px; font-size:0.65rem; color:var(--crop-light); font-weight:600;">
+                    <div id="phone-guidance-1">&bull; یوریا کھاد ڈالنے سے پہلے نہری پانی دیں</div>
+                    <div id="phone-guidance-2">&bull; لیچنگ فریکشن 15٪ تک برقرار رکھیں</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Architectural Principles -->
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="panel-title">
+                <span>Human-Centered Smallholder Design</span>
+                <span class="badge-proposed">CLIENT SPECIFICATION</span>
+              </div>
+
+              <div style="display:flex; gap:10px; margin-bottom:1.25rem;">
+                <button id="btn-phone-lang" class="btn-primary" style="flex:1; padding:8px 12px; font-size:0.85rem;">
+                  اردو / English Toggle
+                </button>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:0.85rem;">
+                <div style="background:rgba(20,14,10,0.6); padding:10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                  <div style="font-size:0.72rem; font-family:var(--font-mono); color:var(--sand-dune);">1. OFFLINE-FIRST CACHING (SQLite)</div>
+                  <div style="font-size:0.8rem; color:#cbd5e1; margin-top:2px;">
+                    Smallholders in Southern Punjab suffer frequent rural cellular dropouts. Field boundaries and recent advisories are permanently cached locally.
+                  </div>
+                </div>
+
+                <div style="background:rgba(20,14,10,0.6); padding:10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                  <div style="font-size:0.72rem; font-family:var(--font-mono); color:var(--crop-light);">2. VERNACULAR SIMPLIFICATION</div>
+                  <div style="font-size:0.8rem; color:#cbd5e1; margin-top:2px;">
+                    Translates complex mathematical indexes (e.g. $EC_e$, SAR, ETo) into local terminology (کلر / کھارا پانی / نہری باری).
+                  </div>
+                </div>
+
+                <div style="background:rgba(20,14,10,0.6); padding:10px; border-radius:8px; border:1px solid var(--border-subtle);">
+                  <div style="font-size:0.72rem; font-family:var(--font-mono); color:#f87171;">3. PUMPING COST OPTIMIZATION</div>
+                  <div style="font-size:0.8rem; color:#cbd5e1; margin-top:2px;">
+                    Provides specific diesel engine run-time hours based on FAO-56 crop water balances, preventing wasted diesel and electricity tariffs.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size:0.75rem; color:var(--sand-dim); border-top:1px solid var(--border-subtle); padding-top:8px;">
+              Designed in Jetpack Compose / Kotlin for Android 8.0+ devices.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 11: NINE-MONTH TIMELINE ================= -->
+      <section class="slide" data-slide="11">
+        <div class="slide-header">
+          <div class="slide-category">11 &bull; Approved Execution Schedule</div>
+          <h2 class="slide-title">Approved Nine-Month Development Roadmap (Months 1–9)</h2>
+          <p class="slide-subtitle">
+            Synchronized with the submitted FYP proposal timeline across data preprocessing, AI training, advisory engine, and defense.
+          </p>
+        </div>
+
+        <div class="card-panel" style="height:calc(100% - 85px); display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+            <div style="display:flex; gap:8px;">
+              <button class="btn-header btn-timeline-filter active" data-phase="all">All Tracks</button>
+              <button class="btn-header btn-timeline-filter" data-phase="data">Data Ingestion</button>
+              <button class="btn-header btn-timeline-filter" data-phase="ai">AI Modeling</button>
+              <button class="btn-header btn-timeline-filter" data-phase="advisory">Advisory &amp; App</button>
+              <button class="btn-header btn-timeline-filter" data-phase="eval">Viva &amp; Thesis</button>
+            </div>
+            <div class="badge-proposed">PROPOSED GANTT SCHEDULE</div>
+          </div>
+
+          <div class="timeline-track" style="flex:1; display:flex; flex-direction:column; gap:0.65rem;">
+            <!-- Track 1 -->
+            <div class="gantt-row" data-phase="data" style="display:grid; grid-template-columns:220px 1fr; align-items:center; gap:1rem;">
+              <div style="font-size:0.8rem; color:#fff;">Data Ingestion &amp; Preprocessing</div>
+              <div style="height:26px; background:rgba(255,255,255,0.03); border-radius:4px; position:relative; overflow:hidden; border:1px solid var(--border-subtle);">
+                <div style="position:absolute; left:0; width:33.3%; height:100%; background:linear-gradient(90deg, #d97706, #b45309); border-radius:4px; display:flex; align-items:center; padding-left:8px; font-size:0.7rem; font-family:var(--font-mono); color:#fff; font-weight:700;">
+                  Months 1–3 &bull; EMIT &bull; Sentinel-2 &bull; Soil
+                </div>
+              </div>
+            </div>
+
+            <!-- Track 2 -->
+            <div class="gantt-row" data-phase="ai" style="display:grid; grid-template-columns:220px 1fr; align-items:center; gap:1rem;">
+              <div style="font-size:0.8rem; color:#fff;">AI &amp; ML Modeling (M1–M4)</div>
+              <div style="height:26px; background:rgba(255,255,255,0.03); border-radius:4px; position:relative; overflow:hidden; border:1px solid var(--border-subtle);">
+                <div style="position:absolute; left:22.2%; width:44.4%; height:100%; background:linear-gradient(90deg, #e0a96d, #d97706); border-radius:4px; display:flex; align-items:center; padding-left:8px; font-size:0.7rem; font-family:var(--font-mono); color:#fff; font-weight:700;">
+                  Months 3–6 &bull; 1D-CNN + XGBoost + Stacking
+                </div>
+              </div>
+            </div>
+
+            <!-- Track 3 -->
+            <div class="gantt-row" data-phase="advisory" style="display:grid; grid-template-columns:220px 1fr; align-items:center; gap:1rem;">
+              <div style="font-size:0.8rem; color:#fff;">FastAPI Backend &amp; Android App</div>
+              <div style="height:26px; background:rgba(255,255,255,0.03); border-radius:4px; position:relative; overflow:hidden; border:1px solid var(--border-subtle);">
+                <div style="position:absolute; left:33.3%; width:55.5%; height:100%; background:linear-gradient(90deg, #65a30d, #4d7c0f); border-radius:4px; display:flex; align-items:center; padding-left:8px; font-size:0.7rem; font-family:var(--font-mono); color:#fff; font-weight:700;">
+                  Months 4–8 &bull; Client App &bull; Offline SQLite Cache
+                </div>
+              </div>
+            </div>
+
+            <!-- Track 4 -->
+            <div class="gantt-row" data-phase="advisory" style="display:grid; grid-template-columns:220px 1fr; align-items:center; gap:1rem;">
+              <div style="font-size:0.8rem; color:#fff;">FAO-56 Smart Advisory Engine</div>
+              <div style="height:26px; background:rgba(255,255,255,0.03); border-radius:4px; position:relative; overflow:hidden; border:1px solid var(--border-subtle);">
+                <div style="position:absolute; left:44.4%; width:33.3%; height:100%; background:linear-gradient(90deg, #d97706, #65a30d); border-radius:4px; display:flex; align-items:center; padding-left:8px; font-size:0.7rem; font-family:var(--font-mono); color:#fff; font-weight:700;">
+                  Months 5–7 &bull; Water Balances &bull; Saline Blending
+                </div>
+              </div>
+            </div>
+
+            <!-- Track 5 -->
+            <div class="gantt-row" data-phase="eval" style="display:grid; grid-template-columns:220px 1fr; align-items:center; gap:1rem;">
+              <div style="font-size:0.8rem; color:#fff;">Lodhran Validation &amp; Defense</div>
+              <div style="height:26px; background:rgba(255,255,255,0.03); border-radius:4px; position:relative; overflow:hidden; border:1px solid var(--border-subtle);">
+                <div style="position:absolute; left:66.6%; width:33.4%; height:100%; background:linear-gradient(90deg, #c2410c, #b91c1c); border-radius:4px; display:flex; align-items:center; padding-left:8px; font-size:0.7rem; font-family:var(--font-mono); color:#fff; font-weight:700;">
+                  Months 7–9 &bull; Spatial Holdout &bull; Thesis &bull; Viva
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; border-top:1px solid var(--border-subtle); padding-top:0.75rem;">
+            <div>
+              <div style="font-size:0.7rem; color:var(--sand-dim); font-family:var(--font-mono);">PHASE 1 (M1–M3)</div>
+              <div style="font-size:0.8rem; color:#fff; font-weight:600;">Data Verification &amp; Feature Engineering</div>
+            </div>
+            <div>
+              <div style="font-size:0.7rem; color:var(--sand-dim); font-family:var(--font-mono);">PHASE 2 (M3–M7)</div>
+              <div style="font-size:0.8rem; color:var(--sand-dune); font-weight:600;">Model Training &amp; Rule Engine Development</div>
+            </div>
+            <div>
+              <div style="font-size:0.7rem; color:var(--sand-dim); font-family:var(--font-mono);">PHASE 3 (M7–M9)</div>
+              <div style="font-size:0.8rem; color:var(--crop-light); font-weight:600;">Lodhran Validation, App Testing &amp; Viva</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 12: EXPECTED OUTCOMES & REFERENCES ================= -->
+      <section class="slide" data-slide="12">
+        <div class="slide-header">
+          <div class="slide-category">12 &bull; Expected Contributions &amp; References</div>
+          <h2 class="slide-title">Expected Research Contributions &amp; Literature Foundation</h2>
+          <p class="slide-subtitle">
+            Grounding ZARKHEZ AI in published peer-reviewed remote sensing literature and regional soil science studies.
+          </p>
+        </div>
+
+        <div class="grid-2col">
+          <div class="card-panel">
+            <div class="panel-title">
+              <span>Expected Research Contributions</span>
+              <span class="badge-proposed">PROJECT OUTCOMES</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:0.75rem;">
+              <div style="border-left:3px solid var(--sand-amber); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">1. Spaceborne Hyperspectral Salinity Mapping</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Open-access continuous soil salinity severity maps for Bahawalpur Division without mandatory on-farm sensors.
+                </div>
+              </div>
+
+              <div style="border-left:3px solid var(--crop-green); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">2. Transparent Explainability with SHAP</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Pre-harvest yield estimation backed by clear factor contributions, explaining why a harvest was penalized or boosted.
+                </div>
+              </div>
+
+              <div style="border-left:3px solid var(--clay-terracotta); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">3. Spatial Autocorrelation Integrity</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Rigorous Spatial-Block CV + independent Lodhran validation proving out-of-domain generalization across canal commands.
+                </div>
+              </div>
+
+              <div style="border-left:3px solid var(--sand-dune); padding-left:12px;">
+                <div style="font-weight:700; color:#fff; font-size:0.85rem;">4. Bilingual Smallholder Android Tool</div>
+                <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
+                  Translating complex spectroscopy and FAO-56 crop water balances into actionable Urdu advisories and fuel savings.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="panel-title">
+                <span>Key Scholarly Citations</span>
+                <span class="badge">LITERATURE BASE</span>
+              </div>
+
+              <div style="font-size:0.72rem; color:#cbd5e1; display:flex; flex-direction:column; gap:6px; margin-top:0.5rem;">
+                <div><strong>Arshad et al. (2025):</strong> Predictive modeling of soil salinity integrating remote sensing &amp; deep learning. <em>Energy Nexus</em>.</div>
+                <div><strong>Arshad et al. (2026):</strong> Stacked ensemble ML for phenological wheat yield from UAV &amp; satellite. <em>J. Agr. Food Res.</em></div>
+                <div><strong>Sun et al. (2026):</strong> Physics-guided transfer from laboratory spectra to satellite observations. <em>Geoderma</em>.</div>
+                <div><strong>Yield2ActionAI (2026):</strong> Calibrated multimodal crop yield forecasting &amp; uncertainty. <em>Discover Computing</em>.</div>
+                <div><strong>Allen et al. (FAO-56):</strong> Crop evapotranspiration: Guidelines for computing crop water requirements.</div>
+                <div><strong>Lundberg &amp; Lee (2017):</strong> A unified approach to interpreting model predictions (SHAP). <em>NeurIPS</em>.</div>
+              </div>
+
+              <div style="margin-top:0.75rem; padding:8px 10px; background:rgba(20,14,10,0.8); border-radius:6px; border:1px solid var(--border-sand);">
+                <div style="font-size:0.68rem; color:var(--sand-dune); font-family:var(--font-mono);">SUPERVISOR:</div>
+                <div style="font-size:0.8rem; color:#fff;">Dr. Mariam Nosheen &bull; Department of Computer Science, LCWU</div>
+              </div>
+            </div>
+
+            <div style="text-align:center; padding-top:0.6rem; border-top:1px solid var(--border-subtle);">
+              <div style="font-size:0.95rem; font-weight:700; color:#ffffff; margin-bottom:0.3rem;">
+                Thank you. Ready for Examination Committee Questions.
+              </div>
+              <button id="btn-restart-pres" class="btn-primary" style="padding:8px 20px; font-size:0.82rem;">
+                <span>Restart Presentation (Slide 1)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Dock -->
+    <footer id="bottom-dock">
+      <div id="progress-bar-container">
+        <div id="progress-bar-fill"></div>
+      </div>
+
+      <div class="dock-left">
+        <button id="btn-prev" class="dock-btn" title="Previous Slide (Left Arrow)">
+          <i class="fa-solid fa-chevron-left"></i>
+          <span>Prev</span>
+        </button>
+        <div id="slide-counter" class="dock-counter">01 <span>/ 12</span></div>
+        <button id="btn-next" class="dock-btn" title="Next Slide (Right Arrow or Space)">
+          <span>Next</span>
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="dock-center">
+        <button id="btn-menu" class="dock-btn" title="Open Slide Directory (M)">
+          <i class="fa-solid fa-table-cells"></i>
+          <span>Slide Menu (M)</span>
+        </button>
+      </div>
+
+      <div class="dock-right">
+        <button id="btn-notes" class="dock-btn" title="Toggle Viva Presenter Notes (N)">
+          <i class="fa-regular fa-clipboard"></i>
+          <span>Presenter Notes (N)</span>
+        </button>
+        <button id="btn-fullscreen" class="dock-btn" title="Toggle Projector Fullscreen (F)">
+          <i class="fa-solid fa-expand"></i>
+          <span>Fullscreen (F)</span>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Presenter Notes Drawer (Toggle with 'N') -->
+    <aside id="presenter-notes-drawer">
+      <div class="notes-header">
+        <div class="notes-title">
+          <i class="fa-solid fa-graduation-cap text-amber-500"></i>
+          <span>Viva Defense Speaking Guide</span>
+        </div>
+        <button id="btn-close-notes" class="btn-header" style="padding:4px 8px;">✕</button>
+      </div>
+
+      <div class="notes-body">
+        <div class="notes-section">
+          <h3 id="notes-slide-title" style="font-size:1rem; color:#fff; margin-bottom:8px;">Slide 1 Notes</h3>
+        </div>
+
+        <div class="notes-section">
+          <h4>Key Viva Talking Points</h4>
+          <ul id="notes-talking-points">
+            <li>Introduce ZARKHEZ AI: An Explainable Hybrid AI application for Southern Punjab.</li>
+            <li>Reiterate the core objective: "Maximum Yield from Minimum Inputs".</li>
+            <li>State the study area: Bahawalpur, Bahawalnagar, and Rahim Yar Khan.</li>
+          </ul>
+        </div>
+
+        <div class="notes-section">
+          <h4>Anticipated Committee Defense Hint</h4>
+          <p id="notes-defense-tip" style="color:#e2e8f0; font-size:0.82rem; background:rgba(20,14,10,0.8); padding:10px; border-radius:6px; border:1px solid var(--border-sand);">
+            <strong>Why Lodhran as holdout?</strong> Prevents spatial autocorrelation leakage across the Sutlej river boundary, proving that models are not just memorizing adjacent pixels.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Slide Directory Modal (Toggle with 'M') -->
+    <div id="slide-menu-modal">
+      <div class="menu-card-wrap">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h3 style="font-size:1.25rem; font-weight:700; color:#fff;">Slide Navigation Directory</h3>
+            <p style="font-size:0.82rem; color:var(--sand-muted);">Jump directly to any section of the FYP proposal</p>
+          </div>
+          <button id="btn-close-menu" class="btn-header" style="padding:6px 12px;">✕ Close (Esc)</button>
+        </div>
+
+        <div class="menu-grid">
+          <div class="menu-item active" data-slide="1">
+            <div class="menu-item-num">01</div>
+            <div class="menu-item-title">Title &amp; Candidates</div>
+          </div>
+          <div class="menu-item" data-slide="2">
+            <div class="menu-item-num">02</div>
+            <div class="menu-item-title">Ground Reality &amp; Salinity</div>
+          </div>
+          <div class="menu-item" data-slide="3">
+            <div class="menu-item-num">03</div>
+            <div class="menu-item-title">Live Satellite Map</div>
+          </div>
+          <div class="menu-item" data-slide="4">
+            <div class="menu-item-num">04</div>
+            <div class="menu-item-title">NASA EMIT &amp; Satellites</div>
+          </div>
+          <div class="menu-item" data-slide="5">
+            <div class="menu-item-num">05</div>
+            <div class="menu-item-title">3D Hyperspectral Cube</div>
+          </div>
+          <div class="menu-item" data-slide="6">
+            <div class="menu-item-num">06</div>
+            <div class="menu-item-title">Preprocessing &amp; Leakage</div>
+          </div>
+          <div class="menu-item" data-slide="7">
+            <div class="menu-item-num">07</div>
+            <div class="menu-item-title">System Architecture</div>
+          </div>
+          <div class="menu-item" data-slide="8">
+            <div class="menu-item-num">08</div>
+            <div class="menu-item-title">Six Subsystems (M1–M6)</div>
+          </div>
+          <div class="menu-item" data-slide="9">
+            <div class="menu-item-num">09</div>
+            <div class="menu-item-title">ML Benchmarks &amp; Simulator</div>
+          </div>
+          <div class="menu-item" data-slide="10">
+            <div class="menu-item-num">10</div>
+            <div class="menu-item-title">Android App &amp; Urdu UI</div>
+          </div>
+          <div class="menu-item" data-slide="11">
+            <div class="menu-item-num">11</div>
+            <div class="menu-item-title">Approved 9-Month Roadmap</div>
+          </div>
+          <div class="menu-item" data-slide="12">
+            <div class="menu-item-num">12</div>
+            <div class="menu-item-title">Outcomes &amp; References</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Main Presentation Controller Script -->
+  <script src="script.js"></script>
+</body>
+</html>
