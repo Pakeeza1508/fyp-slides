@@ -841,3 +841,59 @@ html, body {
   font-weight: 600;
   color: #fff;
 }
+
+/* --- ENLARGED LIVE 3D PROBLEM VIEWPORTS --- */
+.problem-3d-viewport {
+  width: 100%;
+  height: 210px; /* Significantly larger visual area */
+  border-radius: 8px;
+  margin-bottom: 0.65rem;
+  border: 1px solid var(--border-sand);
+  background: radial-gradient(circle at center, #261910 0%, #120d0a 85%);
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.problem-3d-viewport:active {
+  cursor: grabbing;
+}
+
+/* 3D Telemetry Overlay Tag */
+.viewport-live-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--sand-dune);
+  background: rgba(18, 13, 10, 0.85);
+  border: 1px solid var(--border-sand);
+  padding: 2px 7px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.live-dot-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* Compact text area so larger 3D views fit comfortably */
+.card-panel p {
+  line-height: 1.4 !important;
+  font-size: 0.8rem !important;
+}

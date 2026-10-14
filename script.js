@@ -6,7 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
-  const totalSlides = 12;
+  const totalSlides = 13;
   let leafletMap = null;
   let mapInitialized = false;
 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSpeakerNotes(currentSlide);
 
     // Initialize or resize Leaflet Map if moving to Slide 3
-    if (currentSlide === 3) {
+    if (currentSlide === 4) {
       setTimeout(() => {
         if (!mapInitialized) {
           initLeafletMap();
@@ -513,4 +513,174 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial Boot
   goToSlide(1);
   initHyperspectralCube();
+});
+
+// =========================================================================
+// LIVE 3D PROBLEM VIEWPORTS FOR SLIDE 03 (Three.js)
+// =========================================================================
+function initSlide3ProblemCanvases() {
+  // --- 1. SOIL CRUST & SALT CRYSTALLIZATION (CANVAS 1) ---
+  const container1 = document.getElementById('problem-canvas-1');
+  if (container1) {
+    const scene1 = new THREE.Scene();
+    const camera1 = new THREE.PerspectiveCamera(45, container1.clientWidth / container1.clientHeight, 0.1, 100);
+    camera1.position.set(0, 2.8, 3.5);
+    camera1.lookAt(0, 0, 0);
+
+    const renderer1 = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer1.setSize(container1.clientWidth, container1.clientHeight);
+    container1.appendChild(renderer1.domElement);
+
+    // 3D Soil block base
+    const soilGeo = new THREE.BoxGeometry(2.4, 0.6, 2.0);
+    const soilMat = new THREE.MeshStandardMaterial({ color: 0x3d2618, roughness: 0.9 });
+    const soilMesh = new THREE.Mesh(soilGeo, soilMat);
+    soilMesh.position.y = -0.3;
+    scene1.add(soilMesh);
+
+    // Salt crust surface plane
+    const crustGeo = new THREE.PlaneGeometry(2.3, 1.9, 12, 12);
+    const crustMat = new THREE.MeshStandardMaterial({ color: 0xe0d6cc, wireframe: true });
+    const crustMesh = new THREE.Mesh(crustGeo, crustMat);
+    crustMesh.rotation.x = -Math.PI / 2;
+    crustMesh.position.y = 0.02;
+    scene1.add(crustMesh);
+
+    // Pulsating Salt Crystals Particles
+    const saltParticles = new THREE.Group();
+    const saltGeom = new THREE.OctahedronGeometry(0.08, 0);
+    const saltMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+    for (let i = 0; i < 28; i++) {
+      const p = new THREE.Mesh(saltGeom, saltMaterial);
+      p.position.set((Math.random() - 0.5) * 2.0, 0.1 + Math.random() * 0.5, (Math.random() - 0.5) * 1.6);
+      saltParticles.add(p);
+    }
+    scene1.add(saltParticles);
+
+    const light1 = new THREE.DirectionalLight(0xffecd6, 1.2);
+    light1.position.set(2, 4, 3);
+    scene1.add(light1);
+    scene1.add(new THREE.AmbientLight(0x78563d, 0.7));
+
+    function anim1() {
+      requestAnimationFrame(anim1);
+      soilMesh.rotation.y += 0.005;
+      crustMesh.rotation.z += 0.005;
+      saltParticles.rotation.y += 0.005;
+      renderer1.render(scene1, camera1);
+    }
+    anim1();
+  }
+
+  // --- 2. TUBEWELL EXTRACTION & SALINE GROUNDWATER FLOW (CANVAS 2) ---
+  const container2 = document.getElementById('problem-canvas-2');
+  if (container2) {
+    const scene2 = new THREE.Scene();
+    const camera2 = new THREE.PerspectiveCamera(45, container2.clientWidth / container2.clientHeight, 0.1, 100);
+    camera2.position.set(2.6, 2.2, 3.2);
+    camera2.lookAt(0, 0, 0);
+
+    const renderer2 = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer2.setSize(container2.clientWidth, container2.clientHeight);
+    container2.appendChild(renderer2.domElement);
+
+    // Underground Aquifer Layer (Translucent cylinder)
+    const aquiferGeo = new THREE.CylinderGeometry(1.2, 1.2, 1.4, 24, 1, true);
+    const aquiferMat = new THREE.MeshBasicMaterial({ color: 0xc2410c, wireframe: true, transparent: true, opacity: 0.35 });
+    const aquifer = new THREE.Mesh(aquiferGeo, aquiferMat);
+    scene2.add(aquifer);
+
+    // Metal Tubewell pipe casing
+    const pipeGeo = new THREE.CylinderGeometry(0.12, 0.12, 2.2, 16);
+    const pipeMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, roughness: 0.3 });
+    const pipe = new THREE.Mesh(pipeGeo, pipeMat);
+    scene2.add(pipe);
+
+    // Rising Mineralized Water Particles
+    const waterPGroup = new THREE.Group();
+    const pGeo = new THREE.SphereGeometry(0.04, 6, 6);
+    const pMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+    const pArray = [];
+    for (let i = 0; i < 40; i++) {
+      const drop = new THREE.Mesh(pGeo, pMat);
+      drop.position.set((Math.random() - 0.5) * 0.3, -1.0 + Math.random() * 2.0, (Math.random() - 0.5) * 0.3);
+      waterPGroup.add(drop);
+      pArray.push(drop);
+    }
+    scene2.add(waterPGroup);
+
+    const light2 = new THREE.PointLight(0xf59e0b, 1.5, 10);
+    light2.position.set(1, 2, 2);
+    scene2.add(light2);
+    scene2.add(new THREE.AmbientLight(0x422006, 0.8));
+
+    function anim2() {
+      requestAnimationFrame(anim2);
+      aquifer.rotation.y += 0.008;
+      pArray.forEach(p => {
+        p.position.y += 0.02;
+        if (p.position.y > 1.1) p.position.y = -1.0;
+      });
+      renderer2.render(scene2, camera2);
+    }
+    anim2();
+  }
+
+  // --- 3. HYPERSPECTRAL SATELLITE SCANNER OVER TERRAIN (CANVAS 3) ---
+  const container3 = document.getElementById('problem-canvas-3');
+  if (container3) {
+    const scene3 = new THREE.Scene();
+    const camera3 = new THREE.PerspectiveCamera(45, container3.clientWidth / container3.clientHeight, 0.1, 100);
+    camera3.position.set(0, 3.2, 3.2);
+    camera3.lookAt(0, 0, 0);
+
+    const renderer3 = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer3.setSize(container3.clientWidth, container3.clientHeight);
+    container3.appendChild(renderer3.domElement);
+
+    // 3D Terrain Grid Wireframe
+    const gridGeo = new THREE.PlaneGeometry(2.6, 2.0, 14, 14);
+    const gridMat = new THREE.MeshBasicMaterial({ color: 0x65a30d, wireframe: true, transparent: true, opacity: 0.5 });
+    const grid = new THREE.Mesh(gridGeo, gridMat);
+    grid.rotation.x = -Math.PI / 2.2;
+    grid.position.y = -0.5;
+    scene3.add(grid);
+
+    // Satellite body (Gold/Chrome Box with solar panels)
+    const satGroup = new THREE.Group();
+    const satBody = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.2, 0.2), new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.9 }));
+    const panelL = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.02, 0.25), new THREE.MeshBasicMaterial({ color: 0x0284c7 }));
+    panelL.position.x = -0.45;
+    const panelR = panelL.clone();
+    panelR.position.x = 0.45;
+    satGroup.add(satBody, panelL, panelR);
+    satGroup.position.set(0, 1.1, 0);
+    scene3.add(satGroup);
+
+    // Hyperspectral Scanning Beam Cone
+    const beamGeo = new THREE.ConeGeometry(1.1, 1.6, 16, 1, true);
+    const beamMat = new THREE.MeshBasicMaterial({ color: 0x84cc16, wireframe: true, transparent: true, opacity: 0.22 });
+    const scanBeam = new THREE.Mesh(beamGeo, beamMat);
+    scanBeam.position.set(0, 0.3, 0);
+    scene3.add(scanBeam);
+
+    scene3.add(new THREE.AmbientLight(0xffffff, 0.9));
+
+    let angle = 0;
+    function anim3() {
+      requestAnimationFrame(anim3);
+      angle += 0.02;
+      satGroup.position.x = Math.sin(angle) * 0.6;
+      satGroup.rotation.y = Math.sin(angle) * 0.2;
+      scanBeam.position.x = satGroup.position.x;
+      grid.rotation.z += 0.002;
+      renderer3.render(scene3, camera3);
+    }
+    anim3();
+  }
+}
+
+// Trigger initialization on load
+window.addEventListener('load', () => {
+  initSlide3ProblemCanvases();
 });
