@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZARKHEZ AI — FYP Viva Defense Presentation</title>
+  <title>FYP Viva Defense Presentation</title>
   <meta name="description" content="Precision Agriculture Remote Sensing Presentation for ZARKHEZ AI in Southern Punjab." />
   
   <!-- Leaflet CSS for Live Satellite Map -->
@@ -28,338 +28,317 @@
     <canvas id="bg-stars-canvas"></canvas>
 
     <!-- Top Telemetry Header -->
+    <!-- Top Header (Title Only) -->
     <header id="top-bar">
       <div class="brand-zone">
-        <div class="brand-icon"><i class="fa-solid fa-wheat-awn"></i></div>
-        <div class="brand-title">ZARKHEZ <span>AI</span></div>
-      </div>
-
-      <div class="top-telemetry">
-        <div class="telemetry-item">
-          <span>INSTITUTION:</span>
-          <span style="color:#ffffff;">LCWU &bull; DEPT. OF COMPUTER SCIENCE</span>
-        </div>
-        <div class="telemetry-item">
-          <span>PROJECT STAGE:</span>
-          <span class="telemetry-tag">PROPOSAL DEFENSE</span>
-        </div>
-        <div class="telemetry-item">
-          <span>ACTIVE:</span>
-          <span id="telemetry-slide-num" class="telemetry-tag">SLIDE 01</span>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <button id="btn-hero-viva" class="btn-header" onclick="document.getElementById('btn-notes').click()">
-          <i class="fa-regular fa-note-sticky"></i>
-          <span>Viva Notes (N)</span>
-        </button>
+        <div class="brand-icon"><i class="fa-solid fa-seedling"></i></div>
+        <div class="brand-title">FARMING ASSISTANT <span>Explainable AI</span></div>
       </div>
     </header>
 
     <!-- Slide Deck Container -->
     <main id="slides-deck">
 
+      
       <!-- ===================================================================
            SLIDE 01: FORMAL ACADEMIC COVER & PROJECT IDENTIFICATION
            =================================================================== -->
-      <section class="slide active" data-slide="1">
-        <div class="hero-cover" style="justify-content:space-between; padding:1.25rem 0;">
-          <!-- Top Institutional Credential Pill -->
-          <div>
-            <div class="hero-viva-badge" style="margin-bottom:0.75rem;">
+      <section class="slide active" data-slide="1" id="slide-01-cover">
+        
+        <!-- Clean Cinematic Green Crop Scrim Background -->
+        <div class="title-crop-bg"></div>
+
+        <div class="hero-cover" style="justify-content:space-between; padding:0.5rem 0 1rem 0; height:100%; position:relative; z-index:2;">
+          
+          <!-- Institutional Attribution (High-Contrast Frosted Badge) -->
+          <div style="display:flex; flex-direction:column; align-items:center; margin-top:0.2rem;">
+            <div class="lcwu-glass-badge">
               <i class="fa-solid fa-building-columns text-amber-500"></i>
-              <span>LAHORE COLLEGE FOR WOMEN UNIVERSITY &bull; DEPARTMENT OF COMPUTER SCIENCE</span>
+              <span class="univ-name">LAHORE COLLEGE FOR WOMEN UNIVERSITY &bull; LAHORE</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--sand-dune); text-transform:uppercase; letter-spacing:0.1em;">
-              Bachelor of Science in Computer Science (BS-CS 2023–2027) &bull; 7th Semester
-            </div>
-          </div>
-
-          <!-- Main Title & Research Paradigm -->
-          <div style="margin:1rem 0;">
-            <div style="display:inline-block; font-family:var(--font-mono); font-size:0.78rem; font-weight:700; color:var(--crop-light); background:rgba(101,163,13,0.14); border:1px solid var(--border-crop); padding:4px 14px; border-radius:20px; margin-bottom:0.75rem;">
-              FINAL YEAR PROJECT (FYP) PROPOSAL DEFENSE
-            </div>
-            <h1 class="hero-title" style="font-size:3.8rem; margin-bottom:0.5rem;">ZARKHEZ AI</h1>
-            <p class="hero-sub" style="font-size:1.22rem; max-width:880px; margin:0 auto 0.75rem; color:#e2e8f0; font-weight:500;">
-              An Adaptive, Explainable Hybrid AI Application using Hyperspectral Remote Sensing for Precision Soil Salinity Assessment &amp; Crop Yield Prediction
-            </p>
-            <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--sand-dune);">
-              <i class="fa-solid fa-location-dot text-amber-500 mr-1"></i> Study Area: Bahawalpur Division, Southern Punjab, Pakistan (27&deg;N–30&deg;N, 70&deg;E–74&deg;E)
+            <div class="dept-sub-badge">
+              DEPARTMENT OF COMPUTER SCIENCE &bull; FINAL YEAR PROJECT (FYP) PROPOSAL DEFENSE
             </div>
           </div>
 
-          <!-- Student & Supervisor Attribution Cards -->
-          <div style="width:100%; max-width:960px; margin:0 auto; display:grid; grid-template-columns:1.6fr 1fr; gap:1.25rem; text-align:left;">
-            <!-- Group Members -->
-            <div class="card-panel" style="padding:1.1rem; border-color:var(--border-sand); background:rgba(28,20,15,0.92);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; border-bottom:1px solid var(--border-subtle); padding-bottom:4px;">
-                <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--sand-dune);">
-                  <i class="fa-solid fa-users text-amber-500 mr-1"></i> SUBMITTED BY (STUDENTS):
+          <!-- Official Title & 3D Interactive Node -->
+          <div style="margin:0.2rem 0; max-width:1050px; text-align:center;">
+            
+            <div id="hero-3d-orbit" style="width:85px; height:85px; margin:0 auto -6px auto;"></div>
+
+
+            <!-- Exact Verbatim Proposal Title (Bold & Crisp with Text Shadow) -->
+            <h1 class="main-defense-title">
+              An Explainable AI Based Farming Assistant Mobile Application for Salt Leaching &amp; Yield Estimation Using Satellite &amp; Groundwater Data
+            </h1>
+
+            
+          </div>
+
+          <!-- Student & Supervisor Glassmorphic Cards -->
+          <div style="width:100%; max-width:1020px; margin:0 auto; display:grid; grid-template-columns:1.65fr 1fr; gap:1.25rem; text-align:left;">
+            
+            <!-- BY (Students) Card -->
+            <div class="glass-card-panel">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; border-bottom:1px solid rgba(132,204,22,0.25); padding-bottom:5px;">
+                <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; color:var(--sand-dune); display:flex; align-items:center; gap:6px;">
+                  <i class="fa-solid fa-users text-amber-400"></i> SUBMITTED BY:
                 </span>
-                <span class="badge" style="font-size:0.65rem;">BS-CS BATCH 2023–2027</span>
-              </div>
-              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem;">
-                <div style="background:rgba(18,13,10,0.7); padding:8px 10px; border-radius:6px; border-left:3px solid var(--sand-amber);">
-                  <div style="font-size:0.88rem; font-weight:700; color:#fff;">Minhal Zubair</div>
-                  <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--sand-muted); margin-top:2px;">23251101079</div>
-                </div>
-                <div style="background:rgba(18,13,10,0.7); padding:8px 10px; border-radius:6px; border-left:3px solid var(--sand-amber);">
-                  <div style="font-size:0.88rem; font-weight:700; color:#fff;">Pakeeza Khalid</div>
-                  <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--sand-muted); margin-top:2px;">23251101090</div>
-                </div>
-                <div style="background:rgba(18,13,10,0.7); padding:8px 10px; border-radius:6px; border-left:3px solid var(--sand-amber);">
-                  <div style="font-size:0.88rem; font-weight:700; color:#fff;">Maryam Jamil</div>
-                  <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--sand-muted); margin-top:2px;">23251101070</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Supervisor -->
-            <div class="card-panel" style="padding:1.1rem; border-color:var(--border-sand); background:rgba(28,20,15,0.92); display:flex; flex-direction:column; justify-content:center;">
-              <div style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--sand-dune); margin-bottom:0.4rem; border-bottom:1px solid var(--border-subtle); padding-bottom:4px;">
-                <i class="fa-solid fa-chalkboard-user text-amber-500 mr-1"></i> SUBMITTED TO (SUPERVISOR):
-              </div>
-              <div style="font-size:1.05rem; font-weight:800; color:#fff;">Dr. Mariam Nosheen</div>
-              <div style="font-size:0.76rem; color:var(--sand-muted); margin-top:2px;">
-                Assistant Professor &bull; Dept. of Computer Science
-              </div>
-              <div style="font-size:0.72rem; color:var(--crop-light); margin-top:4px;">
-                Lahore College for Women University
-              </div>
-            </div>
-          </div>
-
-          <!-- Proceed Action -->
-          <div style="margin-top:0.75rem;">
-            <button id="btn-hero-start" class="btn-primary" style="padding:11px 32px; font-size:0.95rem;">
-              <span>Begin Viva Presentation</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================================================================
-           SLIDE 02: EXECUTIVE SUMMARY & CORE RESEARCH PARADIGM
-           =================================================================== -->
-      <section class="slide" data-slide="2">
-        <div class="hero-cover">
-          <div class="hero-viva-badge">
-            <i class="fa-solid fa-satellite text-amber-500"></i>
-            <span>EXECUTIVE SUMMARY &bull; PROJECT CHARTER</span>
-          </div>
-
-          <h2 style="font-size:2.4rem; font-weight:800; color:#ffffff; margin-bottom:0.5rem; letter-spacing:-0.02em;">
-            "Maximum Yield from Minimum Inputs"
-          </h2>
-          <p class="hero-sub" style="font-size:1.05rem; max-width:820px; margin-bottom:1.5rem;">
-            ZARKHEZ AI bridges spaceborne imaging spectroscopy, machine learning, and agronomic water balances to optimize irrigation water, fertilizer, pumping energy, and input costs for Southern Punjab smallholders.
-          </p>
-
-          <div class="hero-meta-grid">
-            <div class="meta-box">
-              <div class="meta-label">Primary Target</div>
-              <div class="meta-val">Bahawalpur Division</div>
-              <div class="meta-sub">Bahawalpur &bull; Bahawalnagar &bull; RYK</div>
-            </div>
-            <div class="meta-box">
-              <div class="meta-label">Independent Holdout</div>
-              <div class="meta-val">Lodhran District</div>
-              <div class="meta-sub">Zero Lodhran data in training</div>
-            </div>
-            <div class="meta-box">
-              <div class="meta-label">Core Sensors</div>
-              <div class="meta-val">NASA EMIT (285 Bands)</div>
-              <div class="meta-sub">60m Contiguous Spectroscopy</div>
-            </div>
-            <div class="meta-box">
-              <div class="meta-label">Target Crops</div>
-              <div class="meta-val">Wheat, Cotton, Cane</div>
-              <div class="meta-sub">Rabi dominant &amp; Kharif staples</div>
-            </div>
-          </div>
-
-          <div class="grid-3col" style="height:auto; width:100%; margin-bottom:1.5rem;">
-            <div class="card-panel" style="text-align:left; padding:1rem;">
-              <div style="font-size:0.85rem; font-weight:700; color:var(--sand-dune); margin-bottom:4px;">
-                <i class="fa-solid fa-shield-halved text-amber-500 mr-1"></i> Zero-Hardware Mandate
-              </div>
-              <p style="font-size:0.75rem; color:#cbd5e1;">
-                Strictly uses open-access spaceborne feeds (NASA EMIT, Copernicus Sentinel-2). No costly on-farm IoT hardware required.
-              </p>
-            </div>
-            <div class="card-panel" style="text-align:left; padding:1rem;">
-              <div style="font-size:0.85rem; font-weight:700; color:var(--crop-light); margin-bottom:4px;">
-                <i class="fa-solid fa-brain text-emerald-500 mr-1"></i> Explainable AI (SHAP)
-              </div>
-              <p style="font-size:0.75rem; color:#cbd5e1;">
-                Deconstructs pre-harvest yield predictions into transparent factor contributions so farmers and advisors understand the exact drivers.
-              </p>
-            </div>
-            <div class="card-panel" style="text-align:left; padding:1rem;">
-              <div style="font-size:0.85rem; font-weight:700; color:var(--sand-amber); margin-bottom:4px;">
-                <i class="fa-solid fa-mobile-screen text-amber-500 mr-1"></i> Offline Android Delivery
-              </div>
-              <p style="font-size:0.75rem; color:#cbd5e1;">
-                Converts complex spectroscopy and FAO-56 calculations into actionable Urdu guidance and tubewell pumping run-times.
-              </p>
-            </div>
-          </div>
-
-          <div class="hero-actions">
-            <button class="btn-primary" onclick="document.getElementById('btn-next').click()">
-              <span>Explore Problem Statement</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <button id="btn-hero-arch" class="btn-secondary">
-              <span>Inspect Proposed Architecture (M1–M6)</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================================================================
-           SLIDE 03: THE GROUND REALITY (WITH REAL PHOTOS)
-           =================================================================== -->
-      <!-- ================= SLIDE 03: THE GROUND REALITY ================= -->
-      <section class="slide" data-slide="3">
-        <div class="slide-header">
-          <div class="slide-category">03 &bull; Agronomic Dilemma &amp; Problem Statement</div>
-          <h2 class="slide-title">Secondary Salinization &amp; Groundwater Crisis in Southern Punjab</h2>
-          <p class="slide-subtitle">
-            Farmers face erratic canal allocations (Warabandi), shallow brackish groundwater, and habit-based over-irrigation.
-          </p>
-        </div>
-
-        <div class="grid-3col">
-          <!-- Card 1: Soil Salinity -->
-          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <!-- LIVE 3D VIEWPORT 1 -->
-              <div id="problem-canvas-1" class="problem-3d-viewport">
-                <div class="viewport-live-tag"><span class="live-dot-pulse"></span> 3D SOIL CRUST</div>
-              </div>
-
-              <div class="panel-title">
-                <span>1. Root-Zone Salt Stress</span>
-                <span class="badge" style="color:var(--clay-terracotta);">SOIL CRUSTING</span>
-              </div>
-              <p style="color:#cbd5e1; font-size:0.8rem; margin-bottom:0.4rem;">
-                Dissolved salts ($Na^+, Cl^-, SO_4^{2-}$) lower soil osmotic potential, restricting root water absorption even in flooded fields. Surface white crusts only appear after significant yield loss.
-              </p>
-            </div>
-            <div style="background:rgba(20,14,10,0.8); padding:6px 10px; border-radius:6px; border-left:3px solid var(--sand-amber);">
-              <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--sand-dune);">TARGET PHENOMENON</div>
-              <div style="font-size:0.82rem; font-weight:700; color:#fff;">Early Subsurface $EC_e$ Inversion</div>
-            </div>
-          </div>
-
-          <!-- Card 2: Canal & Tubewell Dilemma -->
-          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <!-- LIVE 3D VIEWPORT 2 -->
-              <div id="problem-canvas-2" class="problem-3d-viewport">
-                <div class="viewport-live-tag"><span class="live-dot-pulse"></span> 3D TUBEWELL EXTRACTION</div>
-              </div>
-
-              <div class="panel-title">
-                <span>2. Unfit Tubewell Water</span>
-                <span class="badge" style="color:#f87171;">HAZARDOUS SAR</span>
-              </div>
-              <p style="color:#cbd5e1; font-size:0.8rem; margin-bottom:0.4rem;">
-                Studies in Bahawalpur reveal <strong>>50% of sampled tubewells</strong> exceed critical irrigation thresholds ($EC_w > 1.5\,\text{dS/m}$, $SAR > 10$), silently poisoning prime wheat and cotton soil.
-              </p>
-            </div>
-            <div style="background:rgba(20,14,10,0.8); padding:6px 10px; border-radius:6px; border-left:3px solid var(--clay-terracotta);">
-              <div style="font-family:var(--font-mono); font-size:0.65rem; color:#f87171;">CRITICAL NEED</div>
-              <div style="font-size:0.82rem; font-weight:700; color:#fff;">Safe Canal-Groundwater Blending</div>
-            </div>
-          </div>
-
-          <!-- Card 3: Research Gap -->
-          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <!-- LIVE 3D VIEWPORT 3 -->
-              <div id="problem-canvas-3" class="problem-3d-viewport">
-                <div class="viewport-live-tag"><span class="live-dot-pulse"></span> 3D SATELLITE SCANNER</div>
-              </div>
-
-              <div class="panel-title">
-                <span>3. Identified Research Gap</span>
-                <span class="badge-research-gap">RESEARCH GAP</span>
-              </div>
-              <p style="color:#cbd5e1; font-size:0.8rem; margin-bottom:0.4rem;">
-                Past studies either use broad multispectral indices without mineral spectroscopy, leak spatial autocorrelation through random train/test splits, or publish models without accessible smallholder advisory.
-              </p>
-            </div>
-            <div style="background:rgba(20,14,10,0.8); padding:6px 10px; border-radius:6px; border-left:3px solid var(--crop-green);">
-              <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--crop-light);">ZARKHEZ AI SOLUTION</div>
-              <div style="font-size:0.82rem; font-weight:700; color:#fff;">EMIT AI + FAO-56 + Android App</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================================================================
-           SLIDE 04: LIVE SATELLITE MAP
-           =================================================================== -->
-      <section class="slide" data-slide="4" id="map-slide-container">
-        <div class="slide-header" style="margin-bottom:0.85rem;">
-          <div class="slide-category">04 &bull; Geospatial Domain &amp; Ground Truth</div>
-          <h2 class="slide-title">Interactive Satellite Map: Bahawalpur Division &amp; Lodhran Holdout</h2>
-          <p class="slide-subtitle">
-            Live ESRI satellite basemap highlighting the primary training districts, canal corridors, Cholistan margin, and external validation zone.
-          </p>
-        </div>
-
-        <div class="grid-asym">
-          <!-- Live Leaflet Map Container -->
-          <div style="position:relative; width:100%; height:100%; border-radius:12px; overflow:hidden;">
-            <div id="live-leaflet-map"></div>
-          </div>
-
-          <!-- Spatial Context Panel -->
-          <div class="card-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <div class="panel-title">
-                <span>Agro-Ecological Zones</span>
-                <span class="badge">INDUS BASIN PLAIN</span>
+                <span class="badge" style="background:rgba(101,163,13,0.2); border-color:var(--crop-light); color:#fff; font-size:0.65rem;">BS-CS BATCH 2023–2027</span>
               </div>
               
-              <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;">
-                <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--sand-amber);">
-                  <div style="font-size:0.7rem; color:var(--sand-dune); font-family:var(--font-mono); font-weight:700;">TRAINING DOMAIN (3 DISTRICTS)</div>
-                  <div style="font-size:0.85rem; font-weight:600; color:#fff;">Bahawalpur, Bahawalnagar &amp; Rahim Yar Khan</div>
-                  <div style="font-size:0.74rem; color:var(--sand-muted); margin-top:2px;">
-                    Intensive cotton-wheat and sugarcane belt fed by Panjnad, Fordwah, and Eastern Sadiqia canals.
-                  </div>
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.65rem;">
+                <div class="student-pill">
+                  <div class="student-name">Minhal Zubair</div>
+                  <div class="student-roll">23251101079</div>
                 </div>
-
-                <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid var(--clay-saline-red);">
-                  <div style="font-size:0.7rem; color:#f87171; font-family:var(--font-mono); font-weight:700;">INDEPENDENT EXTERNAL HOLDOUT</div>
-                  <div style="font-size:0.85rem; font-weight:600; color:#fff;">Lodhran District</div>
-                  <div style="font-size:0.74rem; color:var(--sand-muted); margin-top:2px;">
-                    <strong>Zero Lodhran data</strong> is used during model training. Model performance here measures true spatial generalization across different canal commands.
-                  </div>
+                <div class="student-pill">
+                  <div class="student-name">Maryam Jamil</div>
+                  <div class="student-roll">23251101070</div>
                 </div>
-
-                <div style="background:rgba(20,14,10,0.7); padding:10px; border-radius:8px; border-left:3px solid #eab308;">
-                  <div style="font-size:0.7rem; color:#eab308; font-family:var(--font-mono); font-weight:700;">CHOLISTAN DESERT TRANSITION</div>
-                  <div style="font-size:0.85rem; font-weight:600; color:#fff;">Southern Hyper-Arid Sand Border</div>
-                  <div style="font-size:0.74rem; color:var(--sand-muted); margin-top:2px;">
-                    Intense advective heat, severe evapotranspiration demand, and hyper-saline groundwater.
-                  </div>
+                <div class="student-pill">
+                  <div class="student-name">Pakeeza Khalid</div>
+                  <div class="student-roll">23251101090</div>
                 </div>
               </div>
             </div>
 
-            <div style="font-size:0.75rem; color:var(--sand-dim); border-top:1px solid var(--border-subtle); padding-top:8px;">
-              <i class="fa-solid fa-hand-pointer text-amber-500 mr-1"></i> Pan, zoom, and click markers on the live map to inspect local constraints.
+            <!-- SUPERVISED BY Card -->
+            <div class="glass-card-panel" style="display:flex; flex-direction:column; justify-content:center;">
+              <div style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; color:var(--sand-dune); margin-bottom:0.4rem; border-bottom:1px solid rgba(132,204,22,0.25); padding-bottom:5px; display:flex; align-items:center; gap:6px;">
+                <i class="fa-solid fa-chalkboard-user text-amber-400"></i> SUPERVISED BY:
+              </div>
+              <div style="font-size:1.15rem; font-weight:800; color:#ffffff;">Dr. Mariam Nosheen</div>
+              <div style="font-size:0.78rem; color:#cbd5e1; margin-top:2px;">
+                Assistant Professor &bull; Dept. of Computer Science
+              </div>
+              <div style="font-size:0.74rem; color:var(--crop-light); margin-top:3px; font-weight:600;">
+                Lahore College for Women University (LCWU)
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      
+
+      <!-- ===================================================================
+           SLIDE 02: TABLE OF CONTENTS & PROPOSAL ROADMAP
+           =================================================================== -->
+      <!-- ===================================================================
+           SLIDE 02: TABLE OF CONTENTS (IMAGE-BACKED MINIMAL CARDS)
+           =================================================================== -->
+      <section class="slide" data-slide="2" id="slide-02-toc">
+        
+        <div class="slide-header" style="margin-bottom: 1.2rem;">
+          <div class="slide-category">
+          </div>
+          <h2 class="slide-title">Presentation Agenda</h2>
+          <p class="slide-subtitle">
+            A systematic walkthrough of the research problem, literature evaluation, system modules, and proposed methodology.
+          </p>
+        </div>
+
+        <!-- 8 Visual Cards with Relevant Background Photos & Heading Only -->
+        <div class="toc-visual-grid">
+
+          <!-- 01. Introduction -->
+          <div class="toc-photo-card card-bg-intro" data-target-slide="3">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">01</span>
+              
+            </div>
+            <h3 class="toc-clean-title">1. Introduction</h3>
+          </div>
+
+          <!-- 02. Problem Statement -->
+          <div class="toc-photo-card card-bg-problem" data-target-slide="4">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">02</span>
+              
+            </div>
+            <h3 class="toc-clean-title">2. Problem Statement</h3>
+          </div>
+
+          <!-- 03. Scope -->
+          <div class="toc-photo-card card-bg-scope" data-target-slide="5">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">03</span>
+              
+            </div>
+            <h3 class="toc-clean-title">3. Scope</h3>
+          </div>
+
+          <!-- 04. Literature Review -->
+          <div class="toc-photo-card card-bg-literature" data-target-slide="6">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">04</span>
+             
+            </div>
+            <h3 class="toc-clean-title">4. Literature Review</h3>
+          </div>
+
+          <!-- 05. Existing Systems/Solutions -->
+          <div class="toc-photo-card card-bg-systems" data-target-slide="7">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">05</span>
+              
+            </div>
+            <h3 class="toc-clean-title">5. Existing Systems/Solutions</h3>
+          </div>
+
+          <!-- 06. Methodology & Proposed Solution -->
+          <div class="toc-photo-card card-bg-methodology" data-target-slide="8">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">06</span>
+              
+            </div>
+            <h3 class="toc-clean-title">6. Methodology &amp; Proposed Solution</h3>
+          </div>
+
+          <!-- 07. Conclusion -->
+          <div class="toc-photo-card card-bg-conclusion" data-target-slide="9">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">07</span>
+              
+            </div>
+            <h3 class="toc-clean-title">7. Conclusion</h3>
+          </div>
+
+          <!-- References -->
+          <div class="toc-photo-card card-bg-references" data-target-slide="10">
+            <div class="toc-photo-overlay"></div>
+            <div class="toc-top-row">
+              <span class="toc-badge">REF</span>
+              
+            </div>
+            <h3 class="toc-clean-title">References</h3>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================================
+           SLIDE 03: ABSTRACT & EXECUTIVE PROJECT OVERVIEW
+           =================================================================== -->
+      <section class="slide" data-slide="3" id="slide-03-abstract">
+        
+        <div class="slide-header" style="margin-bottom: 0.95rem;">
+          <div class="slide-category">
+            <i class="fa-solid fa-file-lines text-amber-500"></i>
+            <span>EXECUTIVE OVERVIEW &bull; PROPOSAL ABSTRACT</span>
+          </div>
+          <h2 class="slide-title">Project Abstract: Explainable AI Farming Assistant</h2>
+          <p class="slide-subtitle">
+            A unified client-server decision-support mobile application integrating satellite feeds, groundwater chemistry, and crop science for smallholders in South Punjab.
+          </p>
+        </div>
+
+        <!-- 4-Quadrant Deconstructed Abstract Grid -->
+        <div class="abstract-grid">
+          
+          <!-- Quadrant 1: The Sustainability Challenge -->
+          <div class="abstract-card">
+            <div class="abstract-card-header">
+              <div class="abstract-icon text-amber-400">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <div>
+                <div class="abstract-card-num">PILLAR 01</div>
+                <div class="abstract-card-title">1. Sustainability Challenges</div>
+              </div>
+            </div>
+            <p class="abstract-card-body">
+              Agriculture in South Punjab faces critical threats from <strong>unreliable canal supplies</strong>, secondary soil and groundwater salinization, severe climate volatility, and mounting resource costs that jeopardize smallholder livelihoods.
+            </p>
+            <div class="abstract-card-footer">
+              <span class="badge" style="color:#f59e0b; border-color:rgba(245,158,11,0.3);">Canal Deficits &bull; Saline Aquifers</span>
             </div>
           </div>
+
+          <!-- Quadrant 2: Research & Technology Gaps -->
+          <div class="abstract-card">
+            <div class="abstract-card-header">
+              <div class="abstract-icon text-red-400">
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </div>
+              <div>
+                <div class="abstract-card-num">PILLAR 02</div>
+                <div class="abstract-card-title">2. Gaps in Existing Systems</div>
+              </div>
+            </div>
+            <p class="abstract-card-body">
+              Current precision models are domain-isolated and rely on single-source data. Satellites only capture <strong>surface skin (0–5 cm)</strong> and ignore subsurface water dynamics (canal vs. groundwater), offering no actionable field-level advice for smallholders.
+            </p>
+            <div class="abstract-card-footer">
+              <span class="badge" style="color:#f87171; border-color:rgba(248,113,113,0.3);">Surface-Only &bull; No Subsurface Tracking</span>
+            </div>
+          </div>
+
+          <!-- Quadrant 3: The Proposed Solution Core -->
+          <div class="abstract-card highlight-card">
+            <div class="abstract-card-header">
+              <div class="abstract-icon text-emerald-400">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div>
+                <div class="abstract-card-num" style="color:var(--crop-light);">PILLAR 03 &bull; THE SOLUTION</div>
+                <div class="abstract-card-title">3. Explainable AI Architecture</div>
+              </div>
+            </div>
+            <p class="abstract-card-body">
+              A <strong>client-server mobile application</strong> fusing satellite imagery, localized groundwater records, weather streams, and crop data across 7 integrated modules to estimate root-zone salinity, simulate salt leaching, and guide fertilizer timing with transparent reasoning.
+            </p>
+            <div class="abstract-card-footer">
+              <span class="badge" style="color:var(--crop-light); border-color:rgba(101,163,13,0.4);">7 Subsystems &bull; Transparent XAI</span>
+            </div>
+          </div>
+
+          <!-- Quadrant 4: Evaluation & Three-Way Beneficiary Impact -->
+          <div class="abstract-card">
+            <div class="abstract-card-header">
+              <div class="abstract-icon text-cyan-400">
+                <i class="fa-solid fa-users-gear"></i>
+              </div>
+              <div>
+                <div class="abstract-card-num">PILLAR 04</div>
+                <div class="abstract-card-title">4. Evaluation &amp; Stakeholders</div>
+              </div>
+            </div>
+            <p class="abstract-card-body">
+              Validated against <strong>actual field measurements</strong> of salinity and yield. The system empowers three key user groups through one unified application:
+            </p>
+            <div class="abstract-stakeholders">
+              <div><i class="fa-solid fa-user-check text-emerald-400 mr-1"></i> <strong>Farmers:</strong> Data-driven inputs &amp; water savings</div>
+              <div><i class="fa-solid fa-user-doctor text-amber-400 mr-1"></i> <strong>Experts:</strong> Precision field advisory</div>
+              <div><i class="fa-solid fa-microscope text-cyan-400 mr-1"></i> <strong>Researchers:</strong> Unified soil-water analytics</div>
+            </div>
+          </div>
+
         </div>
+
+        <!-- Bottom Verbatim Quote from Proposal Abstract -->
+        <div class="abstract-quote-banner">
+          <i class="fa-solid fa-quote-left text-amber-500" style="font-size:1.1rem; margin-top:2px;"></i>
+          <span style="font-size: 0.77rem; color: #e2e8f0; line-height: 1.45;">
+            "The system will estimate root-zone salinity risks, simulate salt leaching scenarios, generate field-level nitrogen schedules, and highlight predictive uncertainty to optimize crop yield using actual field measurement data."
+          </span>
+          <span style="font-family:var(--font-mono); font-size:0.68rem; color:var(--sand-dune); white-space:nowrap;">
+            &mdash; Proposal Abstract (Page 2)
+          </span>
+        </div>
+
       </section>
 
       <!-- ===================================================================
@@ -1171,23 +1150,9 @@
         </button>
       </div>
 
-      <div class="dock-center">
-        <button id="btn-menu" class="dock-btn" title="Open Slide Directory (M)">
-          <i class="fa-solid fa-table-cells"></i>
-          <span>Slide Menu (M)</span>
-        </button>
-      </div>
+     
 
-      <div class="dock-right">
-        <button id="btn-notes" class="dock-btn" title="Toggle Viva Presenter Notes (N)">
-          <i class="fa-regular fa-clipboard"></i>
-          <span>Presenter Notes (N)</span>
-        </button>
-        <button id="btn-fullscreen" class="dock-btn" title="Toggle Projector Fullscreen (F)">
-          <i class="fa-solid fa-expand"></i>
-          <span>Fullscreen (F)</span>
-        </button>
-      </div>
+      
     </footer>
 
     <!-- Presenter Notes Drawer (Toggle with 'N') -->

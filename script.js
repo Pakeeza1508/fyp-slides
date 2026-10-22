@@ -106,6 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   btnFullscreen.addEventListener('click', toggleFullscreen);
 
+  // Interactive TOC Card Click Listener
+  document.querySelectorAll('.toc-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const targetSlide = parseInt(card.dataset.targetSlide);
+      if (targetSlide) {
+        goToSlide(targetSlide);
+      }
+    });
+  });
+
+  // Interactive TOC Card Click Listener
+  document.querySelectorAll('.toc-photo-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const targetSlide = parseInt(card.dataset.targetSlide);
+      if (targetSlide) {
+        goToSlide(targetSlide);
+      }
+    });
+  });
+
   // =========================================================================
   // LIVE LEAFLET SATELLITE MAP (SLIDE 03)
   // =========================================================================
@@ -684,3 +704,55 @@ function initSlide3ProblemCanvases() {
 window.addEventListener('load', () => {
   initSlide3ProblemCanvases();
 });
+
+// =========================================================================
+// SLIDE 01: 3D ROTATING ORBITAL WIREFRAME (Lightweight & Tasteful)
+// =========================================================================
+function initTitle3DOrbit() {
+  const container = document.getElementById('hero-3d-orbit');
+  if (!container) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(0, 0, 3.2);
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  // Digital globe sphere wireframe
+  const sphereGeo = new THREE.SphereGeometry(0.8, 14, 14);
+  const sphereMat = new THREE.MeshBasicMaterial({ color: 0xd97706, wireframe: true, transparent: true, opacity: 0.35 });
+  const globe = new THREE.Mesh(sphereGeo, sphereMat);
+  scene.add(globe);
+
+  // Satellite Orbit Ring
+  const ringGeo = new THREE.RingGeometry(1.05, 1.1, 32);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x65a30d, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+  const orbitRing = new THREE.Mesh(ringGeo, ringMat);
+  orbitRing.rotation.x = Math.PI / 3;
+  scene.add(orbitRing);
+
+  // Small Satellite Node
+  const satGeo = new THREE.SphereGeometry(0.06, 8, 8);
+  const satMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const satellite = new THREE.Mesh(satGeo, satMat);
+  scene.add(satellite);
+
+  let angle = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    globe.rotation.y += 0.006;
+    globe.rotation.x += 0.002;
+    angle += 0.03;
+    satellite.position.x = Math.cos(angle) * 1.08;
+    satellite.position.y = Math.sin(angle) * 1.08 * Math.cos(Math.PI / 3);
+    satellite.position.z = Math.sin(angle) * 1.08 * Math.sin(Math.PI / 3);
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
+// Call on load
+window.addEventListener('load', initTitle3DOrbit);
+

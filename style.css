@@ -1,51 +1,65 @@
 /* ==========================================================================
-   ZARKHEZ AI — Precision Soil Science & Agronomic Remote Sensing Presentation
-   Theme: Arid Sand, Deep Alluvial Soil, Clay & Fertile Wheat
-   Palette: Loam Deep (#120D0A), Dune Sand (#E0A96D), Amber (#D97706),
-            Saline Clay (#C2410C), Alluvial Silt (#2A1E17), Crop Green (#65A30D)
+   EXPLAINABLE AI FARMING ASSISTANT — FYP PROPOSAL DEFENSE
+   Institution: Lahore College for Women University (LCWU)
+   Department: Department of Computer Science
+   Theme: Precision Agriculture, Soil Salinity, Remote Sensing & Hydrology
+   Color Architecture:
+     - 60% Base: Deep Peat Loam (#0A0E0A)
+     - Yield & Crop Health: Chlorophyll Green (#22C55E / #84CC16)
+     - Soil Salinity & Leaching: Saline Amber (#F59E0B / #D97706)
+     - Groundwater & Satellites: Canal Aqua / Cyan (#06B6D4 / #0284C7)
    ========================================================================== */
 
 :root {
-  /* 60% Dominant: Deep Humus / Peat / Basalt Soil */
-  --soil-deep: #120d0a;
-  --soil-surface: #1a130e;
-  --soil-elevated: #241b14;
-  --soil-card: rgba(28, 20, 15, 0.88);
-  --soil-card-hover: rgba(38, 28, 21, 0.95);
+  /* 60% Dominant Base: Deep Peat & Alluvial Loam */
+  --soil-deep: #0a0e0a;
+  --soil-surface: #101610;
+  --soil-elevated: #162016;
+  --soil-card: rgba(16, 24, 16, 0.88);
+  --soil-card-hover: rgba(24, 36, 24, 0.96);
 
-  /* 30% Structural: Dune Sand, Desert Loess & Terracotta Clay */
-  --sand-dune: #e0a96d;
+  /* 30% Structural: Text & High-Contrast Typography */
+  --text-pure: #ffffff;
+  --text-crisp: #f1f5f9;
+  --sand-parchment: #f8fafc;
+  --sand-muted: #cbd5e1;
+  --sand-dim: #94a3b8;
+
+  /* 10% Scientific Accents (Directly representing Proposal Variables) */
+  /* 1. Crop Health & Yield Estimation */
+  --crop-green: #22c55e;
+  --crop-light: #84cc16;
+  --border-crop: rgba(34, 197, 94, 0.35);
+
+  /* 2. Soil Salinity & Salt Leaching Warning */
   --sand-gold: #f59e0b;
   --sand-amber: #d97706;
-  --sand-parchment: #faf4eb;
-  --sand-muted: #bdaaa0;
-  --sand-dim: #7d6b61;
+  --sand-dune: #fbbf24;
+  --clay-terracotta: #ea580c;
+  --clay-saline-red: #ef4444;
+  --border-sand: rgba(245, 158, 11, 0.35);
+  --border-clay: rgba(239, 68, 68, 0.35);
 
-  --clay-terracotta: #c2410c;
-  --clay-saline-red: #b91c1c;
+  /* 3. Groundwater Quality & Satellite Remote Sensing */
+  --canal-cyan: #06b6d4;
+  --satellite-blue: #0284c7;
+  --border-water: rgba(6, 182, 212, 0.35);
 
-  /* 10% Accent: Fertile Vegetative Green & Silt Water */
-  --crop-green: #65a30d;
-  --crop-light: #84cc16;
-  --canal-cyan: #0284c7;
-
-  /* Borders & Highlights */
-  --border-subtle: rgba(224, 169, 109, 0.16);
-  --border-sand: rgba(217, 119, 6, 0.35);
-  --border-crop: rgba(101, 163, 13, 0.35);
-  --border-clay: rgba(194, 65, 12, 0.35);
+  /* General Unified Glass Borders */
+  --border-subtle: rgba(255, 255, 255, 0.12);
 
   /* Typography */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Outfit', 'Plus Jakarta Sans', sans-serif;
-  --font-serif: Georgia, Cambria, 'Times New Roman', serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
   /* Geometry */
   --dock-height: 58px;
   --header-height: 56px;
 }
 
-/* Reset */
+/* ==========================================================================
+   RESET & PRESENTATION SHELL
+   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -57,7 +71,7 @@ html, body {
   height: 100%;
   overflow: hidden;
   background-color: var(--soil-deep);
-  color: var(--sand-parchment);
+  color: var(--text-crisp);
   font-family: var(--font-sans);
   font-size: 14.5px;
   line-height: 1.5;
@@ -65,13 +79,12 @@ html, body {
   user-select: none;
 }
 
-/* Cinema Stage */
 #presentation-stage {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 15%, #24170f 0%, #120d0a 75%);
+  background: radial-gradient(circle at 50% 15%, #131c14 0%, #0a0e0a 80%);
 }
 
 #bg-stars-canvas {
@@ -82,10 +95,12 @@ html, body {
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.25;
+  opacity: 0.15;
 }
 
-/* Top Navigation Bar */
+/* ==========================================================================
+   CLEAN TOP NAVIGATION BAR (TITLE ONLY)
+   ========================================================================== */
 #top-bar {
   position: absolute;
   top: 0;
@@ -97,7 +112,7 @@ html, body {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-subtle);
-  background: rgba(18, 13, 10, 0.94);
+  background: rgba(10, 14, 10, 0.94);
   backdrop-filter: blur(14px);
   z-index: 50;
 }
@@ -112,27 +127,28 @@ html, body {
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #d97706 0%, #65a30d 100%);
+  background: linear-gradient(135deg, #d97706 0%, #22c55e 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-weight: 800;
   font-size: 15px;
-  box-shadow: 0 0 16px rgba(217, 119, 6, 0.35);
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.35);
 }
 
 .brand-title {
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: var(--sand-parchment);
+  color: var(--text-pure);
 }
 
 .brand-title span {
-  color: var(--sand-dune);
+  color: var(--sand-gold);
   font-weight: 800;
 }
+
 
 .top-telemetry {
   display: flex;
@@ -195,17 +211,17 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 2rem 3.5rem;
+  padding: 1.8rem 3.5rem;
   opacity: 0;
   visibility: hidden;
   transform: scale(0.98) translateY(10px);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.4s;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.35s;
   pointer-events: none;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(217, 119, 6, 0.3) transparent;
+  scrollbar-color: rgba(34, 197, 94, 0.3) transparent;
 }
 
 .slide.active {
@@ -215,9 +231,9 @@ html, body {
   pointer-events: auto;
 }
 
-/* Headers */
+/* Shared Slide Headers */
 .slide-header {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
 }
 
 .slide-category {
@@ -225,7 +241,7 @@ html, body {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--sand-dune);
+  color: var(--sand-gold);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -233,20 +249,19 @@ html, body {
 }
 
 .slide-title {
-  font-size: 2.1rem;
-  font-weight: 700;
+  font-size: 2.05rem;
+  font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
 .slide-subtitle {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: var(--sand-muted);
   margin-top: 0.25rem;
   max-width: 980px;
 }
-
 /* Grids */
 .grid-2col {
   display: grid;
@@ -277,17 +292,17 @@ html, body {
   padding: 1.35rem;
   backdrop-filter: blur(10px);
   position: relative;
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
 }
 
 .card-panel:hover {
-  border-color: var(--border-sand);
+  border-color: var(--border-amber);
   background: var(--soil-card-hover);
 }
 
 .panel-title {
   font-size: 1.02rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
   margin-bottom: 0.65rem;
   display: flex;
@@ -299,8 +314,8 @@ html, body {
 .badge {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: var(--sand-dune);
-  background: rgba(224, 169, 109, 0.12);
+  color: var(--sand-gold);
+  background: rgba(245, 158, 11, 0.12);
   padding: 2px 7px;
   border-radius: 4px;
   border: 1px solid var(--border-sand);
@@ -310,27 +325,28 @@ html, body {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--crop-light);
-  background: rgba(101, 163, 13, 0.15);
+  background: rgba(34, 197, 94, 0.15);
   padding: 2px 8px;
   border-radius: 4px;
   border: 1px solid var(--border-crop);
 }
 
+
 .badge-illustrative {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: var(--sand-gold);
-  background: rgba(245, 158, 11, 0.1);
+  color: var(--canal-cyan);
+  background: rgba(6, 182, 212, 0.1);
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid var(--border-water);
 }
 
 .badge-research-gap {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: #f87171;
-  background: rgba(185, 28, 28, 0.2);
+  background: rgba(239, 68, 68, 0.18);
   padding: 2px 8px;
   border-radius: 4px;
   border: 1px solid var(--border-clay);
@@ -340,7 +356,7 @@ html, body {
 .hero-cover {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   height: 100%;
@@ -418,15 +434,15 @@ html, body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  background: linear-gradient(135deg, #d97706 0%, #22c55e 100%);
   color: #ffffff;
   border: none;
-  padding: 11px 26px;
+  padding: 10px 26px;
   border-radius: 8px;
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(217, 119, 6, 0.35);
+  box-shadow: 0 4px 18px rgba(34, 197, 94, 0.35);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -435,7 +451,7 @@ html, body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(217, 119, 6, 0.5);
+  box-shadow: 0 6px 24px rgba(34, 197, 94, 0.5);
 }
 
 .btn-secondary {
@@ -477,6 +493,226 @@ html, body {
   background: #1a130e !important;
 }
 
+/* ==========================================================================
+   SLIDE 01: SUBTLE 3D SATELLITE TERRAIN BACKGROUND (FIXED)
+   ========================================================================== */
+
+/* ==========================================================================
+   SLIDE 01: HIGH-CONTRAST GREEN CROP VISUAL DESIGN
+   ========================================================================== */
+
+#slide-01-cover {
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
+
+/* 1. Cinematic Gradient Scrim: Keeps the crop image rich, but makes all text 100% readable */
+.title-crop-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(180deg, 
+      rgba(0, 0, 0, 0.50) 0%, 
+      rgba(0, 0, 0, 0.25) 40%, 
+      rgba(0, 0, 0, 0.65) 100%),
+    url('https://images.unsplash.com/photo-1464972377689-e7674c48d806?q=85&w=1920&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: contrast(1.05) saturate(1.1);
+}
+
+/* 2. Frosted Glass LCWU Institution Badges */
+.lcwu-glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(10, 15, 10, 0.88);
+  border: 1px solid rgba(217, 119, 6, 0.6);
+  padding: 6px 20px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.lcwu-glass-badge .univ-name {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+}
+
+.dept-sub-badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #f1f5f9;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0.35rem;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 16px;
+  border-radius: 12px;
+}
+
+/* 3. Session Pill */
+.session-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #a3e635;
+  background: rgba(20, 35, 18, 0.85);
+  border: 1px solid rgba(132, 204, 22, 0.45);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  backdrop-filter: blur(8px);
+}
+
+/* 4. Main Title Typography with Anti-Clash Drop Shadow */
+.main-defense-title {
+  font-size: 2.15rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.65rem;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* 5. Agro-Telemetry Pill */
+
+.agro-telemetry-pill {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  background: rgba(8, 14, 8, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 18px;
+  border-radius: 25px;
+  width: fit-content;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* 6. Premium Glassmorphic Cards */
+.glass-card-panel {
+  background: rgba(10, 16, 10, 0.90) !important;
+  border: 1px solid rgba(132, 204, 22, 0.4) !important;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+}
+
+.student-pill {
+  background: rgba(18, 26, 18, 0.85);
+  padding: 8px 10px;
+  border-radius: 6px;
+  border-left: 3px solid #f59e0b;
+}
+
+.student-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.student-roll {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  margin-top: 2px;
+}
+
+/* 7. Hide all other buttons on bottom dock specifically for Slide 1 */
+body:has(#slide-01-cover.active) #bottom-dock .dock-left #btn-prev,
+body:has(#slide-01-cover.active) #bottom-dock .dock-left #slide-counter,
+body:has(#slide-01-cover.active) #bottom-dock .dock-center,
+body:has(#slide-01-cover.active) #bottom-dock .dock-right {
+  display: none !important;
+}
+
+body:has(#slide-01-cover.active) #bottom-dock {
+  justify-content: flex-end !important;
+  padding: 0 3rem !important;
+}
+
+
+
+/* 3. Keep the text and cards sharply elevated above the background */
+#slide-01-cover .main-defense-title {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 2.15rem !important;
+  line-height: 1.25 !important;
+  margin-bottom: 0.65rem !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+#slide-01-cover .lcwu-glass-badge {
+  background: rgba(10, 15, 10, 0.88) !important;
+  border: 1px solid rgba(217, 119, 6, 0.6) !important;
+  padding: 6px 20px !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
+}
+
+#slide-01-cover .lcwu-glass-badge .univ-name {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+}
+
+#slide-01-cover .dept-sub-badge {
+  background: rgba(0, 0, 0, 0.65) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 3px 16px !important;
+  border-radius: 12px !important;
+  margin-top: 0.35rem !important;
+}
+
+/* 3. Agro-Telemetry Pill */
+#slide-01-cover .agro-telemetry-pill {
+  background: rgba(8, 14, 8, 0.88) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 4. Student & Supervisor Cards: Solid dark glass so names are completely clear */
+#slide-01-cover .glass-card-panel {
+  background: rgba(10, 16, 10, 0.90) !important;
+  border: 1px solid rgba(132, 204, 22, 0.4) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8) !important;
+}
+
+#slide-01-cover .student-pill {
+  background: rgba(75, 99, 75, 0.85) !important;
+  border-left: 3px solid #f59e0b !important;
+}
+
+#slide-01-cover .student-name {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+#slide-01-cover .student-roll {
+  color: #e2e8f0 !important;
+}
+
 /* 3D Hyperspectral Cube Stage */
 .hyperspectral-stage {
   position: relative;
@@ -491,6 +727,393 @@ html, body {
 #hyperspectral-canvas {
   width: 100%;
   height: 100%;
+}
+
+/* ==========================================================================
+   SLIDE 02: TABLE OF CONTENTS (GRID & MICRO-ANIMATIONS)
+   ========================================================================== */
+
+#slide-02-toc {
+  position: absolute !important;
+  overflow-y: auto !important;
+}
+
+.toc-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Elegant glassmorphic agenda card */
+.toc-card {
+  background: rgba(22, 16, 12, 0.85);
+  border: 1px solid rgba(224, 169, 109, 0.18);
+  border-radius: 10px;
+  padding: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+}
+
+/* Subtle top border accent */
+.toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+/* Smooth lift and glow on hover */
+.toc-card:hover {
+  transform: translateY(-4px);
+  background: rgba(32, 22, 16, 0.95);
+  border-color: rgba(217, 119, 6, 0.55);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(217, 119, 6, 0.15);
+}
+
+.toc-card:hover::before {
+  background: linear-gradient(90deg, #d97706, #65a30d);
+}
+
+.toc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.toc-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--crop-light);
+  transition: all 0.25s ease;
+}
+
+.toc-card:hover .toc-icon {
+  background: rgba(101, 163, 13, 0.2);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.toc-card-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.toc-card-desc {
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin-bottom: 0.65rem;
+}
+
+.toc-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--sand-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 6px;
+}
+
+/* ==========================================================================
+   SLIDE 02: PHOTO-BACKED MINIMAL AGENDA CARDS
+   ========================================================================== */
+
+#slide-02-toc {
+  position: absolute !important;
+  overflow-y: auto !important;
+}
+
+.toc-visual-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.15rem;
+  height: calc(100% - 105px);
+}
+
+.toc-photo-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(224, 169, 109, 0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.15rem;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+}
+
+/* Dark gradient scrim so white headings are 100% readable over every photo */
+.toc-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(14, 10, 8, 0.45) 0%, 
+    rgba(14, 10, 8, 0.65) 45%, 
+    rgba(10, 7, 5, 0.94) 100%);
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+/* Hover dynamic animation */
+.toc-photo-card:hover {
+  transform: translateY(-5px);
+  border-color: #f59e0b;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+.toc-photo-card:hover .toc-photo-overlay {
+  background: linear-gradient(180deg, 
+    rgba(14, 10, 8, 0.3) 0%, 
+    rgba(14, 10, 8, 0.55) 45%, 
+    rgba(10, 7, 5, 0.88) 100%);
+}
+
+.toc-top-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toc-badge {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(217, 119, 6, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 5px;
+  backdrop-filter: blur(6px);
+}
+
+.toc-mini-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(18, 13, 10, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a3e635;
+  font-size: 0.9rem;
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.toc-photo-card:hover .toc-mini-icon {
+  transform: scale(1.12);
+  color: #ffffff;
+  background: rgba(34, 197, 94, 0.75);
+}
+
+.toc-clean-title {
+  position: relative;
+  z-index: 2;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================================
+   CARD-SPECIFIC TOPIC BACKGROUND PHOTOS
+   ========================================================================== */
+
+/* 1. Introduction: South Punjab wheat & crop field */
+.card-bg-intro {
+  background-image: url('https://images.openai.com/static-rsc-4/6Wt2bDKYK9yWzeIdb4zO-CE9dPfxxksqMCPFWkZ8oGpeZGvay2nHYFCSWOwHqBgFpu-xssmoL7jF28aeSWFo4Tjf4U68cnMzBA9hmbAZ8yWXEQxux7GDYuKuw3nOtQfOjcEB8GoGhxt5JfVutCIzqvbioXNnINOfV9g1N9MkT9J181c1Yuqs_MppPLtO2dJe?purpose=fullsize');
+}
+
+/* 2. Problem Statement: Dry, salt-crusted saline soil */
+.card-bg-problem {
+  background-image: url('https://images.openai.com/static-rsc-4/MGhTvhEqeMnskE1ffFVKbEe67lrgcBcv3kzQ0sCArQy8by_z3OO1j93UmQK3HFuIsGKW64ikvqfRBtTc24xwR8DJsyyzDhhxl7pDRFRyzDoUkrtAv0olQTU80lw25hTWiV11EtuOgvuCdWDnr43K_v3H6uvZAH4t4RyPPFeOZpwUBL15Je7FNnN1BXNuCtr4?purpose=inline');
+}
+
+/* 3. Scope: Mobile agricultural assistant in farmer's hands */
+.card-bg-scope {
+  background-image: url('https://images.openai.com/static-rsc-4/ubzPKzGNnJS4KAGYPZ2ynv2fsaTeHcmv8dGXAP2zqWQ-t0OQG3okpXrwQjhNY80Vv4NVA4K_6rZT4v7tgpE2wGBMsahMAnmYDFVE2aXAUKAPWp9snI8t51awoPMohYD8biDU-CcQYlt3xYTIO_Ak3PyrzM_F443Tzi-7F4ceBJ7jKVBUSkYWuPwNVuPiDbHW?purpose=fullsize');
+}
+
+/* 4. Literature Review: Satellite remote sensing Earth observation */
+.card-bg-literature {
+  background-image: url('https://images.openai.com/static-rsc-4/gBR-djdyAWngUjhmf39qz2IK4TX0zdHlW-Dh1JK5JE3ZhgI-LtC4U_lZZvLfTmv3uPxu5hkxpHAgI9-YBpgs54FWOlv-9J5bJGkTXZGIlViH6dGq8Tq5S0OisqnuKkA0Oh7EVyaJA7Jhh-uNbEqA8ANXAt4L2SqR7CJc_oqzoGEN1WPJ6tAvAiqPGjs-OqVx?purpose=fullsize');
+}
+
+/* 5. Existing Systems: Tech dashboard & agricultural software */
+.card-bg-systems {
+  background-image: url('https://images.openai.com/static-rsc-4/mHWctjLo-kzfD7wjFMP_HJ_5tOGgZr8wzRhm7SDohoDFmnBOPd_S21Lc889OgYbbTh02eXcT7_CXQXZlMLbeC8A_QIQnAH8EFM5MIdhk3yDrZUeltVKlQDCsU2nkjoCCG6mlzstNH0lWJtObHhA4QFsdDGDuT_Zr0lFDtYccNdwstjiKjF2DM-uqLkxsCG9A?purpose=fullsize');
+}
+
+/* 6. Methodology: AI neural architecture & data processing */
+.card-bg-methodology {
+  background-image: url('https://images.openai.com/static-rsc-4/XFOBU7E6NdBbgGuEKvVJO2hO8yhYEp6MgFq0ppAaqu_lfrEkXNW5qyDeFc0_91M5jXsZDxJafVfaua8KOmjYt7OZDYk30qpO1TbeG7PmYkEjdyL58QsQBM4YyljwcCu44cOvam1pCuhNEpX9Nmh7bNknuSbhQ2YeXy3FKBG_aXkISGkTKhL5H7H1z5xKee47?purpose=fullsize');
+}
+
+/* 7. Conclusion: Thriving, high-yield golden crop harvest */
+.card-bg-conclusion {
+  background-image: url('https://images.openai.com/static-rsc-4/NtDKd3zhJBjqMXh28EUhCg0TWDSAl06-dLhqYCTJ5bAx7T_NVjmZvQn6exxsyOeatk6COTdVcsv7EkgziIdZy0zIsMC5bGDl9BLS7oiOrmVw0tmmysoCl8l7U1F9TUjFaPlpdX6hTUnvqx0uEq3ufencpnBmVStUCXl90TSRJ00aktPiI6PHmYwFgHXKJsdp?purpose=fullsize');
+}
+
+/* References: Scholarly academic books & research journals */
+.card-bg-references {
+  background-image: url('https://images.openai.com/static-rsc-4/ENt8gIjb61AY4pvx_QmXxW5Y7_olDrmxxNDCr7nPcXH8PJl07eNTA_zhcUIsHbRY0m8F38L0im-3628ZR0TaUmZ75_5iIypKX2bevV-4ekUFwEHO6VBDopD9p86scoeoWipKl-5DvcLhH8F6ZsV7SCif4oj1JiG_mG1oH1ufppQzAlHHLDZ3xkYi2puB2dak?purpose=fullsize');
+}
+
+/* ==========================================================================
+   SLIDE 03: ABSTRACT & EXECUTIVE OVERVIEW
+   ========================================================================== */
+#slide-03-abstract {
+  position: absolute !important;
+  overflow-y: auto !important;
+}
+
+.abstract-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.15rem;
+  margin-bottom: 0.85rem;
+}
+
+.abstract-card {
+  background: rgba(16, 24, 16, 0.88);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.abstract-card:hover {
+  transform: translateY(-3px);
+  background: rgba(24, 36, 24, 0.95);
+  border-color: var(--border-amber);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.abstract-card.highlight-card {
+  border: 1px solid var(--border-crop);
+  background: rgba(18, 28, 18, 0.88);
+}
+
+.abstract-card.highlight-card:hover {
+  border-color: #84cc16;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(34, 197, 94, 0.2);
+}
+
+.abstract-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.65rem;
+}
+
+.abstract-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+
+.abstract-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--sand-gold);
+  letter-spacing: 0.08em;
+}
+
+.abstract-card-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.abstract-card-body {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.abstract-card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 6px;
+}
+
+.abstract-stakeholders {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(10, 16, 10, 0.6);
+  border-radius: 6px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.72rem;
+  color: #e2e8f0;
+}
+
+.abstract-quote-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(12, 18, 12, 0.85);
+  border: 1px solid var(--border-amber);
+  border-radius: 8px;
+  padding: 8px 14px;
+  backdrop-filter: blur(8px);
 }
 
 .cube-scrubber-box {
@@ -659,7 +1282,7 @@ html, body {
   left: 0;
   right: 0;
   height: var(--dock-height);
-  background: rgba(18, 13, 10, 0.96);
+  background: rgba(10, 14, 10, 0.96);
   border-top: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -692,8 +1315,8 @@ html, body {
 }
 
 .dock-btn:hover {
-  background: rgba(217, 119, 6, 0.15);
-  border-color: var(--border-sand);
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--border-amber);
 }
 
 .dock-counter {
@@ -719,10 +1342,10 @@ html, body {
 
 #progress-bar-fill {
   height: 100%;
-  width: 8.33%;
-  background: linear-gradient(90deg, #d97706, #65a30d);
+  width: 23%;
+  background: linear-gradient(90deg, #d97706, #22c55e);
   transition: width 0.35s ease;
-  box-shadow: 0 0 10px var(--sand-amber);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
 }
 
 /* Presenter Notes & Menu */
@@ -785,7 +1408,7 @@ html, body {
 #slide-menu-modal {
   position: absolute;
   inset: 0;
-  background: rgba(10, 7, 5, 0.92);
+  background: rgba(6, 10, 6, 0.94);
   backdrop-filter: blur(14px);
   z-index: 70;
   display: none;
@@ -799,8 +1422,8 @@ html, body {
 .menu-card-wrap {
   width: 100%;
   max-width: 1050px;
-  background: rgba(22, 16, 12, 0.98);
-  border: 1px solid var(--border-sand);
+  background: rgba(14, 22, 14, 0.98);
+  border: 1px solid var(--border-amber);
   border-radius: 14px;
   padding: 2rem;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
@@ -814,7 +1437,7 @@ html, body {
 }
 
 .menu-item {
-  background: rgba(30, 21, 15, 0.7);
+  background: rgba(18, 28, 18, 0.7);
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 1rem;
@@ -824,7 +1447,7 @@ html, body {
 }
 
 .menu-item:hover, .menu-item.active {
-  background: rgba(217, 119, 6, 0.18);
+  background: rgba(245, 158, 11, 0.18);
   border-color: var(--sand-amber);
   transform: translateY(-2px);
 }
@@ -832,7 +1455,7 @@ html, body {
 .menu-item-num {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--sand-dune);
+  color: var(--sand-gold);
   margin-bottom: 0.25rem;
 }
 
