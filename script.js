@@ -1,16 +1,24 @@
 /* ==========================================================================
    ZARKHEZ AI — Presentation Controller Script
    Handles: Slide Navigation, Leaflet Satellite Map, 3D Hyperspectral Cube,
-            Maas-Hoffman Simulator, Module Inspector & Bilingual Toggle.
+            Literature Review Table Viewer, Maas-Hoffman Simulator, & Module Inspector.
    ========================================================================== */
+
+// Fallback speaker notes object to prevent undefined reference crashes
+const speakerNotes = {
+  1: { title: "Title Slide", points: ["Formal Project Identification.", "Presenting BSCS Proposal Defense."], tip: "Introduce team and research title within 60s." },
+  2: { title: "Agenda", points: ["Walkthrough of the presentation flow."], tip: "Highlight Literature Review and Methodology." },
+  3: { title: "Abstract", points: ["Core objectives and architecture."], tip: "Emphasize zero on-farm hardware requirement." },
+  4: { title: "Introduction", points: ["Regional challenges in South Punjab."], tip: "Focus on secondary salinization." }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
-  const totalSlides = 13;
+  const totalSlides = 14; // Total slides in your deck
   let leafletMap = null;
   let mapInitialized = false;
 
-  // DOM Elements
+  // DOM Elements (Safely Queried)
   const slides = document.querySelectorAll('.slide');
   const slideCounter = document.getElementById('slide-counter');
   const telemetrySlideNum = document.getElementById('telemetry-slide-num');
@@ -29,24 +37,51 @@ document.addEventListener('DOMContentLoaded', () => {
   function goToSlide(target) {
     if (target < 1 || target > totalSlides) return;
 
+    // Remove active class from all slides
     slides.forEach(s => s.classList.remove('active'));
+
+    // Activate the requested slide
     const nextSlideEl = document.querySelector(`.slide[data-slide="${target}"]`);
-    if (nextSlideEl) nextSlideEl.classList.add('active');
+    if (nextSlideEl) {
+      nextSlideEl.classList.add('active');
+    }
 
     currentSlide = target;
-    slideCounter.innerHTML = `${String(currentSlide).padStart(2, '0')} <span>/ ${totalSlides}</span>`;
-    telemetrySlideNum.innerText = `SLIDE ${String(currentSlide).padStart(2, '0')}`;
-    progressBarFill.style.width = `${(currentSlide / totalSlides) * 100}%`;
 
-    // Highlight Menu Item
+    // Safely update UI telemetry if elements exist
+    if (slideCounter) {
+      slideCounter.innerHTML = `${String(currentSlide).padStart(2, '0')} <span>/ ${totalSlides}</span>`;
+    }
+    if (telemetrySlideNum) {
+      telemetrySlideNum.innerText = `SLIDE ${String(currentSlide).padStart(2, '0')}`;
+    }
+    if (progressBarFill) {
+      progressBarFill.style.width = `${(currentSlide / totalSlides) * 100}%`;
+    }
+
+    // Highlight Menu Item if modal exists
     document.querySelectorAll('.menu-item').forEach(item => {
       item.classList.toggle('active', parseInt(item.dataset.slide) === currentSlide);
     });
 
-    // Update Speaker Notes for Current Slide
+    // Safely update speaker notes
     updateSpeakerNotes(currentSlide);
 
-    // Initialize or resize Leaflet Map if moving to Slide 3
+    // Slide 4: Reset laser crop scan animation
+    if (currentSlide === 4) {
+      const crop = document.querySelector('#slide-04-intro .crop-transformation');
+      if (crop) {
+        crop.classList.remove('restart-animation');
+        const animatedElements = crop.querySelectorAll('.crop-after, .crop-laser, .crop-scan-label');
+        animatedElements.forEach((element) => {
+          element.style.animation = 'none';
+          void element.offsetWidth; // Force CSS reflow
+          element.style.animation = '';
+        });
+      }
+    }
+
+    // Initialize or resize Leaflet Map if moving to Slide 3 or 4
     if (currentSlide === 4) {
       setTimeout(() => {
         if (!mapInitialized) {
@@ -58,42 +93,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // =========================================================================
+  // SLIDE 08: TOOLS TABLE ZOOM CONTROLLER
+  // =========================================================================
+  const toolsStage = document.getElementById("toolsStage");
+  const toolsImg = document.getElementById("toolsTableImg");
+  const toolsZoomBtn = document.getElementById("toolsZoomBtn");
+
+  const toggleToolsZoom = (e) => {
+    e?.stopPropagation();
+    toolsStage?.classList.toggle("zoomed");
+  };
+
+  toolsZoomBtn?.addEventListener("click", toggleToolsZoom);
+  toolsImg?.addEventListener("click", toggleToolsZoom);
+
   // Navigation Event Listeners
-  btnNext.addEventListener('click', () => goToSlide(currentSlide + 1));
-  btnPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+  btnNext?.addEventListener('click', (e) => {
+    e.preventDefault();
+    goToSlide(currentSlide + 1);
+  });
+
+  btnPrev?.addEventListener('click', (e) => {
+    e.preventDefault();
+    goToSlide(currentSlide - 1);
+  });
 
   document.getElementById('btn-hero-start')?.addEventListener('click', () => goToSlide(2));
-  document.getElementById('btn-hero-arch')?.addEventListener('click', () => goToSlide(8));
+  document.getElementById('btn-hero-arch')?.addEventListener('click', () => goToSlide(9));
   document.getElementById('btn-restart-pres')?.addEventListener('click', () => goToSlide(1));
 
-  // Keyboard Shortcuts
+  // Universal Click Listener for all cards with data-target-slide (TOC + Slide 6 Cards)
+  document.querySelectorAll('[data-target-slide]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetSlide = parseInt(card.dataset.targetSlide, 10);
+      if (targetSlide) {
+        goToSlide(targetSlide);
+      }
+    });
+  });
+
+  // Keyboard Navigation
   window.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'Space') {
+    // If table viewer on Slide 7 is active, let left/right arrows paginate table pages
+    const isTableSlideActive = document.querySelector('.slide[data-slide="8"].active');
+
+    if (e.key === ' ' || (!isTableSlideActive && e.key === 'ArrowRight')) {
       goToSlide(currentSlide + 1);
-    } else if (e.key === 'ArrowLeft') {
+    } else if (!isTableSlideActive && e.key === 'ArrowLeft') {
       goToSlide(currentSlide - 1);
-    } else if (e.key.toLowerCase() === 'm') {
+    } else if (e.key.toLowerCase() === 'm' && menuModal) {
       menuModal.classList.toggle('open');
-    } else if (e.key.toLowerCase() === 'n') {
+    } else if (e.key.toLowerCase() === 'n' && notesDrawer) {
       notesDrawer.classList.toggle('open');
     } else if (e.key.toLowerCase() === 'f') {
       toggleFullscreen();
     } else if (e.key === 'Escape') {
-      menuModal.classList.remove('open');
-      notesDrawer.classList.remove('open');
+      menuModal?.classList.remove('open');
+      notesDrawer?.classList.remove('open');
     }
   });
 
   // Modal Handlers
-  btnMenu.addEventListener('click', () => menuModal.classList.add('open'));
-  btnCloseMenu.addEventListener('click', () => menuModal.classList.remove('open'));
-  btnNotes.addEventListener('click', () => notesDrawer.classList.toggle('open'));
-  btnCloseNotes.addEventListener('click', () => notesDrawer.classList.remove('open'));
+  btnMenu?.addEventListener('click', () => menuModal?.classList.add('open'));
+  btnCloseMenu?.addEventListener('click', () => menuModal?.classList.remove('open'));
+  btnNotes?.addEventListener('click', () => notesDrawer?.classList.toggle('open'));
+  btnCloseNotes?.addEventListener('click', () => notesDrawer?.classList.remove('open'));
 
   document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', () => {
       goToSlide(parseInt(item.dataset.slide));
-      menuModal.classList.remove('open');
+      menuModal?.classList.remove('open');
     });
   });
 
@@ -104,163 +175,63 @@ document.addEventListener('DOMContentLoaded', () => {
       document.exitFullscreen();
     }
   }
-  btnFullscreen.addEventListener('click', toggleFullscreen);
+  btnFullscreen?.addEventListener('click', toggleFullscreen);
 
-  // Interactive TOC Card Click Listener
-  document.querySelectorAll('.toc-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const targetSlide = parseInt(card.dataset.targetSlide);
-      if (targetSlide) {
-        goToSlide(targetSlide);
-      }
-    });
-  });
-
-  // Interactive TOC Card Click Listener
-  document.querySelectorAll('.toc-photo-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const targetSlide = parseInt(card.dataset.targetSlide);
-      if (targetSlide) {
-        goToSlide(targetSlide);
-      }
-    });
-  });
+  // Safe Speaker Notes Updater
+  function updateSpeakerNotes(slideNum) {
+    if (typeof speakerNotes === 'undefined') return;
+    const data = speakerNotes[slideNum];
+    if (!data) return;
+    const titleEl = document.getElementById('notes-slide-title');
+    if (titleEl) titleEl.innerText = data.title;
+    const pointsList = document.getElementById('notes-talking-points');
+    if (pointsList) {
+      pointsList.innerHTML = '';
+      data.points.forEach(pt => {
+        const li = document.createElement('li');
+        li.innerText = pt;
+        pointsList.appendChild(li);
+      });
+    }
+    const tipEl = document.getElementById('notes-defense-tip');
+    if (tipEl) tipEl.innerHTML = data.tip;
+  }
 
   // =========================================================================
-  // LIVE LEAFLET SATELLITE MAP (SLIDE 03)
+  // LIVE LEAFLET SATELLITE MAP
   // =========================================================================
   function initLeafletMap() {
     const mapContainer = document.getElementById('live-leaflet-map');
     if (!mapContainer || mapInitialized) return;
 
-    // Centered at Bahawalpur Division (29.35°N, 71.69°E)
     leafletMap = L.map('live-leaflet-map').setView([29.35, 71.69], 8);
 
-    // High-Resolution ESRI World Imagery Basemap
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; NASA, USGS, USDA'
     }).addTo(leafletMap);
 
-    // Training District 1: Bahawalpur Central
-    L.circleMarker([29.3957, 71.6833], {
-      radius: 11,
-      color: '#d97706',
-      fillColor: '#f59e0b',
-      fillOpacity: 0.85
-    }).addTo(leafletMap)
+    L.circleMarker([29.3957, 71.6833], { radius: 11, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.85 })
+      .addTo(leafletMap)
       .bindPopup("<b>Bahawalpur Central (Training Zone)</b><br>Intensive wheat-cotton rotation.<br>High tubewell dependence; secondary root-zone salinity.");
 
-    // Training District 2: Rahim Yar Khan
-    L.circleMarker([28.4212, 70.2989], {
-      radius: 10,
-      color: '#d97706',
-      fillColor: '#f59e0b',
-      fillOpacity: 0.85
-    }).addTo(leafletMap)
+    L.circleMarker([28.4212, 70.2989], { radius: 10, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.85 })
+      .addTo(leafletMap)
       .bindPopup("<b>Rahim Yar Khan (Training Zone)</b><br>Sugarcane and cotton belt.<br>Tubewell water ECw ranges between 0.8–5.2 dS/m.");
 
-    // Training District 3: Bahawalnagar
-    L.circleMarker([29.9986, 73.2536], {
-      radius: 10,
-      color: '#d97706',
-      fillColor: '#f59e0b',
-      fillOpacity: 0.85
-    }).addTo(leafletMap)
+    L.circleMarker([29.9986, 73.2536], { radius: 10, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.85 })
+      .addTo(leafletMap)
       .bindPopup("<b>Bahawalnagar (Training Zone)</b><br>Eastern Sadiqia canal command.<br>Severe tail-end water constraints and white crust formation.");
 
-    // INDEPENDENT EXTERNAL HOLDOUT: Lodhran District
-    L.circleMarker([29.5339, 71.6331], {
-      radius: 13,
-      color: '#ef4444',
-      fillColor: '#b91c1c',
-      fillOpacity: 0.95
-    }).addTo(leafletMap)
+    L.circleMarker([29.5339, 71.6331], { radius: 13, color: '#ef4444', fillColor: '#b91c1c', fillOpacity: 0.95 })
+      .addTo(leafletMap)
       .bindPopup("<b style='color:#ef4444;'>Lodhran District (INDEPENDENT HOLDOUT)</b><br><strong>Zero Lodhran data used in training!</strong><br>Reserved strictly to test out-of-domain spatial generalization.")
       .openPopup();
-
-    // Cholistan Desert Transition Zone
-    L.circleMarker([28.55, 71.85], {
-      radius: 12,
-      color: '#eab308',
-      fillColor: '#eab308',
-      fillOpacity: 0.5
-    }).addTo(leafletMap)
-      .bindPopup("<b>Cholistan Desert Margin</b><br>Hyper-arid sandy terrain, high evaporative deficit, hyper-saline groundwater.");
 
     mapInitialized = true;
   }
 
   // =========================================================================
-  // 3D HYPERSPECTRAL DATA CUBE (THREE.JS - SLIDE 05)
-  // =========================================================================
-  function initHyperspectralCube() {
-    const container = document.getElementById('hyperspectral-canvas');
-    if (!container) return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(3.2, 2.8, 3.8);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
-
-    const cubeGroup = new THREE.Group();
-    // Warm Soil, Sand & Crop Spectral Palette
-    const bandColors = [0x65a30d, 0x84cc16, 0xe0a96d, 0xd97706, 0xb45309, 0xc2410c, 0x78350f];
-    const numSlices = 7;
-
-    for (let i = 0; i < numSlices; i++) {
-      const geom = new THREE.BoxGeometry(1.9, 1.9, 0.07);
-      const edges = new THREE.EdgesGeometry(geom);
-      const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: bandColors[i], linewidth: 2 }));
-      const mat = new THREE.MeshBasicMaterial({ color: bandColors[i], transparent: true, opacity: 0.28 });
-      const sliceMesh = new THREE.Mesh(geom, mat);
-      sliceMesh.add(line);
-      sliceMesh.position.z = (i - numSlices / 2) * 0.32;
-      cubeGroup.add(sliceMesh);
-    }
-    scene.add(cubeGroup);
-
-    let isDragging = false;
-    let prevMouse = { x: 0, y: 0 };
-    container.addEventListener('mousedown', e => { isDragging = true; prevMouse = { x: e.clientX, y: e.clientY }; });
-    window.addEventListener('mouseup', () => isDragging = false);
-    container.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      cubeGroup.rotation.y += (e.clientX - prevMouse.x) * 0.01;
-      cubeGroup.rotation.x += (e.clientY - prevMouse.y) * 0.01;
-      prevMouse = { x: e.clientX, y: e.clientY };
-    });
-
-    function animate() {
-      requestAnimationFrame(animate);
-      if (!isDragging) cubeGroup.rotation.y += 0.004;
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // Band Scrubber Listener
-    const bandSlider = document.getElementById('spectral-band-slider');
-    const bandWlReadout = document.getElementById('band-readout-wl');
-    const bandNameReadout = document.getElementById('band-readout-name');
-
-    bandSlider?.addEventListener('input', e => {
-      const wl = parseInt(e.target.value);
-      bandWlReadout.innerText = `${wl} nm`;
-      if (wl < 700) {
-        bandNameReadout.innerText = `Visible Spectrum (${wl} nm): Chlorophyll absorption trough`;
-      } else if (wl <= 1300) {
-        bandNameReadout.innerText = `Near-Infrared NIR (${wl} nm): Canopy mesophyll internal scattering plateau`;
-      } else {
-        bandNameReadout.innerText = `Shortwave Infrared SWIR (${wl} nm): Saline mineral absorption (Halite/Gypsum/Soil)`;
-      }
-    });
-  }
-
-  // =========================================================================
-  // MAAS-HOFFMAN INTERACTIVE EQUATION (SLIDE 09)
+  // MAAS-HOFFMAN INTERACTIVE EQUATION (SLIDE 11)
   // =========================================================================
   const salinitySlider = document.getElementById('salinity-ece-slider');
   const salinityValText = document.getElementById('salinity-slider-val');
@@ -270,39 +241,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   salinitySlider?.addEventListener('input', e => {
     const ece = parseFloat(e.target.value);
-    salinityValText.innerText = `${ece.toFixed(1)} dS/m`;
+    if (salinityValText) salinityValText.innerText = `${ece.toFixed(1)} dS/m`;
 
-    // Categorization
-    if (ece < 2.0) {
-      salinityClassBadge.innerText = "Non-Saline (<2 dS/m): Normal agricultural production";
-      salinityClassBadge.style.color = "var(--crop-light)";
-    } else if (ece <= 4.0) {
-      salinityClassBadge.innerText = "Slightly Saline (2–4 dS/m): Sensitive pulse crops restricted";
-      salinityClassBadge.style.color = "var(--sand-dune)";
-    } else if (ece <= 8.0) {
-      salinityClassBadge.innerText = "Moderately Saline (4–8 dS/m): Significant yield depression across wheat";
-      salinityClassBadge.style.color = "var(--sand-amber)";
-    } else {
-      salinityClassBadge.innerText = "Highly Saline (>8 dS/m): Only salt-tolerant halophytes survive";
-      salinityClassBadge.style.color = "#f87171";
+    if (salinityClassBadge) {
+      if (ece < 2.0) {
+        salinityClassBadge.innerText = "Non-Saline (<2 dS/m): Normal agricultural production";
+        salinityClassBadge.style.color = "var(--crop-light)";
+      } else if (ece <= 4.0) {
+        salinityClassBadge.innerText = "Slightly Saline (2–4 dS/m): Sensitive pulse crops restricted";
+        salinityClassBadge.style.color = "var(--sand-dune)";
+      } else if (ece <= 8.0) {
+        salinityClassBadge.innerText = "Moderately Saline (4–8 dS/m): Significant yield depression across wheat";
+        salinityClassBadge.style.color = "var(--sand-amber)";
+      } else {
+        salinityClassBadge.innerText = "Highly Saline (>8 dS/m): Only salt-tolerant halophytes survive";
+        salinityClassBadge.style.color = "#f87171";
+      }
     }
 
-    // Maas-Hoffman equation: Y = 100 - b(ECe - a)
-    // Wheat: threshold a = 6.0 dS/m, slope b = 7.1%
-    let wheatLoss = 0;
-    if (ece > 6.0) wheatLoss = (ece - 6.0) * 7.1;
+    let wheatLoss = ece > 6.0 ? (ece - 6.0) * 7.1 : 0;
     wheatLoss = Math.min(100, wheatLoss);
-    wheatLossText.innerText = `-${wheatLoss.toFixed(1)}% potential`;
+    if (wheatLossText) wheatLossText.innerText = `-${wheatLoss.toFixed(1)}% potential`;
 
-    // Cotton: threshold a = 7.7 dS/m, slope b = 5.2%
-    let cottonLoss = 0;
-    if (ece > 7.7) cottonLoss = (ece - 7.7) * 5.2;
+    let cottonLoss = ece > 7.7 ? (ece - 7.7) * 5.2 : 0;
     cottonLoss = Math.min(100, cottonLoss);
-    cottonLossText.innerText = `-${cottonLoss.toFixed(1)}% potential`;
+    if (cottonLossText) cottonLossText.innerText = `-${cottonLoss.toFixed(1)}% potential`;
   });
 
   // =========================================================================
-  // MODULES INSPECTOR (SLIDE 08)
+  // MODULES INSPECTOR (SLIDE 10)
   // =========================================================================
   const moduleData = {
     M1: {
@@ -379,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // URDU / ENGLISH BILINGUAL TOGGLE (SLIDE 10)
+  // URDU / ENGLISH BILINGUAL TOGGLE (SLIDE 12)
   // =========================================================================
   let isUrdu = true;
   const btnLang = document.getElementById('btn-phone-lang');
@@ -410,303 +377,117 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // =========================================================================
-  // SPEAKER NOTES DATA
-  // =========================================================================
-  const speakerNotes = {
-    1: {
-      title: "Slide 1: Title & Candidacy",
-      points: [
-        "Welcome the committee: Minhal Zubair, Pakeeza Khalid, and Maryam Jamil under the supervision of Dr. Mariam Nosheen.",
-        "Emphasize our focus on Bahawalpur Division: tackling soil salinity and erratic water.",
-        "State our guiding motto: Maximum Yield from Minimum Inputs."
-      ],
-      tip: "Be ready to confirm that Lodhran is held out completely to evaluate true spatial generalization."
-    },
-    2: {
-      title: "Slide 2: Secondary Salinization",
-      points: [
-        "Explain osmotic crop stress: high salts mimic severe drought even in moist soil.",
-        "Highlight that 50%+ of sampled tubewells in Bahawalpur pump unfit water.",
-        "Frame the research gap: lack of open hyperspectral sensing, spatial leakage in past models, and no farmer tool."
-      ],
-      tip: "Define ECe (soil paste extract) vs ECw (water salinity) clearly."
-    },
-    3: {
-      title: "Slide 3: Live Satellite Map",
-      points: [
-        "Demonstrate the interactive map: Bahawalpur, Bahawalnagar, and Rahim Yar Khan along the canal commands.",
-        "Click on Lodhran to show the committee our independent spatial holdout boundary.",
-        "Point out the southern Cholistan desert border and its intense heat advection."
-      ],
-      tip: "If asked why 3 districts: they represent the core Southern Punjab cotton-wheat belt facing severe canal tail-end constraints."
-    },
-    4: {
-      title: "Slide 4: Satellite Data Feeds",
-      points: [
-        "Explain the synergy: NASA EMIT provides 285 narrow contiguous channels for mineralogy; Sentinel-2 provides 5-day revisit for vegetative phenology.",
-        "Emphasize: 100% open-access data, zero farmer hardware needed."
-      ],
-      tip: "Reiterate that EMIT L2A is surface reflectance, eliminating the need to run Sen2Cor on NASA data."
-    },
-    5: {
-      title: "Slide 5: 3D Hyperspectral Cube",
-      points: [
-        "Showcase how continuous bands differentiate subtle salt crust features at 1.4, 1.9, and 2.2 μm from dry sand.",
-        "Drag the slider across visible, NIR, and SWIR wavelengths to explain mesophyll vs mineral absorption."
-      ],
-      tip: "Multispectral satellites only have 8-12 wide bands, which cannot isolate diagnostic mineral crystal absorption."
-    },
-    6: {
-      title: "Slide 6: Four-Stage Preprocessing",
-      points: [
-        "Walk through the 4 stages: Quality masking, 30m grid harmonization, phenology compositing, and spatial block partitioning.",
-        "Explain spatial autocorrelation and why random K-fold splits cause data leakage in GIS AI."
-      ],
-      tip: "Citing Tobler's First Law of Geography proves strong remote sensing literacy to the examiners."
-    },
-    7: {
-      title: "Slide 7: Proposed Architecture",
-      points: [
-        "Walk through Tier 1 (Ingestion) to Tier 4 (Android Client delivery).",
-        "Emphasize the decoupled Python FastAPI backend and PostGIS spatial feature store."
-      ],
-      tip: "Clarify that heavy ML inference runs on the server; the mobile app handles lightweight display and offline caching."
-    },
-    8: {
-      title: "Slide 8: Subsystems M1–M6",
-      points: [
-        "Click each card: M1 (Salinity), M2 (Crop), M3 (Climate), M4 (Yield), M5 (Irrigation), M6 (Android).",
-        "Demonstrate that responsibilities and deliverables are balanced and comprehensive."
-      ],
-      tip: "Explain that M5 uses deterministic agronomic equations (FAO-56), avoiding generative LLM hallucinations."
-    },
-    9: {
-      title: "Slide 9: ML Benchmarks & Simulator",
-      points: [
-        "Explain our hybrid candidate: 1D-CNN extracts narrow-band spectral features, which are fed into XGBoost.",
-        "Use the Maas-Hoffman slider live to show the committee physiological crop yield decline as ECe increases past thresholds."
-      ],
-      tip: "Wheat threshold is 6.0 dS/m; cotton is more salt-tolerant at 7.7 dS/m."
-    },
-    10: {
-      title: "Slide 10: Android Prototype & Urdu",
-      points: [
-        "Demonstrate the interactive Urdu/English toggle.",
-        "Highlight offline SQLite caching for rural areas with intermittent connectivity.",
-        "Explain how the app gives hours of diesel pumping rather than raw milliliter figures."
-      ],
-      tip: "Committee members value practical usability over purely theoretical algorithms."
-    },
-    11: {
-      title: "Slide 11: Approved 9-Month Roadmap",
-      points: [
-        "Outline the 3 phases across 9 months.",
-        "Show that data ingestion, ML training, and client development overlap realistically for timely completion."
-      ],
-      tip: "Point out that Lodhran testing happens in Months 7-9 as an untouched final validation."
-    },
-    12: {
-      title: "Slide 12: Expected Outcomes & References",
-      points: [
-        "Summarize the 4 core deliverables.",
-        "Acknowledge supervisory guidance from Dr. Mariam Nosheen and cite foundational peer-reviewed literature."
-      ],
-      tip: "Close with confidence: 'Thank you, we are ready for the examination committee discussion.'"
+  // Start at Slide 1 and initialize the Table Viewer
+  goToSlide(1);
+  initTableViewer();
+});
+
+// =========================================================================
+// SLIDE 07: LITERATURE REVIEW TABLE VIEWER (STANDALONE CONTROLLER)
+// =========================================================================
+const tablePages = [
+  { page: 1, file: "Table1.png", label: "Papers [1]–[3]", desc: "Sun et al. (KGMT), Arshad et al. (Stacked ML & Hybrid Ensemble)" },
+  { page: 2, file: "Table2.png", label: "Papers [4]–[6]", desc: "Rehman et al. (Water Stress), Arshad et al. (Multi-Source ML), Nadeem et al. (SAFER)" },
+  { page: 3, file: "Table3.png", label: "Papers [7]–[9]", desc: "Haseeb et al. (Comparative ML), Zhang et al. (Pix2Pix cGAN), Mahender et al. (YieldActionAI)" },
+  { page: 4, file: "Table4.png", label: "Papers [10]–[12]", desc: "Khan et al. (Bari Doab Crop Mapping), Tan et al. (SOA-RF), Latif et al. (Spatial Salinity)" },
+  { page: 5, file: "Table5.png", label: "Papers [13]–[16]", desc: "Aihaiti et al. (PolSAR-MLP), Abbas et al., Liu et al. (Multimodal DNN), Rana et al. (SWIR Anchor)" },
+  { page: 6, file: "Table6.png", label: "Papers [17]–[19]", desc: "Khan et al. (GRACE-GMS Flow), Athar et al. (SAM 2 SPARC), Najam et al. (MultiRocket-XGBoost)" },
+  { page: 7, file: "Table7.png", label: "Papers [20]–[22]", desc: "Kheir et al. (PBM-ML-RS), Afzal et al. (GAMEAS-Markov), Rawat et al. (Systematic RS SSM)" },
+  { page: 8, file: "Table8.png", label: "Papers [23]–[25]", desc: "Lu et al. (Salinity Meta-Analysis), Akhtar et al. (VSD-AHP), Rahman et al. (PCA-VHI)" },
+  { page: 9, file: "Table9.png", label: "Papers [26]–[28]", desc: "Chen et al. (Water-Salinity Opt), Chu et al. (Ensemble Stacking), Mohammed et al. (SVM-RFE NuSVR)" },
+  { page: 10, file: "Table10.png", label: "Papers [29]–[30]", desc: "Rahman et al. (Drought Resilience), Akbar et al. (FAO CROPWAT 8.0 Schedules)" }
+];
+
+let currentTableIndex = 0;
+
+function initTableViewer() {
+  const chipsContainer = document.getElementById("tableChipsContainer");
+  const imgElement = document.getElementById("currentTableImg");
+  const counterText = document.getElementById("pageCounterText");
+  const rangeLabel = document.getElementById("tableRangeLabel");
+  const prevBtn = document.getElementById("prevTableBtn");
+  const nextBtn = document.getElementById("nextTableBtn");
+  const zoomBtn = document.getElementById("zoomToggleBtn");
+  const stage = document.getElementById("tableStage");
+
+  if (!chipsContainer || !imgElement || !prevBtn || !nextBtn) return;
+
+  // Build the quick navigation chips
+  chipsContainer.innerHTML = "";
+  tablePages.forEach((item, idx) => {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = `table-chip ${idx === 0 ? "active" : ""}`;
+    chip.innerText = item.label;
+    chip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showPage(idx);
+    });
+    chipsContainer.appendChild(chip);
+  });
+
+  function showPage(index) {
+    if (index < 0 || index >= tablePages.length) return;
+    currentTableIndex = index;
+    const target = tablePages[index];
+
+    imgElement.src = target.file;
+    if (counterText) counterText.innerText = `Part ${target.page} / ${tablePages.length}`;
+    if (rangeLabel) rangeLabel.innerText = `${target.label}: ${target.desc}`;
+
+    document.querySelectorAll(".table-chip").forEach((chip, i) => {
+      chip.classList.toggle("active", i === index);
+    });
+
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === tablePages.length - 1;
+
+    // Reset zoom when navigating
+    stage?.classList.remove("zoomed");
+    if (stage) {
+      stage.scrollTop = 0;
+      stage.scrollLeft = 0;
     }
+  }
+
+  // Next / Prev listeners for Table Images
+  prevBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (currentTableIndex > 0) showPage(currentTableIndex - 1);
   };
 
-  function updateSpeakerNotes(slideNum) {
-    const data = speakerNotes[slideNum];
-    if (!data) return;
-    document.getElementById('notes-slide-title').innerText = data.title;
-    const pointsList = document.getElementById('notes-talking-points');
-    pointsList.innerHTML = '';
-    data.points.forEach(pt => {
-      const li = document.createElement('li');
-      li.innerText = pt;
-      pointsList.appendChild(li);
-    });
-    document.getElementById('notes-defense-tip').innerHTML = data.tip;
-  }
+  nextBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (currentTableIndex < tablePages.length - 1) showPage(currentTableIndex + 1);
+  };
 
-  // Initial Boot
-  goToSlide(1);
-  initHyperspectralCube();
-});
+  // Zoom toggling
+  const toggleZoom = (e) => {
+    e?.stopPropagation();
+    stage?.classList.toggle("zoomed");
+  };
 
-// =========================================================================
-// LIVE 3D PROBLEM VIEWPORTS FOR SLIDE 03 (Three.js)
-// =========================================================================
-function initSlide3ProblemCanvases() {
-  // --- 1. SOIL CRUST & SALT CRYSTALLIZATION (CANVAS 1) ---
-  const container1 = document.getElementById('problem-canvas-1');
-  if (container1) {
-    const scene1 = new THREE.Scene();
-    const camera1 = new THREE.PerspectiveCamera(45, container1.clientWidth / container1.clientHeight, 0.1, 100);
-    camera1.position.set(0, 2.8, 3.5);
-    camera1.lookAt(0, 0, 0);
+  zoomBtn.onclick = toggleZoom;
+  imgElement.onclick = toggleZoom;
 
-    const renderer1 = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer1.setSize(container1.clientWidth, container1.clientHeight);
-    container1.appendChild(renderer1.domElement);
-
-    // 3D Soil block base
-    const soilGeo = new THREE.BoxGeometry(2.4, 0.6, 2.0);
-    const soilMat = new THREE.MeshStandardMaterial({ color: 0x3d2618, roughness: 0.9 });
-    const soilMesh = new THREE.Mesh(soilGeo, soilMat);
-    soilMesh.position.y = -0.3;
-    scene1.add(soilMesh);
-
-    // Salt crust surface plane
-    const crustGeo = new THREE.PlaneGeometry(2.3, 1.9, 12, 12);
-    const crustMat = new THREE.MeshStandardMaterial({ color: 0xe0d6cc, wireframe: true });
-    const crustMesh = new THREE.Mesh(crustGeo, crustMat);
-    crustMesh.rotation.x = -Math.PI / 2;
-    crustMesh.position.y = 0.02;
-    scene1.add(crustMesh);
-
-    // Pulsating Salt Crystals Particles
-    const saltParticles = new THREE.Group();
-    const saltGeom = new THREE.OctahedronGeometry(0.08, 0);
-    const saltMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
-    for (let i = 0; i < 28; i++) {
-      const p = new THREE.Mesh(saltGeom, saltMaterial);
-      p.position.set((Math.random() - 0.5) * 2.0, 0.1 + Math.random() * 0.5, (Math.random() - 0.5) * 1.6);
-      saltParticles.add(p);
+  // Arrow navigation for table images when Slide 07 is active
+  window.addEventListener("keydown", (e) => {
+    const slide08 = document.querySelector('.slide[data-slide="8"].active');
+    if (slide08) {
+      if (e.key === "ArrowLeft" && currentTableIndex > 0) {
+        showPage(currentTableIndex - 1);
+      } else if (e.key === "ArrowRight" && currentTableIndex < tablePages.length - 1) {
+        showPage(currentTableIndex + 1);
+      }
     }
-    scene1.add(saltParticles);
+  });
 
-    const light1 = new THREE.DirectionalLight(0xffecd6, 1.2);
-    light1.position.set(2, 4, 3);
-    scene1.add(light1);
-    scene1.add(new THREE.AmbientLight(0x78563d, 0.7));
-
-    function anim1() {
-      requestAnimationFrame(anim1);
-      soilMesh.rotation.y += 0.005;
-      crustMesh.rotation.z += 0.005;
-      saltParticles.rotation.y += 0.005;
-      renderer1.render(scene1, camera1);
-    }
-    anim1();
-  }
-
-  // --- 2. TUBEWELL EXTRACTION & SALINE GROUNDWATER FLOW (CANVAS 2) ---
-  const container2 = document.getElementById('problem-canvas-2');
-  if (container2) {
-    const scene2 = new THREE.Scene();
-    const camera2 = new THREE.PerspectiveCamera(45, container2.clientWidth / container2.clientHeight, 0.1, 100);
-    camera2.position.set(2.6, 2.2, 3.2);
-    camera2.lookAt(0, 0, 0);
-
-    const renderer2 = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer2.setSize(container2.clientWidth, container2.clientHeight);
-    container2.appendChild(renderer2.domElement);
-
-    // Underground Aquifer Layer (Translucent cylinder)
-    const aquiferGeo = new THREE.CylinderGeometry(1.2, 1.2, 1.4, 24, 1, true);
-    const aquiferMat = new THREE.MeshBasicMaterial({ color: 0xc2410c, wireframe: true, transparent: true, opacity: 0.35 });
-    const aquifer = new THREE.Mesh(aquiferGeo, aquiferMat);
-    scene2.add(aquifer);
-
-    // Metal Tubewell pipe casing
-    const pipeGeo = new THREE.CylinderGeometry(0.12, 0.12, 2.2, 16);
-    const pipeMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, roughness: 0.3 });
-    const pipe = new THREE.Mesh(pipeGeo, pipeMat);
-    scene2.add(pipe);
-
-    // Rising Mineralized Water Particles
-    const waterPGroup = new THREE.Group();
-    const pGeo = new THREE.SphereGeometry(0.04, 6, 6);
-    const pMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
-    const pArray = [];
-    for (let i = 0; i < 40; i++) {
-      const drop = new THREE.Mesh(pGeo, pMat);
-      drop.position.set((Math.random() - 0.5) * 0.3, -1.0 + Math.random() * 2.0, (Math.random() - 0.5) * 0.3);
-      waterPGroup.add(drop);
-      pArray.push(drop);
-    }
-    scene2.add(waterPGroup);
-
-    const light2 = new THREE.PointLight(0xf59e0b, 1.5, 10);
-    light2.position.set(1, 2, 2);
-    scene2.add(light2);
-    scene2.add(new THREE.AmbientLight(0x422006, 0.8));
-
-    function anim2() {
-      requestAnimationFrame(anim2);
-      aquifer.rotation.y += 0.008;
-      pArray.forEach(p => {
-        p.position.y += 0.02;
-        if (p.position.y > 1.1) p.position.y = -1.0;
-      });
-      renderer2.render(scene2, camera2);
-    }
-    anim2();
-  }
-
-  // --- 3. HYPERSPECTRAL SATELLITE SCANNER OVER TERRAIN (CANVAS 3) ---
-  const container3 = document.getElementById('problem-canvas-3');
-  if (container3) {
-    const scene3 = new THREE.Scene();
-    const camera3 = new THREE.PerspectiveCamera(45, container3.clientWidth / container3.clientHeight, 0.1, 100);
-    camera3.position.set(0, 3.2, 3.2);
-    camera3.lookAt(0, 0, 0);
-
-    const renderer3 = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer3.setSize(container3.clientWidth, container3.clientHeight);
-    container3.appendChild(renderer3.domElement);
-
-    // 3D Terrain Grid Wireframe
-    const gridGeo = new THREE.PlaneGeometry(2.6, 2.0, 14, 14);
-    const gridMat = new THREE.MeshBasicMaterial({ color: 0x65a30d, wireframe: true, transparent: true, opacity: 0.5 });
-    const grid = new THREE.Mesh(gridGeo, gridMat);
-    grid.rotation.x = -Math.PI / 2.2;
-    grid.position.y = -0.5;
-    scene3.add(grid);
-
-    // Satellite body (Gold/Chrome Box with solar panels)
-    const satGroup = new THREE.Group();
-    const satBody = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.2, 0.2), new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.9 }));
-    const panelL = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.02, 0.25), new THREE.MeshBasicMaterial({ color: 0x0284c7 }));
-    panelL.position.x = -0.45;
-    const panelR = panelL.clone();
-    panelR.position.x = 0.45;
-    satGroup.add(satBody, panelL, panelR);
-    satGroup.position.set(0, 1.1, 0);
-    scene3.add(satGroup);
-
-    // Hyperspectral Scanning Beam Cone
-    const beamGeo = new THREE.ConeGeometry(1.1, 1.6, 16, 1, true);
-    const beamMat = new THREE.MeshBasicMaterial({ color: 0x84cc16, wireframe: true, transparent: true, opacity: 0.22 });
-    const scanBeam = new THREE.Mesh(beamGeo, beamMat);
-    scanBeam.position.set(0, 0.3, 0);
-    scene3.add(scanBeam);
-
-    scene3.add(new THREE.AmbientLight(0xffffff, 0.9));
-
-    let angle = 0;
-    function anim3() {
-      requestAnimationFrame(anim3);
-      angle += 0.02;
-      satGroup.position.x = Math.sin(angle) * 0.6;
-      satGroup.rotation.y = Math.sin(angle) * 0.2;
-      scanBeam.position.x = satGroup.position.x;
-      grid.rotation.z += 0.002;
-      renderer3.render(scene3, camera3);
-    }
-    anim3();
-  }
+  // Display the first page
+  showPage(0);
 }
 
-// Trigger initialization on load
-window.addEventListener('load', () => {
-  initSlide3ProblemCanvases();
-});
-
 // =========================================================================
-// SLIDE 01: 3D ROTATING ORBITAL WIREFRAME (Lightweight & Tasteful)
+// SLIDE 01: 3D ROTATING ORBITAL WIREFRAME
 // =========================================================================
 function initTitle3DOrbit() {
   const container = document.getElementById('hero-3d-orbit');
@@ -720,20 +501,17 @@ function initTitle3DOrbit() {
   renderer.setSize(container.clientWidth, container.clientHeight);
   container.appendChild(renderer.domElement);
 
-  // Digital globe sphere wireframe
   const sphereGeo = new THREE.SphereGeometry(0.8, 14, 14);
   const sphereMat = new THREE.MeshBasicMaterial({ color: 0xd97706, wireframe: true, transparent: true, opacity: 0.35 });
   const globe = new THREE.Mesh(sphereGeo, sphereMat);
   scene.add(globe);
 
-  // Satellite Orbit Ring
   const ringGeo = new THREE.RingGeometry(1.05, 1.1, 32);
   const ringMat = new THREE.MeshBasicMaterial({ color: 0x65a30d, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
   const orbitRing = new THREE.Mesh(ringGeo, ringMat);
   orbitRing.rotation.x = Math.PI / 3;
   scene.add(orbitRing);
 
-  // Small Satellite Node
   const satGeo = new THREE.SphereGeometry(0.06, 8, 8);
   const satMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
   const satellite = new THREE.Mesh(satGeo, satMat);
@@ -753,6 +531,4 @@ function initTitle3DOrbit() {
   animate();
 }
 
-// Call on load
 window.addEventListener('load', initTitle3DOrbit);
-
