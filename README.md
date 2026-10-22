@@ -1,5 +1,3 @@
-# ZARKHEZ AI — FYP Viva Defense Presentation
-
 An interactive 3D web presentation for the ZARKHEZ AI final-year project. The presentation includes slide navigation, speaker notes, an interactive satellite map, Three.js visualizations, a hyperspectral data cube, a salinity simulator, and Urdu/English advisory content.
 
 ## Requirements
