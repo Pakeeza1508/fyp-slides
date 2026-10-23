@@ -9,14 +9,18 @@ const speakerNotes = {
   1: { title: "Title Slide", points: ["Formal Project Identification.", "Presenting BSCS Proposal Defense."], tip: "Introduce team and research title within 60s." },
   2: { title: "Agenda", points: ["Walkthrough of the presentation flow."], tip: "Highlight Literature Review and Methodology." },
   3: { title: "Abstract", points: ["Core objectives and architecture."], tip: "Emphasize zero on-farm hardware requirement." },
-  4: { title: "Introduction", points: ["Regional challenges in South Punjab."], tip: "Focus on secondary salinization." }
+  4: { title: "Introduction", points: ["Regional challenges in South Punjab."], tip: "Focus on secondary salinization." },
+  5: { title: "Problem Statement", points: ["Three core agricultural pressures in South Punjab."], tip: "Reveal cards step-by-step." }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
-  const totalSlides = 14; // Total slides in your deck
+  const totalSlides = 15; // Total slides in your deck
   let leafletMap = null;
   let mapInitialized = false;
+
+  // Slide 05 Step Tracker
+  let probStep = 0; // 0 = none, 1 = Card 1, 2 = Card 2, 3 = Card 3
 
   // DOM Elements (Safely Queried)
   const slides = document.querySelectorAll('.slide');
@@ -33,9 +37,63 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesDrawer = document.getElementById('presenter-notes-drawer');
   const btnFullscreen = document.getElementById('btn-fullscreen');
 
+  // =========================================================================
+  // SLIDE 05: SUB-STEP CONTROLLER
+  // =========================================================================
+  function updateProbCards() {
+    const cards = document.querySelectorAll('#slide-05-problem .prob-card');
+    const hint = document.getElementById('prob-step-hint');
+    
+    cards.forEach((card, index) => {
+      if (index < probStep) {
+        card.classList.add('seen');
+      } else {
+        card.classList.remove('seen');
+      }
+    });
+
+    if (hint) {
+      if (probStep === 0) hint.innerText = "Press Next → or Space to reveal pressures (0 / 3)";
+      else if (probStep === 1) hint.innerText = "Press Next → to reveal next pressure (1 / 3)";
+      else if (probStep === 2) hint.innerText = "Press Next → to reveal next pressure (2 / 3)";
+      else hint.innerText = "All pressures revealed • Press Next → for Scope (3 / 3)";
+    }
+  }
+
+  // =========================================================================
+  // MASTER NAVIGATION HANDLERS (STEP-AWARE)
+  // =========================================================================
+  function handleNext() {
+    // If on Slide 5 and cards are not all revealed, reveal next card
+    if (currentSlide === 5 && probStep < 3) {
+      probStep++;
+      updateProbCards();
+      return; // Do NOT advance slide
+    }
+    goToSlide(currentSlide + 1);
+  }
+
+  function handlePrev() {
+    // If on Slide 5 and some cards are visible, hide cards one by one
+    if (currentSlide === 5 && probStep > 0) {
+      probStep--;
+      updateProbCards();
+      return; // Do NOT retreat slide
+    }
+    goToSlide(currentSlide - 1);
+  }
+
   // Slide Switcher Function
   function goToSlide(target) {
     if (target < 1 || target > totalSlides) return;
+
+    // Handle Slide 5 entry state
+    if (target === 5) {
+      // If coming forward from slide 4 -> start with 0 cards revealed
+      // If coming backward from slide 6 -> keep all 3 cards visible
+      probStep = (currentSlide > 5) ? 3 : 0;
+      setTimeout(updateProbCards, 30);
+    }
 
     // Remove active class from all slides
     slides.forEach(s => s.classList.remove('active'));
@@ -94,36 +152,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // SLIDE 08: TOOLS TABLE ZOOM CONTROLLER
+  // NAVIGATION EVENT LISTENERS (ONLY ONE PAIR OF HANDLERS)
   // =========================================================================
-  const toolsStage = document.getElementById("toolsStage");
-  const toolsImg = document.getElementById("toolsTableImg");
-  const toolsZoomBtn = document.getElementById("toolsZoomBtn");
-
-  const toggleToolsZoom = (e) => {
-    e?.stopPropagation();
-    toolsStage?.classList.toggle("zoomed");
-  };
-
-  toolsZoomBtn?.addEventListener("click", toggleToolsZoom);
-  toolsImg?.addEventListener("click", toggleToolsZoom);
-
-  // Navigation Event Listeners
   btnNext?.addEventListener('click', (e) => {
     e.preventDefault();
-    goToSlide(currentSlide + 1);
+    handleNext();
   });
 
   btnPrev?.addEventListener('click', (e) => {
     e.preventDefault();
-    goToSlide(currentSlide - 1);
+    handlePrev();
   });
 
   document.getElementById('btn-hero-start')?.addEventListener('click', () => goToSlide(2));
   document.getElementById('btn-hero-arch')?.addEventListener('click', () => goToSlide(9));
   document.getElementById('btn-restart-pres')?.addEventListener('click', () => goToSlide(1));
 
-  // Universal Click Listener for all cards with data-target-slide (TOC + Slide 6 Cards)
+  // Universal Click Listener for all cards with data-target-slide
   document.querySelectorAll('[data-target-slide]').forEach(card => {
     card.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -134,15 +179,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Keyboard Navigation
+  // Single Keyboard Navigation Handler
+  // =========================================================================
+  // MASTER SLIDE KEYBOARD NAVIGATION
+  // =========================================================================
   window.addEventListener('keydown', e => {
-    // If table viewer on Slide 7 is active, let left/right arrows paginate table pages
-    const isTableSlideActive = document.querySelector('.slide[data-slide="8"].active');
-
-    if (e.key === ' ' || (!isTableSlideActive && e.key === 'ArrowRight')) {
-      goToSlide(currentSlide + 1);
-    } else if (!isTableSlideActive && e.key === 'ArrowLeft') {
-      goToSlide(currentSlide - 1);
+    // Left/Right Arrow and Space now ALWAYS change slides smoothly
+    if (e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+      handleNext();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      handlePrev();
     } else if (e.key.toLowerCase() === 'm' && menuModal) {
       menuModal.classList.toggle('open');
     } else if (e.key.toLowerCase() === 'n' && notesDrawer) {
@@ -198,6 +244,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
+  // SLIDE 08/09: TOOLS TABLE ZOOM CONTROLLER
+  // =========================================================================
+  const toolsStage = document.getElementById("toolsStage");
+  const toolsImg = document.getElementById("toolsTableImg");
+  const toolsZoomBtn = document.getElementById("toolsZoomBtn");
+
+  const toggleToolsZoom = (e) => {
+    e?.stopPropagation();
+    toolsStage?.classList.toggle("zoomed");
+  };
+
+  toolsZoomBtn?.addEventListener("click", toggleToolsZoom);
+  toolsImg?.addEventListener("click", toggleToolsZoom);
+
+  // =========================================================================
   // LIVE LEAFLET SATELLITE MAP
   // =========================================================================
   function initLeafletMap() {
@@ -230,102 +291,18 @@ document.addEventListener('DOMContentLoaded', () => {
     mapInitialized = true;
   }
 
-  // =========================================================================
-  // MAAS-HOFFMAN INTERACTIVE EQUATION (SLIDE 11)
-  // =========================================================================
-  const salinitySlider = document.getElementById('salinity-ece-slider');
-  const salinityValText = document.getElementById('salinity-slider-val');
-  const salinityClassBadge = document.getElementById('salinity-class-badge');
-  const wheatLossText = document.getElementById('wheat-loss-val');
-  const cottonLossText = document.getElementById('cotton-loss-val');
-
-  salinitySlider?.addEventListener('input', e => {
-    const ece = parseFloat(e.target.value);
-    if (salinityValText) salinityValText.innerText = `${ece.toFixed(1)} dS/m`;
-
-    if (salinityClassBadge) {
-      if (ece < 2.0) {
-        salinityClassBadge.innerText = "Non-Saline (<2 dS/m): Normal agricultural production";
-        salinityClassBadge.style.color = "var(--crop-light)";
-      } else if (ece <= 4.0) {
-        salinityClassBadge.innerText = "Slightly Saline (2–4 dS/m): Sensitive pulse crops restricted";
-        salinityClassBadge.style.color = "var(--sand-dune)";
-      } else if (ece <= 8.0) {
-        salinityClassBadge.innerText = "Moderately Saline (4–8 dS/m): Significant yield depression across wheat";
-        salinityClassBadge.style.color = "var(--sand-amber)";
-      } else {
-        salinityClassBadge.innerText = "Highly Saline (>8 dS/m): Only salt-tolerant halophytes survive";
-        salinityClassBadge.style.color = "#f87171";
-      }
-    }
-
-    let wheatLoss = ece > 6.0 ? (ece - 6.0) * 7.1 : 0;
-    wheatLoss = Math.min(100, wheatLoss);
-    if (wheatLossText) wheatLossText.innerText = `-${wheatLoss.toFixed(1)}% potential`;
-
-    let cottonLoss = ece > 7.7 ? (ece - 7.7) * 5.2 : 0;
-    cottonLoss = Math.min(100, cottonLoss);
-    if (cottonLossText) cottonLossText.innerText = `-${cottonLoss.toFixed(1)}% potential`;
-  });
+  
 
   // =========================================================================
   // MODULES INSPECTOR (SLIDE 10)
   // =========================================================================
   const moduleData = {
-    M1: {
-      tag: "MODULE M1",
-      name: "Soil Salinity Assessment & Field Mapping",
-      scope: "Continuous spaceborne soil electrical conductivity (ECe) prediction and spatial hazard zonation.",
-      input: "NASA EMIT L2A surface reflectance, Sentinel-2 SWIR/RedEdge, DEM terrain slope",
-      meth: "1D-CNN (spectral band reduction) + XGBoost / Random Forest Regressor",
-      output: "Continuous soil ECe (dS/m) raster & categorical risk classes (Normal, Slight, Moderate, High)",
-      deliv: "Detects subsurface salinization before visual white crusting destroys the crop."
-    },
-    M2: {
-      tag: "MODULE M2",
-      name: "Crop and Seasonal Analysis",
-      scope: "Multi-temporal phenological trajectory analysis and crop calendar synchronization.",
-      input: "Sentinel-2 time series (NDVI, SAVI, NDRE), GDD accumulation curves",
-      meth: "Savitzky-Golay filtering + double logistic phenology modeling",
-      output: "Growth stage milestones (Tillering, Anthesis, Maturity) & vigor baselines",
-      deliv: "Decouples natural end-of-season crop drying from premature salt-induced wilting."
-    },
-    M3: {
-      tag: "MODULE M3",
-      name: "Weather & Climate Intelligence",
-      scope: "Agro-meteorological modeling and evaporative demand estimation.",
-      input: "ERA5-Land reanalysis + PMD station records (Tmax, Tmin, Radiation, Wind)",
-      meth: "FAO-56 Penman-Monteith reference evapotranspiration (ETo) computation",
-      output: "Daily ETo surfaces, heat stress alerts, and vapor pressure deficit (VPD)",
-      deliv: "Provides the climatic evaporative driver governing soil capillary salt accumulation."
-    },
-    M4: {
-      tag: "MODULE M4",
-      name: "Crop Yield Prediction & Explainability",
-      scope: "Multi-feature pre-harvest yield modeling and transparent SHAP factor attribution.",
-      input: "EMIT spectral features, multi-stage VIs, soil ECe, seasonal rainfall, cumulative GDD",
-      meth: "Stacked Ensemble (LightGBM + Random Forest + GBR meta-learner) + TreeSHAP",
-      output: "Field-level yield estimates (Maunds/Acre) + SHAP factor contribution breakdown",
-      deliv: "Converts black-box predictions into transparent agronomic reasons for agronomists."
-    },
-    M5: {
-      tag: "MODULE M5",
-      name: "Smart Irrigation & Resource Advisory",
-      scope: "Water requirement scheduling, deficit irrigation bounds, and tubewell blending safety.",
-      input: "Crop coefficients (Kc), soil texture, root depth, groundwater ECw, canal schedules",
-      meth: "FAO-56 root-zone soil water balance + leaching fraction optimization equations",
-      output: "Optimal irrigation depth (mm), pumping hours, and safe canal:tubewell blending ratio",
-      deliv: "Prevents toxic tubewell water application and reduces diesel/electric pumping costs."
-    },
-    M6: {
-      tag: "MODULE M6",
-      name: "Farmer Advisory & Android Application",
-      scope: "Smallholder-facing mobile application delivering actionable guidance in Urdu and English.",
-      input: "GPS field coordinates, cadastral boundaries, M1–M5 backend API endpoints",
-      meth: "Native Android (Kotlin / Jetpack Compose) + local SQLite caching layer",
-      output: "Color-coded risk indicators, vernacular voice advisories, and offline field cards",
-      deliv: "Overcomes rural digital divide and low literacy barriers for Southern Punjab farmers."
-    }
+    M1: { tag: "MODULE M1", name: "Soil Salinity Assessment & Field Mapping", scope: "Continuous spaceborne soil electrical conductivity (ECe) prediction.", input: "NASA EMIT L2A surface reflectance, Sentinel-2 SWIR/RedEdge", meth: "1D-CNN + XGBoost Regressor", output: "Continuous soil ECe (dS/m) raster", deliv: "Detects subsurface salinization before visual crusting." },
+    M2: { tag: "MODULE M2", name: "Crop and Seasonal Analysis", scope: "Multi-temporal phenological trajectory analysis.", input: "Sentinel-2 time series (NDVI, SAVI, NDRE)", meth: "Savitzky-Golay filtering + double logistic modeling", output: "Growth stage milestones & vigor baselines", deliv: "Decouples natural drying from salt wilting." },
+    M3: { tag: "MODULE M3", name: "Weather & Climate Intelligence", scope: "Agro-meteorological modeling.", input: "ERA5-Land reanalysis + PMD station records", meth: "FAO-56 Penman-Monteith reference ETo", output: "Daily ETo surfaces & heat stress alerts", deliv: "Provides evaporative driver for capillary salt accumulation." },
+    M4: { tag: "MODULE M4", name: "Crop Yield Prediction & Explainability", scope: "Multi-feature pre-harvest yield modeling.", input: "EMIT spectral features, multi-stage VIs, soil ECe", meth: "Stacked Ensemble (LightGBM + Random Forest) + TreeSHAP", output: "Yield estimates (Maunds/Acre) + SHAP factor breakdown", deliv: "Converts black-box predictions into transparent reasons." },
+    M5: { tag: "MODULE M5", name: "Smart Irrigation & Resource Advisory", scope: "Water requirement scheduling and leaching bounds.", input: "Crop coefficients (Kc), soil texture, root depth", meth: "FAO-56 water balance + leaching fraction optimization", output: "Optimal irrigation depth (mm) & safe blending ratio", deliv: "Prevents toxic tubewell water application." },
+    M6: { tag: "MODULE M6", name: "Farmer Advisory & Android Application", scope: "Smallholder-facing mobile application.", input: "GPS field coordinates, M1–M5 backend APIs", meth: "Native Android (Kotlin) + SQLite offline cache", output: "Color-coded indicators, Urdu voice advisories", deliv: "Overcomes rural digital divide for farmers." }
   };
 
   document.querySelectorAll('.module-card').forEach(card => {
@@ -346,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // URDU / ENGLISH BILINGUAL TOGGLE (SLIDE 12)
+  // URDU / ENGLISH BILINGUAL TOGGLE
   // =========================================================================
   let isUrdu = true;
   const btnLang = document.getElementById('btn-phone-lang');
@@ -360,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('phone-ece-status').innerText = "معتدل شورزدہ (Moderate Salt)";
       document.getElementById('phone-yield-label').innerText = "تخمینہ پیداوار: 31 من فی ایکڑ";
       document.getElementById('phone-advisory-title').innerText = "زرعی مشورہ (Advisory):";
-      document.getElementById('phone-advisory-text').innerText = "زمین میں نمکیات کی زیادتی پائی گئی ہے۔ اگلی آبپاشی میں ٹیوب ویل کے کھارے پانی کے بجائے نہری پانی کا استعمال کریں تاکہ نمک پودوں کی جڑوں سے نیچے نکل جائے۔";
+      document.getElementById('phone-advisory-text').innerText = "زمین میں نمکیات کی زیادتی پائی گئی ہے۔ اگلی آبپاشی میں نہری پانی کا استعمال کریں۔";
       document.getElementById('phone-guidance-1').innerText = "• یوریا کھاد ڈالنے سے پہلے نہری پانی دیں";
       document.getElementById('phone-guidance-2').innerText = "• لیچنگ فریکشن 15٪ تک برقرار رکھیں";
     } else {
@@ -371,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('phone-ece-status').innerText = "Moderate Risk (ECe 4.8 dS/m)";
       document.getElementById('phone-yield-label').innerText = "Yield Forecast: 31 Maunds/Acre";
       document.getElementById('phone-advisory-title').innerText = "Agronomic Action:";
-      document.getElementById('phone-advisory-text').innerText = "Root-zone salinity threshold exceeded. Avoid saline tubewell pumping. Utilize scheduled canal turn to leach salts below root zone.";
+      document.getElementById('phone-advisory-text').innerText = "Root-zone salinity threshold exceeded. Avoid saline tubewell pumping.";
       document.getElementById('phone-guidance-1').innerText = "• Apply 15% leaching fraction";
       document.getElementById('phone-guidance-2').innerText = "• Blend tubewell:canal at 1:2 ratio";
     }
@@ -380,22 +357,50 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start at Slide 1 and initialize the Table Viewer
   goToSlide(1);
   initTableViewer();
+
+  // Lazy-load Slide 11 Iframe when active
+  const targetSlide11 = document.getElementById("slide-11-external");
+  const iframe11 = document.getElementById("external-slide-frame");
+
+  if (targetSlide11 && iframe11) {
+    const targetUrl = iframe11.getAttribute("data-src");
+    const observer11 = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          const isActive = targetSlide11.classList.contains("active");
+          if (isActive) {
+           if (iframe11.getAttribute("src") !== targetUrl) {
+              iframe11.setAttribute("src", targetUrl);
+            }
+          } else {
+            if (iframe11.src !== "about:blank") {
+              iframe11.src = "about:blank";
+            }
+          }
+        }
+      });
+    });
+    observer11.observe(targetSlide11, { attributes: true });
+    if (targetSlide11.classList.contains("active")) {
+  iframe11.setAttribute("src", targetUrl);
+}
+  }
 });
 
 // =========================================================================
-// SLIDE 07: LITERATURE REVIEW TABLE VIEWER (STANDALONE CONTROLLER)
+// SLIDE 08: LITERATURE REVIEW TABLE VIEWER (STANDALONE CONTROLLER)
 // =========================================================================
 const tablePages = [
-  { page: 1, file: "Table1.png", label: "Papers [1]–[3]", desc: "Sun et al. (KGMT), Arshad et al. (Stacked ML & Hybrid Ensemble)" },
-  { page: 2, file: "Table2.png", label: "Papers [4]–[6]", desc: "Rehman et al. (Water Stress), Arshad et al. (Multi-Source ML), Nadeem et al. (SAFER)" },
-  { page: 3, file: "Table3.png", label: "Papers [7]–[9]", desc: "Haseeb et al. (Comparative ML), Zhang et al. (Pix2Pix cGAN), Mahender et al. (YieldActionAI)" },
-  { page: 4, file: "Table4.png", label: "Papers [10]–[12]", desc: "Khan et al. (Bari Doab Crop Mapping), Tan et al. (SOA-RF), Latif et al. (Spatial Salinity)" },
-  { page: 5, file: "Table5.png", label: "Papers [13]–[16]", desc: "Aihaiti et al. (PolSAR-MLP), Abbas et al., Liu et al. (Multimodal DNN), Rana et al. (SWIR Anchor)" },
-  { page: 6, file: "Table6.png", label: "Papers [17]–[19]", desc: "Khan et al. (GRACE-GMS Flow), Athar et al. (SAM 2 SPARC), Najam et al. (MultiRocket-XGBoost)" },
-  { page: 7, file: "Table7.png", label: "Papers [20]–[22]", desc: "Kheir et al. (PBM-ML-RS), Afzal et al. (GAMEAS-Markov), Rawat et al. (Systematic RS SSM)" },
-  { page: 8, file: "Table8.png", label: "Papers [23]–[25]", desc: "Lu et al. (Salinity Meta-Analysis), Akhtar et al. (VSD-AHP), Rahman et al. (PCA-VHI)" },
-  { page: 9, file: "Table9.png", label: "Papers [26]–[28]", desc: "Chen et al. (Water-Salinity Opt), Chu et al. (Ensemble Stacking), Mohammed et al. (SVM-RFE NuSVR)" },
-  { page: 10, file: "Table10.png", label: "Papers [29]–[30]", desc: "Rahman et al. (Drought Resilience), Akbar et al. (FAO CROPWAT 8.0 Schedules)" }
+  { page: 1, file: "Table1.png", label: "1", desc: "Sun et al. (KGMT), Arshad et al. (Stacked ML & Hybrid Ensemble)" },
+  { page: 2, file: "Table2.png", label: "2", desc: "Rehman et al. (Water Stress), Arshad et al. (Multi-Source ML), Nadeem et al. (SAFER)" },
+  { page: 3, file: "Table3.png", label: "3", desc: "Haseeb et al. (Comparative ML), Zhang et al. (Pix2Pix cGAN), Mahender et al. (YieldActionAI)" },
+  { page: 4, file: "Table4.png", label: "4", desc: "Khan et al. (Bari Doab Crop Mapping), Tan et al. (SOA-RF), Latif et al. (Spatial Salinity)" },
+  { page: 5, file: "Table5.png", label: "5", desc: "Aihaiti et al. (PolSAR-MLP), Abbas et al., Liu et al. (Multimodal DNN), Rana et al. (SWIR Anchor)" },
+  { page: 6, file: "Table6.png", label: "6", desc: "Khan et al. (GRACE-GMS Flow), Athar et al. (SAM 2 SPARC), Najam et al. (MultiRocket-XGBoost)" },
+  { page: 7, file: "Table7.png", label: "7", desc: "Kheir et al. (PBM-ML-RS), Afzal et al. (GAMEAS-Markov), Rawat et al. (Systematic RS SSM)" },
+  { page: 8, file: "Table8.png", label: "8", desc: "Lu et al. (Salinity Meta-Analysis), Akhtar et al. (VSD-AHP), Rahman et al. (PCA-VHI)" },
+  { page: 9, file: "Table9.png", label: "9", desc: "Chen et al. (Water-Salinity Opt), Chu et al. (Ensemble Stacking), Mohammed et al. (SVM-RFE NuSVR)" },
+  { page: 10, file: "Table10.png", label: "10", desc: "Rahman et al. (Drought Resilience), Akbar et al. (FAO CROPWAT 8.0 Schedules)" }
 ];
 
 let currentTableIndex = 0;
@@ -412,7 +417,6 @@ function initTableViewer() {
 
   if (!chipsContainer || !imgElement || !prevBtn || !nextBtn) return;
 
-  // Build the quick navigation chips
   chipsContainer.innerHTML = "";
   tablePages.forEach((item, idx) => {
     const chip = document.createElement("button");
@@ -442,7 +446,6 @@ function initTableViewer() {
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === tablePages.length - 1;
 
-    // Reset zoom when navigating
     stage?.classList.remove("zoomed");
     if (stage) {
       stage.scrollTop = 0;
@@ -450,7 +453,6 @@ function initTableViewer() {
     }
   }
 
-  // Next / Prev listeners for Table Images
   prevBtn.onclick = (e) => {
     e.stopPropagation();
     if (currentTableIndex > 0) showPage(currentTableIndex - 1);
@@ -461,7 +463,6 @@ function initTableViewer() {
     if (currentTableIndex < tablePages.length - 1) showPage(currentTableIndex + 1);
   };
 
-  // Zoom toggling
   const toggleZoom = (e) => {
     e?.stopPropagation();
     stage?.classList.toggle("zoomed");
@@ -470,7 +471,6 @@ function initTableViewer() {
   zoomBtn.onclick = toggleZoom;
   imgElement.onclick = toggleZoom;
 
-  // Arrow navigation for table images when Slide 07 is active
   window.addEventListener("keydown", (e) => {
     const slide08 = document.querySelector('.slide[data-slide="8"].active');
     if (slide08) {
@@ -482,7 +482,6 @@ function initTableViewer() {
     }
   });
 
-  // Display the first page
   showPage(0);
 }
 
@@ -532,35 +531,3 @@ function initTitle3DOrbit() {
 }
 
 window.addEventListener('load', initTitle3DOrbit);
-
-document.addEventListener("DOMContentLoaded", () => {
-  const targetSlide = document.getElementById("slide-11-external");
-  const iframe = document.getElementById("external-slide-frame");
-
-  if (!targetSlide || !iframe) return;
-
-  const targetUrl = iframe.getAttribute("data-src");
-
-  // Watch for the 'active' class on Slide 11
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === "class") {
-        const isActive = targetSlide.classList.contains("active");
-
-        if (isActive) {
-          // Slide 11 opened: load and start cinematic animations & music
-          if (iframe.src === "about:blank" || !iframe.src.includes(targetUrl)) {
-            iframe.src = targetUrl;
-          }
-        } else {
-          // Left Slide 11: unload iframe to STOP audio/music from continuing in the background
-          if (iframe.src !== "about:blank") {
-            iframe.src = "about:blank";
-          }
-        }
-      }
-    });
-  });
-
-  observer.observe(targetSlide, { attributes: true });
-});

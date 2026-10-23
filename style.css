@@ -87,6 +87,26 @@ html, body {
   background: radial-gradient(circle at 50% 15%, #131c14 0%, #0a0e0a 80%);
 }
 
+
+/* Shared background image for ALL slides */
+#presentation-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      rgba(10, 25, 18, 0.78),
+      rgba(8, 15, 12, 0.78)
+    ),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=85')
+    center / cover no-repeat;
+  filter: blur(3px) brightness(1.4);
+}
+
+
 #bg-stars-canvas {
   position: absolute;
   top: 0;
@@ -2741,16 +2761,16 @@ body:has(#slide-01-cover.active) #bottom-dock {
 }
 
 /* References slides */
-#slide-13-references-1,
-#slide-14-references-2 {
+#slide-14-references-1,
+#slide-15-references-2 {
   box-sizing: border-box;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #78918a transparent;
 }
 
-#slide-13-references-1 .refs-grid,
-#slide-14-references-2 .refs-grid {
+#slide-14-references-1 .refs-grid,
+#slide-15-references-2 .refs-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 24px;
@@ -2758,8 +2778,8 @@ body:has(#slide-01-cover.active) #bottom-dock {
   align-items: start;
 }
 
-#slide-13-references-1 .refs-column,
-#slide-14-references-2 .refs-column {
+#slide-14-references-1 .refs-column,
+#slide-15-references-2 .refs-column {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2768,16 +2788,16 @@ body:has(#slide-01-cover.active) #bottom-dock {
   gap: 0.45rem;
 }
 
-#slide-13-references-1 .ref-item,
-#slide-14-references-2 .ref-item {
-  font-size: 14px;
+#slide-14-references-1 .ref-item,
+#slide-15-references-2 .ref-item {
+  font-size: 16px;
   line-height: 1.45;
   margin-bottom: 12px;
   overflow-wrap: anywhere;
 }
 
-#slide-13-references-1 .refs-grid::after,
-#slide-14-references-2 .refs-grid::after {
+#slide-14-references-1 .refs-grid::after,
+#slide-15-references-2 .refs-grid::after {
   content: "";
   position: absolute;
   top: 0;
@@ -2788,36 +2808,150 @@ body:has(#slide-01-cover.active) #bottom-dock {
   transform: translateX(-50%);
 }
 
-#slide-13-references-1 .ref-item a,
-#slide-14-references-2 .ref-item a {
+#slide-14-references-1 .ref-item a,
+#slide-15-references-2 .ref-item a {
   color: #d8b76a;
   text-decoration: none;
   font-weight: 600;
 }
 
-#slide-13-references-1 .ref-item a:hover,
-#slide-14-references-2 .ref-item a:hover {
+#slide-14-references-1 .ref-item a:hover,
+#slide-15-references-2 .ref-item a:hover {
   text-decoration: underline;
 }
 
-#slide-13-references-1 .slide-title,
-#slide-14-references-2 .slide-title {
+#slide-14-references-1 .slide-title,
+#slide-15-references-2 .slide-title {
   color: #f5e8c8;
 }
 
-#slide-13-references-1 .slide-subtitle,
-#slide-14-references-2 .slide-subtitle {
+#slide-14-references-1 .slide-subtitle,
+#slide-15-references-2 .slide-subtitle {
   color: #c9d5c6;
 }
 
 @media (max-width: 900px) {
-  #slide-13-references-1 .refs-grid,
-  #slide-14-references-2 .refs-grid {
+  #slide-14-references-1 .refs-grid,
+  #slide-15-references-2 .refs-grid {
     gap: 0.8rem;
   }
 
-  #slide-13-references-1 .ref-item,
-  #slide-14-references-2 .ref-item {
+  #slide-14-references-1 .ref-item,
+  #slide-15-references-2 .ref-item {
     font-size: 0.68rem;
   }
 }
+
+#slide-05-problem {
+  padding: 1.4rem 3.5rem !important;
+  box-sizing: border-box;
+}
+
+#slide-05-problem .problem-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  height: calc(100% - 135px);
+  min-height: 280px;
+}
+
+/* Hidden by default */
+#slide-05-problem .prob-card {
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background-position: center;
+  background-size: cover;
+  background-color: #172921;
+  cursor: pointer;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(25px) scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Revealed on Next Click */
+#slide-05-problem .prob-card.seen {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+#slide-05-problem .prob-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 23, 19, 0.1) 20%, rgba(9, 20, 16, 0.92) 85%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#slide-05-problem .idx {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  z-index: 2;
+  font: 750 28px Consolas, monospace;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  transition: color 0.25s ease;
+}
+
+#slide-05-problem .photo-text {
+  position: absolute;
+  bottom: 22px;
+  left: 20px;
+  right: 18px;
+  z-index: 2;
+}
+
+#slide-05-problem .card-heading {
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+  line-height: 1.2;
+  transition: color 0.25s ease;
+}
+
+#slide-05-problem .photo-text p {
+  margin: 0;
+  color: #d0ddd5;
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.4;
+}
+
+/* Themed Hovers */
+#slide-05-problem .card-salinity:hover {
+  transform: translateY(-5px) scale(1.01);
+  border-color: #f59e0b;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(245, 158, 11, 0.35);
+}
+#slide-05-problem .card-salinity:hover .card-heading,
+#slide-05-problem .card-salinity:hover .idx {
+  color: #fbbf24;
+}
+
+#slide-05-problem .card-groundwater:hover {
+  transform: translateY(-5px) scale(1.01);
+  border-color: #06b6d4;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(6, 182, 212, 0.35);
+}
+#slide-05-problem .card-groundwater:hover .card-heading,
+#slide-05-problem .card-groundwater:hover .idx {
+  color: #38bdf8;
+}
+
+#slide-05-problem .card-scarcity:hover {
+  transform: translateY(-5px) scale(1.01);
+  border-color: #ef4444;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(239, 68, 68, 0.35);
+}
+#slide-05-problem .card-scarcity:hover .card-heading,
+#slide-05-problem .card-scarcity:hover .idx {
+  color: #f87171;
+}
+
