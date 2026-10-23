@@ -532,3 +532,35 @@ function initTitle3DOrbit() {
 }
 
 window.addEventListener('load', initTitle3DOrbit);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const targetSlide = document.getElementById("slide-11-external");
+  const iframe = document.getElementById("external-slide-frame");
+
+  if (!targetSlide || !iframe) return;
+
+  const targetUrl = iframe.getAttribute("data-src");
+
+  // Watch for the 'active' class on Slide 11
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === "class") {
+        const isActive = targetSlide.classList.contains("active");
+
+        if (isActive) {
+          // Slide 11 opened: load and start cinematic animations & music
+          if (iframe.src === "about:blank" || !iframe.src.includes(targetUrl)) {
+            iframe.src = targetUrl;
+          }
+        } else {
+          // Left Slide 11: unload iframe to STOP audio/music from continuing in the background
+          if (iframe.src !== "about:blank") {
+            iframe.src = "about:blank";
+          }
+        }
+      }
+    });
+  });
+
+  observer.observe(targetSlide, { attributes: true });
+});
