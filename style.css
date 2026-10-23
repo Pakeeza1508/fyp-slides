@@ -2842,3 +2842,47 @@ body:has(#slide-01-cover.active) #bottom-dock {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/* Slide 05 — approved Problem Statement layout; scoped to avoid affecting other slides. */
+#slide-05-new { overflow: hidden; }
+#slide-05-new .ps5-layout { height:100%; min-height:0; display:flex; flex-direction:column; color:#fff; }
+#slide-05-new .ps5-head { flex:0 0 auto; }
+#slide-05-new .ps5-head h2 { font-size:clamp(24px,2.5vw,40px); line-height:1.08; letter-spacing:-.04em; margin:0 0 7px; font-weight:800; }
+#slide-05-new .ps5-head h2 span { color:#a8d960; }
+#slide-05-new .ps5-head p { font-size:clamp(11px,.93vw,15px); color:#bbcfc5; line-height:1.42; }
+#slide-05-new .ps5-main { display:grid; grid-template-columns:minmax(0,1.12fr) .12fr minmax(0,.92fr); gap:0; flex:1; min-height:0; margin-top:1.5%; }
+#slide-05-new .ps5-left,#slide-05-new .ps5-right { display:flex; flex-direction:column; min-width:0; min-height:0; }
+#slide-05-new .ps5-label { font: 11px Consolas,monospace; letter-spacing:.14em; color:#90bda0; margin-bottom:12px; flex:0 0 auto; }
+#slide-05-new .ps5-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:14px; flex:1; min-height:0; }
+#slide-05-new .ps5-challenge { position:relative; isolation:isolate; border:1px solid #bfd6ae3a; border-radius:12px; min-height:0; overflow:hidden; background:#14251b; box-shadow:0 12px 26px #0004; }
+#slide-05-new .ps5-challenge::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--ps5-accent); z-index:3; }
+#slide-05-new .ps5-challenge:nth-child(3) { grid-column:1/-1; width:calc((100% - 14px)/2); justify-self:center; }
+#slide-05-new .ps5-photo { display:block; position:absolute; width:100%; height:100%; inset:0; object-fit:cover; z-index:-2; filter:saturate(.78) contrast(1.05); }
+#slide-05-new .ps5-shade { position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#05140d38 0%,#05140d3e 38%,#07130cd9 100%); }
+#slide-05-new .ps5-number { position:absolute; top:14px; left:16px; padding:6px 11px; border-radius:8px; background:#081810bc; border:1px solid var(--ps5-accent); font:700 clamp(16px,1.8vw,26px) Consolas,monospace; }
+#slide-05-new .ps5-challenge h3 { position:absolute; bottom:17px; left:17px; right:10px; font-size:clamp(16px,1.3vw,21px); margin:0; text-shadow:0 2px 12px #000; line-height:1.2; }
+#slide-05-new .ps5-bridge { display:flex; align-items:center; justify-content:center; position:relative; }
+#slide-05-new .ps5-bridge::before { content:""; position:absolute; height:73%; width:1px; background:linear-gradient(transparent,#38a7a4a6,transparent); }
+#slide-05-new .ps5-bridge span { z-index:1; display:grid; place-items:center; border:1px solid #6ab8ab70; border-radius:50%; background:#11291e; color:#95e7b7; width:36px; height:36px; font-size:19px; }
+#slide-05-new .ps5-solution { flex:1; min-height:0; border:1px solid #6bcf9b42; border-radius:15px; background:linear-gradient(155deg,#1a3328dc,#071712ee); box-shadow:inset 0 0 60px #1b704114; padding:clamp(13px,1.55vw,24px); display:flex; flex-direction:column; justify-content:center; }
+#slide-05-new .ps5-solution h2 { font-size:clamp(20px,1.9vw,30px); line-height:1.18; letter-spacing:-.02em; margin:0 0 8px; }
+#slide-05-new .ps5-solution h2 span { color:#9de48e; }
+#slide-05-new .ps5-solution p { color:#aecbc0; font-size:clamp(12px,.9vw,15px); line-height:1.45; margin:0; }
+#slide-05-new .ps5-sources { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 0; }
+#slide-05-new .ps5-sources span { background:#254c3c88; border:1px solid #6aab9a55; border-radius:5px; color:#d8eee4; padding:6px 9px; font-size:clamp(9px,.72vw,12px); }
+#slide-05-new .ps5-points { display:grid; grid-template-columns:1fr 1fr; gap:13px 16px; margin-top:13px; border-top:1px solid #b3e6c02e; padding-top:13px; }
+#slide-05-new .ps5-points > div { display:flex; gap:9px; align-items:flex-start; min-width:0; color:#eaf8ee; font-size:clamp(12px,.92vw,15px); line-height:1.42; }
+#slide-05-new .ps5-points strong { flex:0 0 auto; color:#06b6d4; font:700 clamp(14px,1.1vw,18px) Consolas,monospace; }
+@media(max-width:950px) {
+  #slide-05-new { overflow-y:auto; }
+  #slide-05-new .ps5-main { display:flex; flex-direction:column; gap:16px; }
+  #slide-05-new .ps5-grid { min-height:460px; }
+  #slide-05-new .ps5-bridge { min-height:30px; }
+  #slide-05-new .ps5-bridge::before { height:1px; width:55%; }
+  #slide-05-new .ps5-solution { min-height:250px; }
+}
+@media(max-width:600px) {
+  #slide-05-new .ps5-grid { grid-template-columns:1fr; grid-template-rows:repeat(3,175px); }
+  #slide-05-new .ps5-challenge:nth-child(3) { grid-column:auto; width:100%; }
+  #slide-05-new .ps5-points { grid-template-columns:1fr; }
+}
