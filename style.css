@@ -2901,3 +2901,58 @@ body:has(#slide-01-cover.active) #bottom-dock {
   width: 100%; height: 0; min-height: 0;
   object-fit: contain; object-position: center;
 }
+
+/* Slide 11 Tech Stack — scoped original layered graphic, reduced spacing to fit viewport. */
+#slide-11-tech-stack { overflow:hidden !important; padding: .35rem 2rem .3rem !important; }
+#slide-11-tech-stack .ts11-wrap {height:100%; min-height:0; display:flex; flex-direction:column; position:relative;}
+#slide-11-tech-stack .ts11-heading {flex:none; margin:0; padding:0;}
+#slide-11-tech-stack .ts11-heading h2 {margin:0 0 3px;font-size:clamp(24px,2.3vw,34px);line-height:1.1;letter-spacing:-.035em;}
+#slide-11-tech-stack .ts11-heading h2 span{color:#bddf9a}
+#slide-11-tech-stack .ts11-heading p{margin:0;color:#bacbc0;font-size:clamp(11px,.9vw,14px)}
+#slide-11-tech-stack .ts11-layout {flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:stretch;gap:1.8%;padding:4px 1% 2px;}
+#slide-11-tech-stack .ts11-stack {display:flex;flex-direction:column;justify-content:space-evenly;gap:8px;padding:2px 2% 2px 3%;min-width:0;min-height:0;}
+#slide-11-tech-stack .ts11-layer {position:relative;min-height:0;flex:1;max-height:85px;transform:skewX(-13deg);border:1px solid var(--accent);background:linear-gradient(110deg,color-mix(in srgb,var(--accent),transparent 86%),#142922e8 65%);box-shadow:7px 7px 0 #081811,10px 12px 18px #0007;border-radius:8px;display:flex;gap:13px;align-items:center;padding:7px 13px;isolation:isolate;}
+#slide-11-tech-stack .ts11-layer::before {content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--accent);}
+#slide-11-tech-stack .ts11-layer > * {transform:skewX(13deg);}
+#slide-11-tech-stack .ts11-idx {font:800 clamp(17px,1.7vw,26px) Consolas,monospace;color:var(--accent);flex:none;width:32px;}
+#slide-11-tech-stack .ts11-layer h2 {font-size:clamp(13px,1.2vw,19px);margin:0;color:white;line-height:1.2;}
+#slide-11-tech-stack .ts11-layer p {margin:3px 0 0;color:#d8e9de;font-size:clamp(10px,.87vw,14px);line-height:1.2;}
+#slide-11-tech-stack .ts11-appspace {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:0;}
+#slide-11-tech-stack .ts11-phone {height:min(100%,430px);aspect-ratio:9/17.8;width:auto;max-width:100%;border:4px solid #77998a;border-radius:25px;background:#07140f;box-shadow:0 0 0 4px #0a1510,0 15px 30px #0008;padding:7px;overflow:hidden;position:relative;flex-shrink:1;min-height:0;}
+#slide-11-tech-stack .ts11-phone::before {content:"";position:absolute;z-index:3;top:2px;left:35%;width:30%;height:7px;background:#060c09;border-radius:0 0 8px 8px;}
+#slide-11-tech-stack .ts11-phone-scroll {height:100%;border-radius:17px;background:#f3f6f2;color:#183126;overflow:hidden;padding:12px 10px 0;display:flex;flex-direction:column;gap:6px;}
+#slide-11-tech-stack .ts11-app-head {display:flex;justify-content:space-between;align-items:center;margin-top:5px;}
+#slide-11-tech-stack .ts11-app-head small {font-size:8px;font-weight:800;color:#488566;letter-spacing:.12em}
+#slide-11-tech-stack .ts11-app-head h3 {margin:2px 0 0;font-size:17px;letter-spacing:-.03em;}
+#slide-11-tech-stack .ts11-app-avatar {font-size:9px;font-weight:900;background:#dcebdd;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;}
+#slide-11-tech-stack .ts11-location {font-size:8px;color:#708479;font-weight:700;}
+#slide-11-tech-stack .ts11-field-image {height:22%;min-height:40px;flex-shrink:1;border-radius:9px;background:linear-gradient(0deg,#193e2bcc,transparent),url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=650&q=80') center/cover,#668d60;position:relative;}
+#slide-11-tech-stack .ts11-field-image-label {position:absolute;bottom:6px;left:6px;right:6px;display:flex;justify-content:space-between;color:white;font-size:7px;font-weight:700;}
+#slide-11-tech-stack .ts11-field-image-label span {font-weight:400;}
+#slide-11-tech-stack .ts11-risk-line {display:flex;justify-content:space-between;align-items:center;}
+#slide-11-tech-stack .ts11-risk-line small {font-size:8px;color:#607a6b;font-weight:700;}
+#slide-11-tech-stack .ts11-risk-line strong {font-size:10px;color:#9d6b25;}
+#slide-11-tech-stack .ts11-risk-meter {height:5px;background:#e1e8df;border-radius:9px;overflow:hidden;}
+#slide-11-tech-stack .ts11-risk-meter span {display:block;width:55%;height:100%;background:linear-gradient(90deg,#8dbc8a,#d2ac63);}
+#slide-11-tech-stack .ts11-metric-grid {display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+#slide-11-tech-stack .ts11-metric-grid>div {border:1px solid #dbe5dd;background:white;border-radius:7px;padding:6px;}
+#slide-11-tech-stack .ts11-metric-grid small{font-size:7px;color:#6c8175;display:block;}
+#slide-11-tech-stack .ts11-metric-grid b{font-size:13px;display:block;margin-top:2px;}
+#slide-11-tech-stack .ts11-metric-grid i{font-size:8px;font-style:normal;}
+#slide-11-tech-stack .ts11-advisory{background:#e3efe4;border-left:3px solid #529369;border-radius:6px;padding:7px;}
+#slide-11-tech-stack .ts11-advisory-title{font-size:8px;font-weight:800;color:#28573c;}
+#slide-11-tech-stack .ts11-advisory p{font-size:8px;line-height:1.3;margin:3px 0 0;color:#385a45;}
+#slide-11-tech-stack .ts11-app-bottom{margin-top:auto;border-top:1px solid #dde8df;display:flex;justify-content:space-around;padding:6px 0;font-size:8px;color:#75877a;}
+#slide-11-tech-stack .ts11-app-bottom .ts11-active{color:#2f8554;font-weight:800;}
+#slide-11-tech-stack .ts11-appcap{text-align:center;flex:none;color:#bddf9a;}
+#slide-11-tech-stack .ts11-appcap strong{font-size:clamp(12px,1vw,16px)}
+#slide-11-tech-stack .ts11-appcap p{margin:1px 0;color:#b9cfc2;font-size:10px;}
+#slide-11-tech-stack .ts11-note{font-size:10px;color:#a8c2b2;text-align:right;padding-right:1%;}
+@media(max-width:750px) {
+ #slide-11-tech-stack .ts11-layout{grid-template-columns:1fr 0.65fr;gap:1%;}
+ #slide-11-tech-stack .ts11-layer{transform:none;padding:5px;}
+ #slide-11-tech-stack .ts11-layer > *{transform:none;}
+ #slide-11-tech-stack .ts11-idx{width:24px;}
+ #slide-11-tech-stack .ts11-layer h2{font-size:11px;}
+ #slide-11-tech-stack .ts11-layer p{font-size:9px;}
+}
