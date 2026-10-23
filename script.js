@@ -14,7 +14,7 @@ const speakerNotes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
-  const totalSlides = 15; // Total slides in your deck
+  const totalSlides = 14; // Total slides in your deck
   let leafletMap = null;
   let mapInitialized = false;
 
