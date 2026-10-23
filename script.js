@@ -61,6 +61,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
+  // 3D STACK INTERACTIVE TWO-WAY HOVER CONTROLLER
+  // =========================================================================
+  const tiers = ['1', '2', '3', '4'];
+
+  tiers.forEach(tier => {
+    const layer = document.querySelector(`.layer-tier-${tier}`);
+    const card = document.querySelector(`#card-tier-${tier}`);
+    const line = document.querySelector(`.conn-tier-${tier}`);
+    const pins = document.querySelectorAll(`.pin-tier-${tier}`);
+
+    function activate() {
+      layer?.classList.add('active-hover');
+      card?.classList.add('active-hover');
+      line?.classList.add('active-hover');
+      pins.forEach(pin => pin.classList.add('active-hover'));
+    }
+
+    function deactivate() {
+      layer?.classList.remove('active-hover');
+      card?.classList.remove('active-hover');
+      line?.classList.remove('active-hover');
+      pins.forEach(pin => pin.classList.remove('active-hover'));
+    }
+
+    // Hover listeners on SVG disc
+    layer?.addEventListener('mouseenter', activate);
+    layer?.addEventListener('mouseleave', deactivate);
+
+    // Hover listeners on HTML side card
+    card?.addEventListener('mouseenter', activate);
+    card?.addEventListener('mouseleave', deactivate);
+  });
+
+  // =========================================================================
   // MASTER NAVIGATION HANDLERS (STEP-AWARE)
   // =========================================================================
   function handleNext() {
@@ -529,5 +563,7 @@ function initTitle3DOrbit() {
   }
   animate();
 }
+
+
 
 window.addEventListener('load', initTitle3DOrbit);
