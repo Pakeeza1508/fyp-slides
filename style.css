@@ -3024,7 +3024,7 @@ body:has(#slide-01-cover.active) #bottom-dock {
 }
 
 .card-title {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: #ffffff;
   margin: 0 0 3px 0;
@@ -3032,7 +3032,7 @@ body:has(#slide-01-cover.active) #bottom-dock {
 }
 
 .card-desc {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #cbd5e1;
   margin: 0 0 10px 0;
   line-height: 1.35;
@@ -3183,3 +3183,11 @@ body:has(#slide-01-cover.active) #bottom-dock {
   box-shadow: 0 6px 16px rgba(245, 158, 11, 0.2) !important;
 }
 
+/* Slide 10: Hide duplicate header inside external HTML */
+/* Slide 10: Hide duplicate header inside external HTML */
+#slide-10-external iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
