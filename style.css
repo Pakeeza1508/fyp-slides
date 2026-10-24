@@ -3300,3 +3300,62 @@ body:has(#slide-01-cover.active) #bottom-dock {
   margin: 1px 0 0;
   text-align: left;
 }
+
+/* Slide 07 only — keep literature taxonomy and both navigation cards on one screen. */
+#slide-07-lit-overview {
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(0.7rem, 1.7vh, 1.15rem) clamp(1.1rem, 3vw, 2.6rem) !important;
+}
+#slide-07-lit-overview > .slide-header {
+  margin-bottom: clamp(0.4rem, 1vh, 0.7rem) !important;
+}
+#slide-07-lit-overview .slide-title {
+  font-size: clamp(1.6rem, 3.8vh, 2.25rem) !important;
+  margin-bottom: 0 !important;
+  line-height: 1.15;
+}
+#slide-07-lit-overview > .slide-header + div {
+  height: calc(100% - 54px) !important;
+  min-height: 0;
+  gap: clamp(0.6rem, 1.5vh, 1rem) !important;
+  justify-content: flex-start !important;
+}
+#slide-07-lit-overview > .slide-header + div > .card-panel {
+  flex: 0 0 auto;
+  padding: clamp(0.8rem, 1.8vh, 1.2rem) clamp(1rem, 2vw, 1.6rem) !important;
+}
+#slide-07-lit-overview > .slide-header + div > .card-panel > div {
+  font-size: clamp(0.76rem, 1.7vh, 0.94rem) !important;
+  margin-bottom: 0.35rem !important;
+}
+#slide-07-lit-overview > .slide-header + div > .card-panel > p {
+  font-size: clamp(0.82rem, 1.9vh, 1.07rem) !important;
+  line-height: 1.4 !important;
+}
+#slide-07-lit-overview > .slide-header + div > div:last-child {
+  flex: 1 1 auto !important;
+  min-height: 0;
+  gap: clamp(0.7rem, 1.5vw, 1.2rem) !important;
+}
+#slide-07-lit-overview .lit-stream-card {
+  min-height: 0;
+  padding: clamp(0.7rem, 1.5vh, 1.15rem) !important;
+}
+#slide-07-lit-overview .lit-stream-card > div:first-child > div:first-child {
+  margin-bottom: 0.55rem !important;
+}
+#slide-07-lit-overview .lit-stream-card > div:first-child > div:nth-child(2) {
+  margin-bottom: 0.4rem !important;
+}
+#slide-07-lit-overview .lit-stream-card h3 {
+  font-size: clamp(1.02rem, 2.45vh, 1.35rem) !important;
+}
+#slide-07-lit-overview .lit-stream-card > div:first-child > div:last-child {
+  margin: 0.45rem 0 0.6rem !important;
+}
+#slide-07-lit-overview .lit-stream-card > div[data-target-slide] {
+  margin-top: 0.55rem !important;
+  padding: clamp(0.5rem, 1.2vh, 0.7rem) 0.8rem !important;
+  font-size: clamp(0.77rem, 1.7vh, 0.95rem) !important;
+}
