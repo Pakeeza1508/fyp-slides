@@ -108,12 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handlePrev() {
-    // If on Slide 5 and some cards are visible, hide cards one by one
-    if (currentSlide === 5 && probStep > 0) {
-      probStep--;
-      updateProbCards();
-      return; // Do NOT retreat slide
-    }
     goToSlide(currentSlide - 1);
   }
 
@@ -126,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // If coming forward from slide 4 -> start with 0 cards revealed
       // If coming backward from slide 6 -> keep all 3 cards visible
       probStep = (currentSlide > 5) ? 3 : 0;
-      setTimeout(updateProbCards, 30);
+       updateProbCards();
     }
 
     // Remove active class from all slides
