@@ -3300,3 +3300,12 @@ body:has(#slide-01-cover.active) #bottom-dock {
   margin: 1px 0 0;
   text-align: left;
 }
+
+/* Slide 07: remove only the visual container around the original framework paragraph. */
+#slide-07-lit-overview > .slide-header + div > .card-panel {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+}
