@@ -3315,8 +3315,8 @@ body:has(#slide-01-cover.active) #bottom-dock {
   margin-bottom: 0.65rem !important;
 }
 #slide-07-lit-overview > .slide-header + div {
-  gap: 1.85rem !important;
-  justify-content: flex-start !important;
+  gap: 1.4rem !important;
+  justify-content: space-between !important;
 }
 #slide-07-lit-overview > .slide-header + div > .card-panel {
   flex: 0 0 auto;
@@ -3328,5 +3328,5 @@ body:has(#slide-01-cover.active) #bottom-dock {
   margin-bottom: 0.55rem !important;
 }
 #slide-07-lit-overview > .slide-header + div > div:last-child {
-  min-height: 0;
+  min-height: 260px;
 }
