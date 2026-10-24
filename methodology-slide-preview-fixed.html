@@ -177,18 +177,25 @@
                 animation: none
             }
         }
-    </style>
+    
+        /* Slide 10 viewport fit: remove unused 9% header reserve and bottom whitespace. */
+        html, body { width: 100%; height: 100%; overflow: hidden; }
+        body { display: block; min-height: 0; }
+        .presentation { width: 100%; height: 100%; aspect-ratio: auto; }
+        .stage { height: 100%; padding: 2.1% 3.3% 0.35%; }
+        .headline { flex: 0 0 auto; }
+        .headline h1 { margin: 0 0 14px; }
+        .diagram { flex: 1 1 auto; min-height: 0; }
+        @media (max-width: 700px) {
+            .presentation { min-height: 0; height: 100%; }
+            .stage { height: 100%; padding: 18px 15px 4px; }
+        }
+</style>
 </head>
 
 <body>
     <div class="presentation">
-        <header class="top">
-            <div class="brand">
-                <div class="brandMark">✳</div>
-                <div>An Explainable AI Based Farming Assistant<br>for Salt Leaching &amp; Yield Estimation</div>
-            </div>
-            <div class="meta">BS COMPUTER SCIENCE (BSCS)<span>Proposal Presentation</span></div>
-        </header>
+        
         <main class="stage">
             <div class="headline">
                 <h1>PROPOSED <span>METHODOLOGY</span></h1>
