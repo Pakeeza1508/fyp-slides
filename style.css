@@ -3253,3 +3253,10 @@ body:has(#slide-01-cover.active) #bottom-dock {
   #slide-04-intro .template-row-item { grid-template-columns: 38px minmax(0,1fr); }
   #slide-04-intro .template-item-bullets li { font-size: clamp(0.68rem, 1.8vh, 0.85rem); line-height: 1.2; }
 }
+
+/* Slide 04 only — slightly reduce the left photograph without changing its animation. */
+#slide-04-intro .intro-brush-wrapper {
+  height: 94%;
+  max-height: 94%;
+  align-self: center;
+}
