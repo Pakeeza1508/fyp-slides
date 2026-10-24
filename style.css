@@ -3300,3 +3300,53 @@ body:has(#slide-01-cover.active) #bottom-dock {
   margin: 1px 0 0;
   text-align: left;
 }
+
+/* Slide 07 Literature Review Taxonomy — viewport-fitted layout; navigation retained. */
+#slide-07-lit-overview {
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(1rem, 2.5vh, 1.6rem) clamp(1.3rem, 3.1vw, 3.5rem);
+}
+#slide-07-lit-overview .slide-header { margin: 0 0 clamp(0.6rem, 1.4vh, 1rem); }
+#slide-07-lit-overview .slide-title {
+  font-size: clamp(1.85rem, 4vh, 2.6rem);
+  line-height: 1.15;
+  margin: 0;
+}
+#slide-07-lit-overview .lit-taxonomy-body {
+  height: calc(100% - clamp(3.6rem, 7vh, 5rem));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 2vh, 1.3rem);
+}
+#slide-07-lit-overview .lit-taxonomy-intro {
+  flex: 0 0 auto;
+  margin: 0;
+  max-width: 105ch;
+  font-size: clamp(0.95rem, 2.05vh, 1.22rem);
+  line-height: 1.55;
+  color: #f1f5f9;
+}
+#slide-07-lit-overview .lit-taxonomy-intro strong { color: #fbbf24; }
+#slide-07-lit-overview .lit-taxonomy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.8vw, 1.75rem);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+#slide-07-lit-overview .lit-stream-card {
+  min-height: 0;
+  padding: clamp(1rem, 2.7vh, 1.8rem) !important;
+}
+#slide-07-lit-overview .lit-stream-card > div[data-target-slide] {
+  margin-top: clamp(0.5rem, 1.5vh, 1.4rem) !important;
+}
+@media (max-height: 690px) {
+  #slide-07-lit-overview .lit-stream-card > div:first-child > div:first-child { margin-bottom: 0.55rem !important; }
+  #slide-07-lit-overview .lit-stream-card > div:first-child > div:nth-child(2) { margin-bottom: 0.45rem !important; }
+  #slide-07-lit-overview .lit-stream-card > div:first-child > div:last-child { margin: 0.4rem 0 0.65rem !important; }
+  #slide-07-lit-overview .lit-stream-card h3 { font-size: 1.15rem !important; }
+  #slide-07-lit-overview .lit-stream-card > div[data-target-slide] { padding: 8px 12px !important; font-size: 0.9rem !important; }
+}
