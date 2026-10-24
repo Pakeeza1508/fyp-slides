@@ -3330,3 +3330,19 @@ body:has(#slide-01-cover.active) #bottom-dock {
 #slide-07-lit-overview > .slide-header + div > div:last-child {
   min-height: 260px;
 }
+
+/* Slide 07: minor typography/spacing reduction only; cards and navigation untouched. */
+#slide-07-lit-overview .slide-title {
+  font-size: 2.35rem !important;
+}
+#slide-07-lit-overview > .slide-header + div > .card-panel > p {
+  font-size: 1.2rem !important;
+  line-height: 1.55 !important;
+}
+#slide-07-lit-overview > .slide-header + div {
+  gap: 1.05rem !important;
+}
+#slide-07-lit-overview > .slide-header + div > .card-panel {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
