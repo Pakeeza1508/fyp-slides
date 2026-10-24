@@ -3315,7 +3315,7 @@ body:has(#slide-01-cover.active) #bottom-dock {
   margin-bottom: 0.65rem !important;
 }
 #slide-07-lit-overview > .slide-header + div {
-  gap: 1.15rem !important;
+  gap: 1.85rem !important;
   justify-content: flex-start !important;
 }
 #slide-07-lit-overview > .slide-header + div > .card-panel {
