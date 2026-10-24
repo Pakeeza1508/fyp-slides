@@ -3260,3 +3260,43 @@ body:has(#slide-01-cover.active) #bottom-dock {
   max-height: 94%;
   align-self: center;
 }
+
+/* Slide 03 only: fit all four Abstract cards without vertical scrolling. */
+#slide-03-abstract {
+  overflow-y: hidden !important;
+}
+#slide-03-abstract .abstract-diagram-layout {
+  height: calc(100% - 72px);
+  min-height: 0;
+}
+#slide-03-abstract .abstract-branches-grid {
+  max-height: 410px;
+  min-height: 0;
+  gap: 0.7rem;
+}
+#slide-03-abstract .branch-card-modern {
+  min-height: 0;
+  padding: 8px 9px 9px;
+  justify-content: flex-start;
+  gap: 6px;
+}
+#slide-03-abstract .branch-img-box {
+  height: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+#slide-03-abstract .branch-info-box {
+  flex: 0 0 auto;
+  padding: 2px 4px 0;
+  gap: 2px;
+}
+#slide-03-abstract .branch-modern-title {
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+}
+#slide-03-abstract .branch-solution-subtitle {
+  color: #cbd5e1;
+  font-size: clamp(0.57rem, 0.75vw, 0.68rem);
+  line-height: 1.25;
+  margin: 1px 0 0;
+  text-align: left;
+}
