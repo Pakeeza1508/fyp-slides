@@ -15,7 +15,8 @@ const speakerNotes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
-  const totalSlides = 15; // Total slides in your deck
+  const totalSlides = 15; // Original slide IDs remain unchanged
+  const visibleSlides = 14; // Abstract (slide 3) is commented out
   let leafletMap = null;
   let mapInitialized = false;
 
@@ -114,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Slide Switcher Function
   function goToSlide(target) {
     if (target < 1 || target > totalSlides) return;
+    // Skip the archived Abstract slide in both directions and on direct jumps.
+    if (target === 3) target = currentSlide <= 2 ? 4 : 2;
 
     // Handle Slide 5 entry state
     if (target === 5) {
@@ -136,13 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Safely update UI telemetry if elements exist
     if (slideCounter) {
-      slideCounter.innerHTML = `${String(currentSlide).padStart(2, '0')} <span>/ ${totalSlides}</span>`;
+      slideCounter.innerHTML = `${String(currentSlide > 3 ? currentSlide - 1 : currentSlide).padStart(2, '0')} <span>/ ${visibleSlides}</span>`;
     }
     if (telemetrySlideNum) {
-      telemetrySlideNum.innerText = `SLIDE ${String(currentSlide).padStart(2, '0')}`;
+      telemetrySlideNum.innerText = `SLIDE ${String(currentSlide > 3 ? currentSlide - 1 : currentSlide).padStart(2, '0')}`;
     }
     if (progressBarFill) {
-      progressBarFill.style.width = `${(currentSlide / totalSlides) * 100}%`;
+      progressBarFill.style.width = `${((currentSlide > 3 ? currentSlide - 1 : currentSlide) / visibleSlides) * 100}%`;
     }
 
     // Highlight Menu Item if modal exists
