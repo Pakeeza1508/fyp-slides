@@ -15,8 +15,8 @@ const speakerNotes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 1;
-  const totalSlides = 15; // Original slide IDs remain unchanged
-  const visibleSlides = 14; // Abstract (slide 3) is commented out
+  const totalSlides = 19; // Includes six single-column reference slides
+  const visibleSlides = 18; // Abstract (slide 3) remains archived
   let leafletMap = null;
   let mapInitialized = false;
 
