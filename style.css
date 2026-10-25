@@ -3377,3 +3377,18 @@ body:has(#slide-05-problem.active) #bg-stars-canvas {
 #slide-05-problem > .slide-header + div {
   min-height: calc(100% - 105px) !important;
 }
+
+/* Clean reset for the actual Scope slide (data-slide 6). */
+#slide-06-scope {
+  position: absolute !important;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden !important;
+}
+
+#slide-06-scope .scope-interactive-container,
+#slide-06-scope .scope-arc-svg,
+#slide-06-scope .scope-center-hub {
+  display: none !important;
+}
