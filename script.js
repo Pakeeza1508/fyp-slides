@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   function handleNext() {
     // If on Slide 5 and cards are not all revealed, reveal next card
-    if (currentSlide === 5 && document.querySelector('#slide-05-problem .prob-card') && probStep < 3) {
+    if (currentSlide === 6 && document.querySelector('#slide-05-problem .prob-card') && probStep < 3) {
       probStep++;
       updateProbCards();
       return; // Do NOT advance slide
@@ -119,10 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (target === 3) target = currentSlide <= 2 ? 4 : 2;
 
     // Handle Slide 5 entry state
-    if (target === 5) {
+    if (target === 6) {
       // If coming forward from slide 4 -> start with 0 cards revealed
       // If coming backward from slide 6 -> keep all 3 cards visible
-      probStep = (currentSlide > 5) ? 3 : 0;
+      probStep = (currentSlide > 6) ? 3 : 0;
        updateProbCards();
     }
 
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btn-hero-start')?.addEventListener('click', () => goToSlide(2));
-  document.getElementById('btn-hero-arch')?.addEventListener('click', () => goToSlide(9));
+  document.getElementById('btn-hero-arch')?.addEventListener('click', () => goToSlide(16));
   document.getElementById('btn-restart-pres')?.addEventListener('click', () => goToSlide(1));
 
   // Universal Click Listener for all cards with data-target-slide
@@ -503,7 +503,7 @@ function initTableViewer() {
   imgElement.onclick = toggleZoom;
 
   window.addEventListener("keydown", (e) => {
-    const slide08 = document.querySelector('.slide[data-slide="8"].active');
+    const slide08 = document.querySelector('.slide[data-slide="15"].active');
     if (slide08) {
       if (e.key === "ArrowLeft" && currentTableIndex > 0) {
         showPage(currentTableIndex - 1);
