@@ -105,8 +105,8 @@
       <section class="slide" data-slide="2" id="slide-02-toc">
         <style>
           /* Agenda-only styling; the global dock and other slides are untouched. */
-          #presentation-stage:has(#slide-02-toc.active) #top-bar { display: none; }
-          #presentation-stage:has(#slide-02-toc.active) #slides-deck { top: 0; }
+          #presentation-stage:has(#slide-02-toc.active) #top-bar { display: flex; }
+          #presentation-stage:has(#slide-02-toc.active) #slides-deck { top: var(--header-height); }
           #slide-02-toc {
             box-sizing:border-box; padding:0; overflow:hidden !important;
             font-family:Arial,'Segoe UI',sans-serif;
@@ -130,7 +130,7 @@
             text-wrap:balance;
           }
           #slide-02-toc .agenda-body {
-            box-sizing:border-box; height:calc(100% - clamp(58px,8.5vh,72px));
+            box-sizing:border-box; height:100%;
             width:min(1450px,91%); margin:auto;
             padding:clamp(14px,2.4vh,26px) 0 clamp(10px,1.4vh,18px);
             display:flex; flex-direction:column; min-height:0;
@@ -142,7 +142,7 @@
             padding:0 0 9px; border-bottom:5px solid #b7e87c;
           }
           #slide-02-toc .agenda-list {
-            display:grid; grid-template-rows:repeat(10,minmax(0,1fr));
+            display:grid; grid-template-rows:repeat(6,minmax(0,1fr));
             flex:1; min-height:0; width:100%; margin:0; padding:0; list-style:none;
           }
           #slide-02-toc .agenda-item {
@@ -159,28 +159,21 @@
           }
           @media(max-height:620px){
             #slide-02-toc .agenda-top{height:52px;padding-top:4px;padding-bottom:4px}
-            #slide-02-toc .agenda-body{height:calc(100% - 52px);padding-top:9px;padding-bottom:4px}
+            #slide-02-toc .agenda-body{height:100%;padding-top:9px;padding-bottom:4px}
             #slide-02-toc .agenda-title{font-size:clamp(23px,2.5vw,32px);margin-bottom:5px;padding-bottom:5px;border-bottom-width:3px}
             #slide-02-toc .agenda-item{font-size:clamp(12px,1.3vw,18px)}
           }
         </style>
-        <header class="agenda-top">
-          <div class="agenda-top-left">BSCS Final Year Project Presentation</div>
-          <div class="agenda-top-right">An Explainable AI Based Farming Assistant Mobile Application for Salt Leaching &amp; Yield Estimation Using Satellite &amp; Groundwater Data</div>
-        </header>
+        
         <div class="agenda-body">
           <h2 class="agenda-title">Agenda of the Presentation</h2>
           <ol class="agenda-list">
-            <li class="agenda-item"><span class="agenda-num">01</span><span class="agenda-label">Introduction</span></li>
-            <li class="agenda-item"><span class="agenda-num">02</span><span class="agenda-label">Literature Review</span></li>
-            <li class="agenda-item"><span class="agenda-num">03</span><span class="agenda-label">Problem Statement</span></li>
-            <li class="agenda-item"><span class="agenda-num">04</span><span class="agenda-label">Scope</span></li>
-            <li class="agenda-item"><span class="agenda-num">05</span><span class="agenda-label">Existing Systems</span></li>
-            <li class="agenda-item"><span class="agenda-num">06</span><span class="agenda-label">Proposed Solution</span></li>
-            <li class="agenda-item"><span class="agenda-num">07</span><span class="agenda-label">Conclusion</span></li>
-            <li class="agenda-item"><span class="agenda-num">08</span><span class="agenda-label">References</span></li>
-            <li class="agenda-item"><span class="agenda-num">09</span><span class="agenda-label">Abstract</span></li>
-            <li class="agenda-item"><span class="agenda-num">10</span><span class="agenda-label">Agenda</span></li>
+            <li class="agenda-item"><span class="agenda-num">01</span><span class="agenda-label">Title</span></li>
+            <li class="agenda-item"><span class="agenda-num">02</span><span class="agenda-label">Agenda</span></li>
+            <li class="agenda-item"><span class="agenda-num">03</span><span class="agenda-label">Introduction — Pakistan Map</span></li>
+            <li class="agenda-item"><span class="agenda-num">04</span><span class="agenda-label">Literature Review</span></li>
+            <li class="agenda-item"><span class="agenda-num">05</span><span class="agenda-label">Problem Statement</span></li>
+            <li class="agenda-item"><span class="agenda-num">06</span><span class="agenda-label">Scope</span></li>
           </ol>
         </div>
       </section>
