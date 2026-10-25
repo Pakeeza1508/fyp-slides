@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   function handleNext() {
     // If on Slide 5 and cards are not all revealed, reveal next card
-    if (currentSlide === 5 && probStep < 3) {
+    if (currentSlide === 5 && document.querySelector('#slide-05-problem .prob-card') && probStep < 3) {
       probStep++;
       updateProbCards();
       return; // Do NOT advance slide
