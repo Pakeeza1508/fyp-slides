@@ -3392,3 +3392,8 @@ body:has(#slide-05-problem.active) #bg-stars-canvas {
 #slide-06-scope .scope-center-hub {
   display: none !important;
 }
+
+/* Scope heading: sharp soil-gold yellow accent. */
+#slide-06-scope .slide-title {
+  color: #facc15 !important;
+}
