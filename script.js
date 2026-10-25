@@ -294,32 +294,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   function initLeafletMap() {
     const mapContainer = document.getElementById('live-leaflet-map');
-    if (!mapContainer || mapInitialized) return;
+    if (!mapContainer || mapInitialized || typeof L === 'undefined') return;
 
-    leafletMap = L.map('live-leaflet-map').setView([29.35, 71.69], 8);
-
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri &mdash; NASA, USGS, USDA'
+    leafletMap = L.map('live-leaflet-map', { scrollWheelZoom: false }).setView([30.4, 69.35], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 18
     }).addTo(leafletMap);
 
-    L.circleMarker([29.3957, 71.6833], { radius: 11, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.85 })
-      .addTo(leafletMap)
-      .bindPopup("<b>Bahawalpur Central (Training Zone)</b><br>Intensive wheat-cotton rotation.<br>High tubewell dependence; secondary root-zone salinity.");
-
-    L.circleMarker([28.4212, 70.2989], { radius: 10, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.85 })
-      .addTo(leafletMap)
-      .bindPopup("<b>Rahim Yar Khan (Training Zone)</b><br>Sugarcane and cotton belt.<br>Tubewell water ECw ranges between 0.8–5.2 dS/m.");
-
-    L.circleMarker([29.9986, 73.2536], { radius: 10, color: '#d97706', fillColor: '#f59e0b', fillOpacity: 0.85 })
-      .addTo(leafletMap)
-      .bindPopup("<b>Bahawalnagar (Training Zone)</b><br>Eastern Sadiqia canal command.<br>Severe tail-end water constraints and white crust formation.");
-
-    L.circleMarker([29.5339, 71.6331], { radius: 13, color: '#ef4444', fillColor: '#b91c1c', fillOpacity: 0.95 })
-      .addTo(leafletMap)
-      .bindPopup("<b style='color:#ef4444;'>Lodhran District (INDEPENDENT HOLDOUT)</b><br><strong>Zero Lodhran data used in training!</strong><br>Reserved strictly to test out-of-domain spatial generalization.")
-      .openPopup();
+    L.circleMarker([29.3957, 71.6833], {
+      radius: 10, color: '#f59e0b', weight: 3,
+      fillColor: '#fbbf24', fillOpacity: 0.9
+    }).addTo(leafletMap)
+      .bindTooltip('Bahawalpur', { permanent: true, direction: 'right', offset: [12, 0] });
 
     mapInitialized = true;
+    setTimeout(() => leafletMap.invalidateSize(), 100);
   }
 
   
