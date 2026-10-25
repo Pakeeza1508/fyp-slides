@@ -3346,3 +3346,21 @@ body:has(#slide-01-cover.active) #bottom-dock {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
 }
+
+/* Slide 05 only: show the photograph without the shared dark overlay or blur. */
+body:has(#slide-05-problem.active) #presentation-stage::before {
+  background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=85') center / cover no-repeat;
+  filter: none;
+}
+
+body:has(#slide-05-problem.active) #bg-stars-canvas {
+  opacity: 0;
+}
+
+/* Keep the existing Problem Statement wording and layout; justify its paragraph. */
+#slide-05-problem > div > p {
+  text-align: justify !important;
+  text-align-last: left;
+  text-wrap: wrap !important;
+  hyphens: auto;
+}
