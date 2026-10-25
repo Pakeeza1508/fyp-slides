@@ -311,56 +311,13 @@
       <!-- ===================================================================
            SLIDE 04: SECTION 1. INTRODUCTION (BRUSH-SPLIT TEMPLATE LAYOUT)
            =================================================================== -->
-      <section class="slide" data-slide="4" id="slide-04-intro">
-
-        <div class="intro-template-layout">
-
-          <!-- LEFT 50%: HERO PHOTO WITH BRUSH / TORN TRANSITION EDGE -->
-          <div class="intro-brush-wrapper">
-
-            <div class="intro-hero-photo crop-transformation">
-
-              <!-- Damaged crop shown first -->
-              <img
-                src="https://images.openai.com/static-rsc-4/fIuumlAUqcMtDX35Pwp2lrqK3e3ZOrcYTgnqH7Hl899RkSxEzurjM8UieBj-MQfBhQ1thPNXdSSPPfFuX2Nj32RcSB5L2eH-IdWyxoP2dodftbY64snRiB8moo3lx56JzpVjJycE9zORq2UDOr9jbKt_Nd6mixct8Eju__HUvVY?purpose=inline"
-                alt="Damaged crop before treatment" class="crop-image crop-before">
-
-              <!-- Healthy crop revealed after laser scan -->
-              <img
-                src="https://images.openai.com/static-rsc-4/XnlO4r4sv827EzwtEn_IY_rXQm3knPrVatHzILNzhOvSCzRJtEb4B1fetyFHBMxTxIJXB6GwtzvgUBQ8gPS5xM4RaJLruTggIeE7R1UIHpbLUURCx9MHX0zmLFFzSeM-yhC4w7G7MoyWAmPzSOf1v_mXohP9466WN0gk1Dl9wFRzRIX0629gDWd5GnmjavaQ?purpose=inline"
-                alt="Healthy crop after AI-guided management" class="crop-image crop-after">
-
-              <!-- Laser scanning effect -->
-              <div class="crop-laser"></div>
-
-              <!-- Optional scan label -->
-              <div class="crop-scan-label">SCANNING...</div>
-
-            </div>
-
-
-            <!-- SVG Artistic Paint-Brush / Jagged Transition Mask -->
-            <svg class="brush-edge-svg" viewBox="0 0 120 600" preserveAspectRatio="none">
-              <path fill="#0a0e0a"
-                d="M120,0 L0,0 C25,45 15,90 40,130 C10,165 30,210 15,255 C45,295 10,340 35,385 C15,430 40,475 20,520 C35,560 15,600 0,600 L120,600 Z">
-              </path>
-              <!-- Splatter accents -->
-              <circle cx="28" cy="110" r="4" fill="#0a0e0a"></circle>
-              <circle cx="18" cy="235" r="5" fill="#0a0e0a"></circle>
-              <circle cx="32" cy="360" r="4" fill="#0a0e0a"></circle>
-              <circle cx="22" cy="485" r="6" fill="#0a0e0a"></circle>
-            </svg>
+      <section class="slide" data-slide="4" id="slide-04-intro" style="padding: 1.4rem 3.5rem; overflow: hidden;">
+        <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
+          <div class="slide-header" style="margin: 0; text-align: left;">
+            <h2 class="slide-title" style="font-size: clamp(2rem, 2.7vw, 2.7rem); margin: 0;">INTRODUCTION</h2>
+            <h3 style="font-size: clamp(1rem, 1.35vw, 1.35rem); color: #a3e635; font-weight: 600; margin: 0.4rem 0 0;">Pakistan Agriculture — Bahawalpur, South Punjab</h3>
           </div>
-
-          <!-- RIGHT: ACADEMIC INTRODUCTION PARAGRAPH -->
-          <div class="intro-template-content" style="justify-content:center; gap:1.4rem;">
-            <div class="template-header">
-              <h2 class="template-main-title">INTRODUCTION</h2>
-            </div>
-            <p style="font-size:clamp(1.05rem,1.48vw,1.4rem); line-height:1.85; color:#f1f5f9; margin:0; text-align:left; font-weight:400;">
-              Agriculture in Southern Punjab faces serious challenges from soil salinity, poor groundwater quality, and limited irrigation water, which affect crop productivity and efficient resource use. Satellite imagery provides valuable information about field conditions, but surface observations alone cannot fully explain root-zone salinity or groundwater-related risks. The proposed Explainable AI Based Farming Assistant Mobile Application aims to combine satellite observations with groundwater, weather, soil, and crop information to estimate yield, assess salt-leaching requirements, support fertilizer timing, and provide understandable, field-level recommendations for farmers.
-            </p>
-          </div>
+          <div id="live-leaflet-map" role="img" aria-label="Interactive map of Pakistan highlighting Bahawalpur in South Punjab" style="flex: 1; min-height: 0; width: 100%; border-radius: 12px; overflow: hidden;"></div>
         </div>
       </section>
 
