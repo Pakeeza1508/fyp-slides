@@ -3350,7 +3350,8 @@ body:has(#slide-01-cover.active) #bottom-dock {
 /* Slide 05 only: show the photograph without the shared dark overlay or blur. */
 body:has(#slide-05-problem.active) #presentation-stage::before {
   background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=85') center / cover no-repeat;
-  filter: none;
+  filter: blur(24px) brightness(0.16) saturate(0.25);
+  transform: scale(1.06);
 }
 
 body:has(#slide-05-problem.active) #bg-stars-canvas {
@@ -3363,4 +3364,16 @@ body:has(#slide-05-problem.active) #bg-stars-canvas {
   text-align-last: left;
   text-wrap: wrap !important;
   hyphens: auto;
+}
+
+/* Problem Statement: balanced title-to-body spacing without changing the text. */
+#slide-05-problem > .slide-header {
+  margin-bottom: clamp(14px, 2.3vh, 26px) !important;
+}
+#slide-05-problem > .slide-header .slide-title {
+  margin-bottom: 0 !important;
+  line-height: 1.2;
+}
+#slide-05-problem > .slide-header + div {
+  min-height: calc(100% - 105px) !important;
 }
