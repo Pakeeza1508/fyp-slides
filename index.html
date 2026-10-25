@@ -371,7 +371,7 @@
       <!-- ===================================================================
            SLIDE 05: PROBLEM STATEMENT
            =================================================================== -->
-      <section class="slide" data-slide="6" id="slide-05-problem" style="overflow:hidden;">
+      <section class="slide" data-slide="5" id="slide-05-problem" style="overflow:hidden;">
         <div class="slide-header" style="margin-bottom:clamp(22px,4vh,46px);">
           <h2 class="slide-title" style="font-size:2.3rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:0.25rem;">PROBLEM STATEMENT</h2>
         </div>
@@ -386,7 +386,7 @@
       <!-- ===================================================================
            SLIDE 06: SECTION 2. SCOPE (RADIAL ARC & DYNAMIC DETAIL INSPECTOR)
            =================================================================== -->
-      <section class="slide" data-slide="7" id="slide-06-scope">
+      <section class="slide" data-slide="6" id="slide-06-scope">
 
         <!-- Header (Fixed Spacing - Guaranteed No Cutoff) -->
         <div class="slide-header" style="margin-bottom: 0.6rem;">
@@ -510,19 +510,23 @@
       <!-- ===================================================================
            SLIDE 07: SECTION 3. LITERATURE REVIEW (EXPANDED HIGH-IMPACT DESIGN)
            =================================================================== -->
-      <section class="slide" data-slide="5" id="slide-07-lit-overview" style="padding: clamp(24px, 3.5vh, 42px) clamp(34px, 6vw, 100px); background: transparent; color: #f1f5f9; overflow: hidden;">
+      <section class="slide" data-slide="7" id="slide-07-lit-overview" style="padding: clamp(24px, 3.5vh, 42px) clamp(34px, 6vw, 100px); background: transparent; color: #f1f5f9; overflow: hidden;">
         <!-- Existing dark-green presentation theme with concise literature text and linked tables. -->
         <div style="height: 100%; display: flex; flex-direction: column; max-width: 1380px; margin: 0 auto;">
           <h2 style="font-size: clamp(2rem, 3.3vw, 3.3rem); font-weight: 800; line-height: 1.1; color: #ffffff; margin: 0 0 clamp(12px, 2vh, 22px);">Literature Review</h2>
 
-          <div style="display: flex; flex-direction: column; gap: clamp(12px, 2.2vh, 22px); font-size: clamp(1.04rem, 1.38vw, 1.32rem); line-height: 1.45; margin-bottom: clamp(22px, 3.8vh, 36px);">
-            <a href="#slide-08" data-target-slide="15" style="color: #f1f5f9; text-decoration: underline; text-decoration-color: #a3e635; text-underline-offset: 5px; cursor: pointer;">Take a review of existing research publications similar to the proposed idea.</a>
-            <a href="#slide-09" data-target-slide="16" style="color: #f1f5f9; text-decoration: underline; text-decoration-color: #a3e635; text-underline-offset: 5px; cursor: pointer;">The comparison of different tools and techniques related to the current topic.</a>
+          <div style="display: flex; flex-direction: column; gap: 9px; font-size: clamp(0.95rem, 1.25vw, 1.25rem); line-height: 1.35; margin-bottom: clamp(22px, 4vh, 42px);">
+            <a href="#slide-08" data-target-slide="8" style="cursor: pointer; color: #e2e8f0; text-decoration: none;">
+              <span style="color: #a3e635; text-decoration: underline; font-weight: 700;">Research review table</span> of 30 related studies
+            </a>
+            <a href="#slide-09" data-target-slide="9" style="cursor: pointer; color: #e2e8f0; text-decoration: none;">
+              <span style="color: #a3e635; text-decoration: underline; font-weight: 700;">Existing systems comparison</span> of eight tools
+            </a>
           </div>
 
-          <div style="flex: 1; min-height: 0; background: rgba(14, 24, 16, 0.78); border: 1px solid rgba(163, 230, 53, 0.25); border-radius: 12px; padding: clamp(17px, 2.4vh, 27px) clamp(22px, 3vw, 38px); display: flex; flex-direction: column;">
+          <div style="flex: 1; min-height: 0; padding: 0; display: flex; flex-direction: column;">
             <h3 style="font-size: clamp(1.3rem, 1.7vw, 1.8rem); font-weight: 800; color: #fbbf24; margin: 0 0 clamp(10px, 2vh, 22px);">Gaps</h3>
-            <ul style="padding-left: 1.3em; margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(7px, 1.3vh, 13px); color: #f1f5f9; font-size: clamp(0.95rem, 1.13vw, 1.2rem); line-height: 1.42;">
+            <ul style="padding-left: 1.3em; margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(8px, 1.65vh, 17px); color: #f1f5f9; font-size: clamp(0.95rem, 1.13vw, 1.2rem); line-height: 1.42;">
               <li><strong>Root-zone limitation:</strong> Optical satellite data mainly observe surface soil (0–5 cm), not the 0–60 cm active root zone.</li>
               <li><strong>Groundwater-quality gap:</strong> Water models focus on quantity, with limited direct integration of groundwater salinity (EC/SAR).</li>
               <li><strong>Leaching-water gap:</strong> FAO CROPWAT estimates crop water needs but does not automatically add salt-leaching requirements.</li>
@@ -535,11 +539,11 @@
       </section>
 
       <!-- SLIDE 07: Gap Analysis -->
-      <section class="slide" data-slide="15" id="slide-08">
+      <section class="slide" data-slide="8" id="slide-08">
         <!-- Header -->
         <div class="slide-header">
 
-          <h2 class="slide-title">Table 1 — Review of 30 Related Research Studies</h2>
+          <h2 class="slide-title">Identifying Research Gaps and Opportunities in Soil Salinity Management</h2>
           <p class="slide-subtitle">
             <!-- Taxonomy covering 30 benchmark studies across crop yield, soil salinity, and groundwater dynamics. -->
           </p>
@@ -571,7 +575,7 @@
 
           <div class="viewer-footer-info"
             style="display: flex; justify-content: flex-end; align-items: center; margin-top: 8px;">
-            <button type="button" data-target-slide="5" class="lit-return-btn">
+            <button type="button" data-target-slide="7" class="lit-return-btn">
               <i class="fa-solid fa-arrow-left"></i>
               <span>Back to Literature Overview</span>
             </button>
@@ -592,11 +596,11 @@
            SLIDE 08: FOUR-STAGE PREPROCESSING
            =================================================================== -->
 
-      <section class="slide" data-slide="16" id="slide-09">
+      <section class="slide" data-slide="9" id="slide-09">
         <!-- Header -->
         <div class="slide-header">
           <!-- <span class="slide-tag">08 • EXISTING TOOLS &amp; SYSTEMS BENCHMARK</span> -->
-          <h2 class="slide-title">Table 2 — Comparison of Eight Existing Tools and Techniques</h2>
+          <h2 class="slide-title">Review of Existing Tools and Systems Related to Proposed Idea</h2>
           <p class="slide-subtitle">
             <!-- Comparative analysis of commercial farm management platforms, FAO irrigation engines, and regional decision support software. -->
           </p>
@@ -633,7 +637,7 @@
 
           <div class="viewer-footer-info"
             style="display: flex; justify-content: flex-end; align-items: center; margin-top: 8px;">
-            <button type="button" data-target-slide="5" class="lit-return-btn">
+            <button type="button" data-target-slide="7" class="lit-return-btn">
               <i class="fa-solid fa-arrow-left"></i>
               <span>Back to Literature Overview</span>
             </button>
@@ -650,7 +654,7 @@
       </section>
 
 
-      <section class="slide" data-slide="8" id="slide-10-external"
+      <section class="slide" data-slide="10" id="slide-10-external"
          style="padding: 0; overflow: hidden;">
 
   <iframe
@@ -671,7 +675,7 @@
 
       <!-- SLIDE 11: EXTERNAL CINEMATIC FLOW WITH AUDIO/ANIMATIONS -->
       <!-- SLIDE 11: EXTERNAL CINEMATIC FLOW -->
-      <section class="slide" data-slide="9" id="slide-11-external"
+      <section class="slide" data-slide="11" id="slide-11-external"
         style="padding: 0 !important; margin: 0 !important; overflow: hidden !important;">
         <!-- Absolute full-bleed container so height never collapses -->
         <div style="position: absolute; inset: 0; width: 100%; height: 100%; background: #000; z-index: 10;">
@@ -692,7 +696,7 @@
       <!-- ===================================================================
            TECH STACK SLIDE: 3D ISOMETRIC CYLINDER WITH INTERACTIVE CALLOUTS
            =================================================================== -->
-      <section class="slide" data-slide="10" id="slide-tech-stack" style="padding: 1.4rem 3.2rem;">
+      <section class="slide" data-slide="12" id="slide-tech-stack" style="padding: 1.4rem 3.2rem;">
 
         <!-- Header -->
         <div class="slide-header" style="margin-bottom: 0.8rem;">
@@ -937,7 +941,7 @@
       <!-- ===================================================================
            CONCLUSION & SYSTEM IMPACT (IMAGE-BACKED & EXPANDED APP SHOWCASE)
            =================================================================== -->
-      <section class="slide" data-slide="11" id="slide-conclusion" style="padding: 1.8rem 4.5rem; box-sizing: border-box; overflow: hidden; background: transparent;">
+      <section class="slide" data-slide="13" id="slide-conclusion" style="padding: 1.8rem 4.5rem; box-sizing: border-box; overflow: hidden; background: transparent;">
         <div class="slide-header" style="margin-bottom: 1.5rem;">
           <h2 class="slide-title" style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; margin: 0;">CONCLUSION</h2>
         </div>
@@ -957,7 +961,7 @@
            SLIDE 11: ANDROID PROTOTYPE & URDU ADVISORY
            =================================================================== -->
       <!-- REFERENCE SLIDE 14: [1]–[13] -->
-      <section class="slide references-compact" data-slide="12" id="slide-14-references-1">
+      <section class="slide references-compact" data-slide="14" id="slide-14-references-1">
         <style>
 /* Compact uniform bibliography, matching the provided reference screenshot. */
 .slide.references-compact {box-sizing:border-box;overflow-y:auto!important;scrollbar-width:thin;scrollbar-color:#78918a transparent;padding:1rem 3.2rem 3.4rem!important;}
@@ -989,7 +993,7 @@
       </section>
 
       <!-- REFERENCE SLIDE 15: [14]–[26] -->
-      <section class="slide references-compact" data-slide="13" id="slide-15-references-2">
+      <section class="slide references-compact" data-slide="15" id="slide-15-references-2">
         
         <div class="slide-header"><h2 class="refs-title">References (Continued)</h2><p class="refs-subtitle">[14]–[26]</p></div>
         <div class="refs-list">
@@ -1010,7 +1014,7 @@
       </section>
 
       <!-- REFERENCE SLIDE 16: [27]–[37] -->
-      <section class="slide references-compact" data-slide="14" id="slide-16-references-3">
+      <section class="slide references-compact" data-slide="16" id="slide-16-references-3">
         
         <div class="slide-header"><h2 class="refs-title">References (End)</h2><p class="refs-subtitle">[27]–[37]</p></div>
         <div class="refs-list">
