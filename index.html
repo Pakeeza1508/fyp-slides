@@ -104,102 +104,86 @@
            SLIDE 02: TABLE OF CONTENTS (IMAGE-BACKED MINIMAL CARDS)
            =================================================================== -->
       <section class="slide" data-slide="2" id="slide-02-toc">
-
-        <div class="slide-header" style="margin-bottom: 1.2rem;">
-          <div class="slide-category">
-          </div>
-          <h2 class="slide-title">Presentation Agenda</h2>
-          <p class="slide-subtitle">
-            A systematic walkthrough of the research problem, literature evaluation, system modules, and proposed
-            methodology.
-          </p>
+        <style>
+          /* Agenda-only styling; the global dock and other slides are untouched. */
+          #presentation-stage:has(#slide-02-toc.active) #top-bar { display: none; }
+          #presentation-stage:has(#slide-02-toc.active) #slides-deck { top: 0; }
+          #slide-02-toc {
+            box-sizing:border-box; padding:0; overflow:hidden !important;
+            font-family:Arial,'Segoe UI',sans-serif;
+            background:linear-gradient(90deg,rgba(2,22,15,.93),rgba(4,25,18,.79)),
+              url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=85') center/cover no-repeat;
+          }
+          #slide-02-toc .agenda-top {
+            box-sizing:border-box; height:clamp(78px,13vh,106px); width:100%;
+            background:#041b12; border-bottom:1px solid rgba(255,255,255,.16);
+            padding:12px clamp(24px,3.5vw,58px);
+            display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);
+            gap:18px; align-items:center;
+          }
+          #slide-02-toc .agenda-top-left {
+            font-size:clamp(15px,1.42vw,22px); line-height:1.25; font-weight:750;
+            color:white; text-align:left; white-space:nowrap;
+          }
+          #slide-02-toc .agenda-top-right {
+            font-size:clamp(15px,1.42vw,22px); line-height:1.22; font-weight:750;
+            color:white; text-align:right; justify-self:end; max-width:100%;
+            text-wrap:balance;
+          }
+          #slide-02-toc .agenda-body {
+            box-sizing:border-box; height:calc(100% - clamp(78px,13vh,106px));
+            width:min(1450px,91%); margin:auto;
+            padding:clamp(14px,2.4vh,26px) 0 clamp(10px,1.4vh,18px);
+            display:flex; flex-direction:column; min-height:0;
+          }
+          #slide-02-toc .agenda-title {
+            display:table; width:max-content; max-width:100%;
+            color:#fff; font-size:clamp(25px,2.8vw,46px); font-weight:800;
+            line-height:1.18; margin:0 0 clamp(8px,1.5vh,17px);
+            padding:0 0 9px; border-bottom:5px solid #b7e87c;
+          }
+          #slide-02-toc .agenda-list {
+            display:grid; grid-template-rows:repeat(10,minmax(0,1fr));
+            flex:1; min-height:0; width:100%; margin:0; padding:0; list-style:none;
+          }
+          #slide-02-toc .agenda-item {
+            display:flex; align-items:center; min-height:0; gap:clamp(20px,3.4vw,60px);
+            border-bottom:1px solid rgba(219,235,222,.18);
+            font-size:clamp(16px,1.58vw,26px); font-weight:650; line-height:1.2;
+          }
+          #slide-02-toc .agenda-item:last-child { border-bottom:0; }
+          #slide-02-toc .agenda-num { color:#b4ed77; font-weight:800; min-width:2ch; }
+          #slide-02-toc .agenda-label { color:#fff; }
+          @media(max-width:1050px){
+            #slide-02-toc .agenda-top-left,#slide-02-toc .agenda-top-right{font-size:clamp(12px,1.6vw,17px)}
+            #slide-02-toc .agenda-item{font-size:clamp(13px,1.7vw,19px)}
+          }
+          @media(max-height:620px){
+            #slide-02-toc .agenda-top{height:68px;padding-top:6px;padding-bottom:6px}
+            #slide-02-toc .agenda-body{height:calc(100% - 68px);padding-top:9px;padding-bottom:4px}
+            #slide-02-toc .agenda-title{font-size:clamp(23px,2.5vw,32px);margin-bottom:5px;padding-bottom:5px;border-bottom-width:3px}
+            #slide-02-toc .agenda-item{font-size:clamp(12px,1.3vw,18px)}
+          }
+        </style>
+        <header class="agenda-top">
+          <div class="agenda-top-left">BSCS Final Year Project Presentation</div>
+          <div class="agenda-top-right">An Explainable AI Based Farming Assistant Mobile Application for Salt Leaching &amp; Yield Estimation Using Satellite &amp; Groundwater Data</div>
+        </header>
+        <div class="agenda-body">
+          <h2 class="agenda-title">Agenda of the Presentation</h2>
+          <ol class="agenda-list">
+            <li class="agenda-item"><span class="agenda-num">01</span><span class="agenda-label">Introduction</span></li>
+            <li class="agenda-item"><span class="agenda-num">02</span><span class="agenda-label">Problem Statement</span></li>
+            <li class="agenda-item"><span class="agenda-num">03</span><span class="agenda-label">Scope of the Proposed System</span></li>
+            <li class="agenda-item"><span class="agenda-num">04</span><span class="agenda-label">Literature Review</span></li>
+            <li class="agenda-item"><span class="agenda-num">05</span><span class="agenda-label">Research Gaps</span></li>
+            <li class="agenda-item"><span class="agenda-num">06</span><span class="agenda-label">Existing Systems and Solutions</span></li>
+            <li class="agenda-item"><span class="agenda-num">07</span><span class="agenda-label">Methodology and Proposed Solution</span></li>
+            <li class="agenda-item"><span class="agenda-num">08</span><span class="agenda-label">Technology Stack</span></li>
+            <li class="agenda-item"><span class="agenda-num">09</span><span class="agenda-label">Conclusion</span></li>
+            <li class="agenda-item"><span class="agenda-num">10</span><span class="agenda-label">References</span></li>
+          </ol>
         </div>
-
-        <!-- 8 Visual Cards with Relevant Background Photos & Heading Only -->
-        <div class="toc-visual-grid">
-
-          <!-- 01. Introduction -->
-          <div class="toc-photo-card card-bg-intro" data-target-slide="4">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">01</span>
-
-            </div>
-            <h3 class="toc-clean-title">1. Introduction</h3>
-          </div>
-
-          <!-- 02. Problem Statement -->
-          <div class="toc-photo-card card-bg-problem" data-target-slide="5">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">02</span>
-
-            </div>
-            <h3 class="toc-clean-title">2. Problem Statement</h3>
-          </div>
-
-          <!-- 03. Scope -->
-          <div class="toc-photo-card card-bg-scope" data-target-slide="6">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">03</span>
-
-            </div>
-            <h3 class="toc-clean-title">3. Scope</h3>
-          </div>
-
-          <!-- 04. Literature Review -->
-          <div class="toc-photo-card card-bg-literature" data-target-slide="7">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">04</span>
-
-            </div>
-            <h3 class="toc-clean-title">4. Literature Review</h3>
-          </div>
-
-          <!-- 05. Existing Systems/Solutions -->
-          <div class="toc-photo-card card-bg-systems" data-target-slide="9">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">05</span>
-
-            </div>
-            <h3 class="toc-clean-title">5. Existing Systems/Solutions</h3>
-          </div>
-
-          <!-- 06. Methodology & Proposed Solution -->
-          <div class="toc-photo-card card-bg-methodology" data-target-slide="10">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">06</span>
-
-            </div>
-            <h3 class="toc-clean-title">6. Methodology &amp; Proposed Solution</h3>
-          </div>
-
-          <!-- 07. Conclusion -->
-          <div class="toc-photo-card card-bg-conclusion" data-target-slide="12">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">07</span>
-
-            </div>
-            <h3 class="toc-clean-title">7. Conclusion</h3>
-          </div>
-
-          <!-- References -->
-          <div class="toc-photo-card card-bg-references" data-target-slide="13">
-            <div class="toc-photo-overlay"></div>
-            <div class="toc-top-row">
-              <span class="toc-badge">REF</span>
-
-            </div>
-            <h3 class="toc-clean-title">References</h3>
-          </div>
-
-        </div>
-
       </section>
 
 
