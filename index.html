@@ -54,89 +54,49 @@
            SLIDE 01: FORMAL ACADEMIC COVER & PROJECT IDENTIFICATION
            =================================================================== -->
       <section class="slide active" data-slide="1" id="slide-01-cover">
-
-        <!-- Clean Cinematic Green Crop Scrim Background -->
-        <div class="title-crop-bg"></div>
-
-        <div class="hero-cover"
-          style="justify-content:space-between; padding:0.5rem 0 1rem 0; height:100%; position:relative; z-index:2;">
-
-          <!-- Institutional Attribution (High-Contrast Frosted Badge) -->
-          <div style="display:flex; flex-direction:column; align-items:center; margin-top:0.2rem;">
-            <div class="lcwu-glass-badge">
-              <i class="fa-solid fa-building-columns text-amber-500"></i>
-              <span class="univ-name">FINAL YEAR PROJECT (FYP) PROPOSAL DEFENSE</span>
-            </div>
-            <div class="dept-sub-badge">
-              Date: 26-10-2026
+        <style>
+          /* Cover-only design and layout. Other slides and navigation unaffected. */
+          #presentation-stage:has(#slide-01-cover.active) #top-bar { display:none; }
+          #presentation-stage:has(#slide-01-cover.active) #slides-deck { top:0; }
+          #slide-01-cover { box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; align-items:center; text-align:center; padding:clamp(40px,6vh,70px) clamp(36px,5vw,85px) clamp(35px,5.5vh,65px); isolation:isolate; overflow:hidden; font-family:Arial,'Segoe UI',sans-serif; }
+          #slide-01-cover::before { content:""; position:absolute; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1464972377689-e7674c48d806?q=85&w=1920&auto=format&fit=crop') center/cover no-repeat #173524; }
+          #slide-01-cover::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgba(3,15,9,.78),rgba(3,17,11,.56) 38%,rgba(2,13,8,.88)); }
+          #slide-01-cover .cover-top { display:flex; flex-direction:column; align-items:center; gap:12px; width:100%; }
+          #slide-01-cover .cover-kicker { font-size:clamp(22px,2.15vw,32px); font-weight:800; letter-spacing:.012em; line-height:1.22; color:#fff; text-shadow:0 2px 12px #051409; }
+          #slide-01-cover .cover-date { font-size:clamp(14px,1.22vw,18px); font-weight:600; color:#e7eee7; letter-spacing:.015em; }
+          #slide-01-cover .cover-center { width:100%; max-width:1400px; margin:auto 0; display:flex; justify-content:center; align-items:center; transform:translateY(16px); }
+          #slide-01-cover .cover-title { margin:0; max-width:1400px; font-size:clamp(29px,3.35vw,52px); line-height:1.22; font-weight:800; letter-spacing:-.02em; color:#fff; text-shadow:0 3px 15px #051409; }
+          #slide-01-cover .cover-bottom { width:min(1400px,100%); display:grid; grid-template-columns:1fr 1fr; gap:40px; text-align:left; align-items:start; margin-inline:auto; }
+          #slide-01-cover .cover-group { justify-self:start; min-width:0; }
+          #slide-01-cover .cover-supervisor { justify-self:end; text-align:left; min-width:270px; }
+          #slide-01-cover .cover-label { font-size:clamp(17px,1.5vw,22px); font-weight:700; color:#d5edba; margin:0 0 12px; }
+          #slide-01-cover .cover-members { display:flex; flex-direction:column; gap:9px; }
+          #slide-01-cover .cover-member { display:grid; grid-template-columns:160px auto; gap:14px; align-items:baseline; font-size:clamp(15px,1.36vw,19px); font-weight:600; line-height:1.4; text-shadow:0 2px 8px #07180f; }
+          #slide-01-cover .cover-roll { font-weight:500; white-space:nowrap; font-variant-numeric:tabular-nums; }
+          #slide-01-cover .cover-supervisor-name { font-size:clamp(15px,1.36vw,19px); font-weight:600; line-height:1.4; }
+          @media(max-height:620px){#slide-01-cover{padding-top:18px;padding-bottom:20px}#slide-01-cover .cover-top{gap:6px}#slide-01-cover .cover-center{transform:none}#slide-01-cover .cover-label{margin-bottom:7px}#slide-01-cover .cover-members{gap:4px}#slide-01-cover .cover-title{font-size:clamp(26px,3.4vw,44px)}}
+          @media(max-width:700px){#slide-01-cover{padding:24px 20px}#slide-01-cover .cover-center{transform:none}#slide-01-cover .cover-bottom{gap:18px}#slide-01-cover .cover-supervisor{min-width:0}#slide-01-cover .cover-member{grid-template-columns:1fr;gap:1px;font-size:clamp(13px,2.3vw,17px)}}
+        </style>
+        <header class="cover-top">
+          <div class="cover-kicker">BSCS Final Year Project Presentation</div>
+          <div class="cover-date">Dated: 26th October 2026</div>
+        </header>
+        <div class="cover-center">
+          <h1 class="cover-title">An Explainable AI Based Farming Assistant Mobile Application for Salt Leaching &amp; Yield Estimation Using Satellite &amp; Groundwater Data</h1>
+        </div>
+        <div class="cover-bottom">
+          <div class="cover-group">
+            <h2 class="cover-label">Group Members</h2>
+            <div class="cover-members">
+              <div class="cover-member"><span>Minhal Zubair</span><span class="cover-roll">(23251101079)</span></div>
+              <div class="cover-member"><span>Maryam Jamil</span><span class="cover-roll">(23251101070)</span></div>
+              <div class="cover-member"><span>Pakeeza Khalid</span><span class="cover-roll">(23251101090)</span></div>
             </div>
           </div>
-
-          <!-- Official Title & 3D Interactive Node -->
-          <div style="margin:0.2rem 0; max-width:1050px; text-align:center;">
-
-            <div id="hero-3d-orbit" style="width:85px; height:85px; margin:0 auto -6px auto;"></div>
-
-
-            <!-- Exact Verbatim Proposal Title (Bold & Crisp with Text Shadow) -->
-            <h1 class="main-defense-title">
-              An Explainable AI Based Farming Assistant Mobile Application for Salt Leaching &amp; Yield Estimation
-              Using Satellite &amp; Groundwater Data
-            </h1>
-
-
+          <div class="cover-supervisor">
+            <h2 class="cover-label">Project Supervisor</h2>
+            <div class="cover-supervisor-name">Dr. Mariam Nosheen</div>
           </div>
-
-          <!-- Student & Supervisor Glassmorphic Cards -->
-          <div
-            style="width:100%; max-width:1020px; margin:0 auto; display:grid; grid-template-columns:1.65fr 1fr; gap:1.25rem; text-align:left;">
-
-            <!-- BY (Students) Card -->
-            <div class="glass-card-panel">
-              <div
-                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; border-bottom:1px solid rgba(132,204,22,0.25); padding-bottom:5px;">
-                <span
-                  style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; color:var(--sand-dune); display:flex; align-items:center; gap:6px;">
-                  <i class="fa-solid fa-users text-amber-400"></i> SUBMITTED BY:
-                </span>
-                <span class="badge"
-                  style="background:rgba(101,163,13,0.2); border-color:var(--crop-light); color:#fff; font-size:0.65rem;">BS-CS
-                  BATCH 2023–2027</span>
-              </div>
-
-              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.65rem;">
-                <div class="student-pill">
-                  <div class="student-name">Minhal Zubair</div>
-                  <div class="student-roll">23251101079</div>
-                </div>
-                <div class="student-pill">
-                  <div class="student-name">Maryam Jamil</div>
-                  <div class="student-roll">23251101070</div>
-                </div>
-                <div class="student-pill">
-                  <div class="student-name">Pakeeza Khalid</div>
-                  <div class="student-roll">23251101090</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SUPERVISED BY Card -->
-            <div class="glass-card-panel" style="display:flex; flex-direction:column; justify-content:center;">
-              <div
-                style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; color:var(--sand-dune); margin-bottom:0.4rem; border-bottom:1px solid rgba(132,204,22,0.25); padding-bottom:5px; display:flex; align-items:center; gap:6px;">
-                <i class="fa-solid fa-chalkboard-user text-amber-400"></i> SUPERVISED BY:
-              </div>
-              <div style="font-size:1.15rem; font-weight:800; color:#ffffff;">Dr. Mariam Nosheen</div>
-              <div style="font-size:0.78rem; color:#cbd5e1; margin-top:2px;">
-                Assistant Professor &bull; Dept. of Computer Science
-              </div>
-              <div style="font-size:0.74rem; color:var(--crop-light); margin-top:3px; font-weight:600;">
-                Lahore College for Women University (LCWU)
-              </div>
-            </div>
-
-          </div>
-
         </div>
       </section>
 
